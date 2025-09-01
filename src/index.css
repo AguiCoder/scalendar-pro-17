@@ -32,6 +32,23 @@
     --status-vacation-foreground: 0 0% 98%;
     --status-vacation-light: 32 95% 95%;
     
+    /* Trade request status colors */
+    --status-pending: 25 95% 53%; /* Orange - Pending requests */
+    --status-pending-foreground: 0 0% 98%;
+    --status-pending-light: 25 95% 95%;
+    
+    --status-offered: 217 91% 60%; /* Light blue - Offered */
+    --status-offered-foreground: 0 0% 98%;
+    --status-offered-light: 217 91% 95%;
+    
+    --status-accepted: 142 76% 36%; /* Green - Accepted */
+    --status-accepted-foreground: 0 0% 98%;
+    --status-accepted-light: 142 76% 95%;
+    
+    --status-approved: 161 94% 30%; /* Dark green - Approved */
+    --status-approved-foreground: 0 0% 98%;
+    --status-approved-light: 161 94% 95%;
+    
     /* Legacy support */
     --success: 142 76% 36%;
     --success-foreground: 0 0% 98%;
@@ -127,6 +144,23 @@
     --status-vacation: 32 95% 65%;
     --status-vacation-foreground: 0 0% 100%;
     --status-vacation-light: 32 95% 15%;
+    
+    /* Trade request status colors - Dark Mode */
+    --status-pending: 25 95% 65%;
+    --status-pending-foreground: 0 0% 100%;
+    --status-pending-light: 25 95% 15%;
+    
+    --status-offered: 217 91% 70%;
+    --status-offered-foreground: 0 0% 100%;
+    --status-offered-light: 217 91% 15%;
+    
+    --status-accepted: 142 76% 50%;
+    --status-accepted-foreground: 0 0% 100%;
+    --status-accepted-light: 142 76% 15%;
+    
+    --status-approved: 161 94% 45%;
+    --status-approved-foreground: 0 0% 100%;
+    --status-approved-light: 161 94% 15%;
     
     --today-accent: 211 100% 60%;
     --today-background: 211 100% 15%;

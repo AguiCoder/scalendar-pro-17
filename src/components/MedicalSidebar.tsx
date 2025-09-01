@@ -29,7 +29,7 @@ const navigationItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Calendar", url: "/", icon: Calendar },
   { title: "My Shifts", url: "/shifts", icon: Clock },
-  { title: "Requests (Trades)", url: "/requests", icon: ArrowLeftRight },
+  { title: "Trade Requests", url: "/trade-requests", icon: ArrowLeftRight },
   { title: "Preferences", url: "/preferences", icon: Settings },
   { title: "Administration", url: "/admin", icon: Shield },
   { title: "Chat", url: "/chat", icon: MessageCircle },
