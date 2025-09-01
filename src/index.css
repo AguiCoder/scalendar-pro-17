@@ -1,0 +1,210 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Medical Scheduling Design System */
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    /* Medical brand colors */
+    --primary: 211 100% 40%; /* Medical blue #0066CC */
+    --primary-foreground: 0 0% 98%;
+    
+    /* Enhanced Status System */
+    --status-confirmed: 142 76% 36%; /* Green - Confirmed shifts */
+    --status-confirmed-foreground: 0 0% 98%;
+    --status-confirmed-light: 142 76% 95%;
+    
+    --status-available: 200 98% 39%; /* Blue - Available shifts */
+    --status-available-foreground: 0 0% 98%;
+    --status-available-light: 200 98% 95%;
+    
+    --status-negotiation: 271 81% 56%; /* Purple - Under negotiation */
+    --status-negotiation-foreground: 0 0% 98%;
+    --status-negotiation-light: 271 81% 95%;
+    
+    --status-vacation: 32 95% 48%; /* Yellow - Vacation/Holiday */
+    --status-vacation-foreground: 0 0% 98%;
+    --status-vacation-light: 32 95% 95%;
+    
+    /* Legacy support */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
+    --warning: 32 95% 48%;
+    --warning-foreground: 0 0% 98%;
+    --available: 200 98% 39%;
+    --available-foreground: 0 0% 98%;
+    --negotiation: 271 81% 56%;
+    --negotiation-foreground: 0 0% 98%;
+    
+    /* Today highlight */
+    --today-accent: 211 100% 50%;
+    --today-background: 211 100% 97%;
+
+    /* UI colors */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 211 100% 40%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar colors */
+    --sidebar-background: 220 13% 97%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 211 100% 40%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 211 100% 40%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 211 100% 50%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    
+    /* Enhanced Status System - Dark Mode */
+    --status-confirmed: 142 76% 50%;
+    --status-confirmed-foreground: 0 0% 100%;
+    --status-confirmed-light: 142 76% 15%;
+    
+    --status-available: 200 98% 60%;
+    --status-available-foreground: 0 0% 100%;
+    --status-available-light: 200 98% 15%;
+    
+    --status-negotiation: 271 81% 70%;
+    --status-negotiation-foreground: 0 0% 100%;
+    --status-negotiation-light: 271 81% 15%;
+    
+    --status-vacation: 32 95% 65%;
+    --status-vacation-foreground: 0 0% 100%;
+    --status-vacation-light: 32 95% 15%;
+    
+    --today-accent: 211 100% 60%;
+    --today-background: 211 100% 15%;
+    
+    /* Legacy support */
+    --success: 142 76% 50%;
+    --success-foreground: 0 0% 100%;
+    --warning: 32 95% 65%;
+    --warning-foreground: 0 0% 100%;
+    --available: 200 98% 60%;
+    --available-foreground: 0 0% 100%;
+    --negotiation: 271 81% 70%;
+    --negotiation-foreground: 0 0% 100%;
+    
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 211 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .shift-card {
+    @apply rounded-lg border bg-card p-2 shadow-sm transition-all duration-200 hover:shadow-lg hover:scale-[1.02] cursor-pointer;
+  }
+  
+  .shift-card.available {
+    @apply border-l-4 border-l-status-available bg-status-available-light hover:bg-status-available-light;
+  }
+  
+  .shift-card.confirmed {
+    @apply border-l-4 border-l-status-confirmed bg-status-confirmed-light hover:bg-status-confirmed-light;
+  }
+  
+  .shift-card.negotiation {
+    @apply border-l-4 border-l-status-negotiation bg-status-negotiation-light hover:bg-status-negotiation-light;
+  }
+  
+  .shift-card.vacation {
+    @apply border-l-4 border-l-status-vacation bg-status-vacation-light hover:bg-status-vacation-light;
+  }
+  
+  .shift-card.empty {
+    @apply border-2 border-dashed border-muted-foreground/20 bg-muted/10 hover:bg-muted/20 min-h-[60px] flex items-center justify-center;
+  }
+  
+  .shift-card.today {
+    @apply ring-2 ring-today-accent/30 bg-today-background;
+  }
+  
+  .compact-grid {
+    @apply grid gap-2 auto-rows-min;
+  }
+  
+  .month-navigation {
+    @apply flex items-center gap-2 bg-card/50 backdrop-blur-sm rounded-lg p-1 border border-border/50;
+  }
+  
+  .page-title {
+    @apply text-3xl font-bold tracking-tight text-foreground mb-2;
+  }
+  
+  .section-subtitle {
+    @apply text-sm text-muted-foreground;
+  }
+}
