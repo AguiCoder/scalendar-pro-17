@@ -32,6 +32,11 @@
     --status-vacation-foreground: 0 0% 98%;
     --status-vacation-light: 32 95% 95%;
     
+    /* Additional status for My Shifts swapped */
+    --status-swapped: 271 81% 56%; /* Purple - Swapped shifts */
+    --status-swapped-foreground: 0 0% 98%;
+    --status-swapped-light: 271 81% 95%;
+    
     /* Trade request status colors */
     --status-pending: 25 95% 53%; /* Orange - Pending requests */
     --status-pending-foreground: 0 0% 98%;
@@ -144,6 +149,11 @@
     --status-vacation: 32 95% 65%;
     --status-vacation-foreground: 0 0% 100%;
     --status-vacation-light: 32 95% 15%;
+    
+    /* Additional status for My Shifts swapped - Dark Mode */
+    --status-swapped: 271 81% 70%;
+    --status-swapped-foreground: 0 0% 100%;
+    --status-swapped-light: 271 81% 15%;
     
     /* Trade request status colors - Dark Mode */
     --status-pending: 25 95% 65%;
