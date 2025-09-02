@@ -20,7 +20,6 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useDrop } from "react-dnd";
 import { DraggableShift } from "@/components/admin/DraggableShift";
-import { useTranslation } from "react-i18next";
 
 interface ScheduleShift {
   id: string;
@@ -109,7 +108,6 @@ const DroppableSlot = ({ shift, onDrop }: DroppableSlotProps) => {
 };
 
 export const ScheduleManagement = () => {
-  const { t } = useTranslation();
   const [scheduleStatus, setScheduleStatus] = useState<"draft" | "published">("draft");
   const [generationProgress, setGenerationProgress] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -129,8 +127,8 @@ export const ScheduleManagement = () => {
           setIsGenerating(false);
           setScheduleStatus("draft");
           toast({
-            title: t('admin.schedule.toasts.generatedTitle'),
-            description: t('admin.schedule.toasts.generatedDesc')
+            title: "Schedule generated successfully",
+            description: "Review and validate the schedule before publishing"
           });
           return 100;
         }
@@ -144,8 +142,8 @@ export const ScheduleManagement = () => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     toast({
-      title: t('admin.schedule.toasts.validatedTitle'),
-      description: t('admin.schedule.toasts.validatedDesc')
+      title: "Schedule validated",
+      description: "All constraints satisfied. Ready to publish."
     });
   };
 
@@ -155,8 +153,8 @@ export const ScheduleManagement = () => {
     
     setScheduleStatus("published");
     toast({
-      title: t('admin.schedule.toasts.publishedTitle'),
-      description: t('admin.schedule.toasts.publishedDesc')
+      title: "Schedule published",
+      description: "Notifications sent to all assigned doctors"
     });
   };
 
@@ -176,8 +174,8 @@ export const ScheduleManagement = () => {
     ));
 
     toast({
-      title: t('admin.schedule.toasts.assignedTitle'),
-      description: t('admin.schedule.toasts.assignedDesc', { doctor: doctor.name })
+      title: "Shift assigned",
+      description: `${doctor.name} assigned to shift`
     });
   };
 
@@ -192,10 +190,10 @@ export const ScheduleManagement = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5" />
-            {t('admin.schedule.title')}
+            Schedule Management
           </CardTitle>
           <CardDescription>
-            {t('admin.schedule.subtitle')}
+            Generate, validate, and publish medical staff schedules
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -205,7 +203,7 @@ export const ScheduleManagement = () => {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">{t('admin.schedule.statusCard.label')}</span>
+                  <span className="text-sm font-medium">Status</span>
                 </div>
                 <Badge 
                   variant={scheduleStatus === "published" ? "secondary" : "outline"}
@@ -215,7 +213,7 @@ export const ScheduleManagement = () => {
                       : "bg-status-pending text-status-pending-foreground"
                   }
                 >
-                  {scheduleStatus === "published" ? t('admin.schedule.statusCard.published') : t('admin.schedule.statusCard.draft')}
+                  {scheduleStatus === "published" ? "Published" : "Draft"}
                 </Badge>
               </CardContent>
             </Card>
@@ -224,7 +222,7 @@ export const ScheduleManagement = () => {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 text-destructive" />
-                  <span className="text-sm font-medium">{t('admin.schedule.statusCard.unassigned')}</span>
+                  <span className="text-sm font-medium">Unassigned</span>
                 </div>
                 <p className="text-2xl font-bold text-destructive">{unassignedShifts}</p>
               </CardContent>
@@ -234,7 +232,7 @@ export const ScheduleManagement = () => {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <Users className="h-4 w-4 text-status-pending" />
-                  <span className="text-sm font-medium">{t('admin.schedule.statusCard.assigned')}</span>
+                  <span className="text-sm font-medium">Assigned</span>
                 </div>
                 <p className="text-2xl font-bold text-status-pending">{assignedShifts}</p>
               </CardContent>
@@ -244,7 +242,7 @@ export const ScheduleManagement = () => {
               <CardContent className="p-4">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-4 w-4 text-status-confirmed" />
-                  <span className="text-sm font-medium">{t('admin.schedule.statusCard.confirmed')}</span>
+                  <span className="text-sm font-medium">Confirmed</span>
                 </div>
                 <p className="text-2xl font-bold text-status-confirmed">{confirmedShifts}</p>
               </CardContent>
@@ -258,7 +256,7 @@ export const ScheduleManagement = () => {
               disabled={isGenerating}
             >
               <Play className="h-4 w-4 mr-2" />
-              {isGenerating ? t('admin.schedule.actions.generating') : t('admin.schedule.actions.generate')}
+              {isGenerating ? "Generating..." : "Generate Schedule"}
             </Button>
             
             <Button 
@@ -267,7 +265,7 @@ export const ScheduleManagement = () => {
               disabled={scheduleStatus === "published" || isGenerating}
             >
               <CheckCircle className="h-4 w-4 mr-2" />
-              {t('admin.schedule.actions.validate')}
+              Validate
             </Button>
             
             <Button 
@@ -276,7 +274,7 @@ export const ScheduleManagement = () => {
               disabled={scheduleStatus === "published" || unassignedShifts > 0}
             >
               <Upload className="h-4 w-4 mr-2" />
-              {t('admin.schedule.actions.publish')}
+              Publish
             </Button>
           </div>
 
@@ -284,7 +282,7 @@ export const ScheduleManagement = () => {
           {isGenerating && (
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>{t('admin.schedule.progress.generating')}</span>
+                <span>Generating optimal schedule...</span>
                 <span>{generationProgress}%</span>
               </div>
               <Progress value={generationProgress} className="w-full" />
@@ -296,7 +294,7 @@ export const ScheduleManagement = () => {
             <Alert>
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                {t('admin.schedule.warnings.unassigned', { count: unassignedShifts })}
+                {unassignedShifts} shifts are still unassigned. Complete assignments before publishing.
               </AlertDescription>
             </Alert>
           )}
@@ -310,20 +308,20 @@ export const ScheduleManagement = () => {
             <div>
               <CardTitle className="flex items-center gap-2">
                 <Edit3 className="h-5 w-5" />
-                {t('admin.schedule.manual.title')}
+                Manual Schedule Editor
               </CardTitle>
               <CardDescription>
-                {t('admin.schedule.manual.subtitle')}
+                Drag and drop doctors to assign shifts manually
               </CardDescription>
             </div>
             <Select value={selectedWeek} onValueChange={setSelectedWeek}>
               <SelectTrigger className="w-[200px]">
-                <SelectValue placeholder={t('admin.schedule.manual.selectWeek')} />
+                <SelectValue placeholder="Select week" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="2024-01-15">{t('admin.schedule.manual.weeks.2024-01-15')}</SelectItem>
-                <SelectItem value="2024-01-22">{t('admin.schedule.manual.weeks.2024-01-22')}</SelectItem>
-                <SelectItem value="2024-01-29">{t('admin.schedule.manual.weeks.2024-01-29')}</SelectItem>
+                <SelectItem value="2024-01-15">Week of Jan 15, 2024</SelectItem>
+                <SelectItem value="2024-01-22">Week of Jan 22, 2024</SelectItem>
+                <SelectItem value="2024-01-29">Week of Jan 29, 2024</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -331,7 +329,7 @@ export const ScheduleManagement = () => {
         <CardContent>
           {/* Draggable Doctors */}
           <div className="mb-6">
-            <h4 className="font-medium mb-3">{t('admin.schedule.manual.availableDoctors')}</h4>
+            <h4 className="font-medium mb-3">Available Doctors</h4>
             <div className="flex flex-wrap gap-2">
               {mockDoctors.map((doctor) => (
                 <DraggableShift
@@ -351,11 +349,11 @@ export const ScheduleManagement = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t('admin.schedule.manual.table.date')}</TableHead>
-                  <TableHead>{t('admin.schedule.manual.table.timeSlot')}</TableHead>
-                  <TableHead>{t('admin.schedule.manual.table.department')}</TableHead>
-                  <TableHead>{t('admin.schedule.manual.table.assignedDoctor')}</TableHead>
-                  <TableHead>{t('admin.schedule.manual.table.status')}</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Time Slot</TableHead>
+                  <TableHead>Department</TableHead>
+                  <TableHead>Assigned Doctor</TableHead>
+                  <TableHead>Status</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -381,8 +379,8 @@ export const ScheduleManagement = () => {
                             : ""
                         }
                       >
-                        {shift.status === "confirmed" ? t('admin.schedule.statusCard.confirmed') :
-                         shift.status === "assigned" ? t('admin.schedule.statusCard.assigned') : t('admin.schedule.statusCard.unassigned')}
+                        {shift.status === "confirmed" ? "Confirmed" :
+                         shift.status === "assigned" ? "Assigned" : "Unassigned"}
                       </Badge>
                     </TableCell>
                   </TableRow>
