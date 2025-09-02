@@ -190,13 +190,14 @@
       "title": "Trade Request History",
       "emptyTitle": "No trade requests yet",
       "emptySubtitle": "Your trade request history will appear here",
-      "columns": {
+      "tableHeaders": {
         "shift": "Shift",
         "department": "Department",
         "colleague": "Colleague",
         "status": "Status",
         "submitted": "Submitted"
       },
+      "openToAll": "Open to all",
       "status": {
         "requested": "Requested",
         "offered": "Offered",
@@ -236,7 +237,9 @@
         "requested": { "label": "Requested", "description": "Trade request submitted" },
         "offered": { "label": "Offered", "description": "Colleague responded with interest" },
         "accepted": { "label": "Accepted", "description": "Both parties agreed to trade" },
-        "approved": { "label": "Approved", "description": "Administration approved the trade" }
+        "approved": { "label": "Approved", "description": "Administration approved the trade" },
+        "cancelled": { "label": "Cancelled", "description": "Trade request was cancelled" },
+        "rejected": { "label": "Rejected", "description": "Trade request was rejected" }
       },
       "stepMessages": {
         "requested": "Waiting for colleague responses...",
@@ -642,6 +645,92 @@
         "confirmed": "Confirmed"
       }
     }
+  }
+  ,
+  "calendar": {
+    "filters": {
+      "title": "Filters",
+      "selectDoctor": "Select Doctor",
+      "selectDepartment": "Select Department",
+      "selectShiftType": "Select Shift Type",
+      "clearAll": "Clear All",
+      "active": "active",
+      "allDoctors": "All Doctors",
+      "allDepartments": "All Departments",
+      "allShifts": "All Shifts"
+    },
+    "sidebar": {
+      "brandName": "Escala AI",
+      "tagline": "Medical Scheduling",
+      "navigation": "Navigation",
+      "links": {
+        "dashboard": "Dashboard",
+        "calendar": "Calendar",
+        "myShifts": "My Shifts",
+        "tradeRequests": "Trade Requests",
+        "preferences": "Preferences",
+        "administration": "Administration",
+        "chat": "Chat",
+        "notifications": "Notifications"
+      }
+    },
+    "weekdays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "counts": {
+      "shifts_one": "{{count}} shift",
+      "shifts_other": "{{count}} shifts",
+      "more": "+{{count}} more"
+    },
+    "empty": {
+      "noShifts": "No shifts",
+      "unassigned": "Unassigned",
+      "unassignedShift": "Unassigned Shift",
+      "clickToAssign": "Click to assign a shift for {{date}}"
+    },
+    "actions": {
+      "requestTrade": "Request Trade",
+      "markUnavailable": "Mark Unavailable",
+      "viewDetails": "View Details"
+    }
+  },
+  "preferencesPage": {
+    "title": "Doctor Preferences",
+    "subtitle": "Manage your availability, vacations, restrictions, and preferences",
+    "tabs": {
+      "availability": "Availability",
+      "vacations": "Vacations",
+      "restrictions": "Restrictions",
+      "aiPreferences": "AI Preferences"
+    },
+    "saveButton": {
+      "save": "Save Preferences",
+      "saving": "Saving..."
+    },
+    "toasts": {
+      "savedTitle": "Preferences saved",
+      "savedDesc": "Your scheduling preferences have been updated successfully."
+    }
+  },
+  "adminPage": {
+    "title": "Administration",
+    "subtitle": "Manage your team, schedules, and fairness statistics.",
+    "tabs": {
+      "team": "Team",
+      "workOrders": "Work Orders",
+      "schedules": "Schedules",
+      "monitoring": "Monitoring"
+    }
+  },
+  "tradeRequestPage": {
+    "title": "Shift Trade Request",
+    "subtitle": "Request a trade, suggest a colleague, and track your requests."
   }
 }
 

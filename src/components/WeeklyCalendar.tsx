@@ -2,6 +2,8 @@
 import { ShiftCard, type Shift } from "./ShiftCard";
 import { Badge } from "@/components/ui/badge";
 import { format, addDays, startOfWeek, isSameDay } from "date-fns";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 interface WeeklyCalendarProps {
   shifts: Shift[];
@@ -9,6 +11,7 @@ interface WeeklyCalendarProps {
 }
 
 export function WeeklyCalendar({ shifts, currentDate }: WeeklyCalendarProps) {
+  const { t } = useTranslation();
   const startDate = startOfWeek(currentDate, { weekStartsOn: 1 }); // Monday start
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(startDate, i));
   const today = new Date();
@@ -30,7 +33,7 @@ export function WeeklyCalendar({ shifts, currentDate }: WeeklyCalendarProps) {
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-medium text-muted-foreground">
-                    {format(day, "EEE")}
+                    {format(day, "EEE", { locale: getDateFnsLocale() })}
                   </p>
                   <p className={`text-lg font-semibold ${
                     isToday ? "text-today-accent" : "text-foreground"
@@ -40,7 +43,7 @@ export function WeeklyCalendar({ shifts, currentDate }: WeeklyCalendarProps) {
                 </div>
                 {dayShifts.length > 0 && (
                   <Badge variant="secondary" className="text-xs">
-                    {dayShifts.length} shift{dayShifts.length > 1 ? 's' : ''}
+                    {dayShifts.length === 1 ? t('calendar.counts.shifts_one', { count: dayShifts.length }) : t('calendar.counts.shifts_other', { count: dayShifts.length })}
                   </Badge>
                 )}
               </div>
@@ -51,13 +54,13 @@ export function WeeklyCalendar({ shifts, currentDate }: WeeklyCalendarProps) {
                     <ShiftCard
                       key={shift.id}
                       shift={shift}
-                      date={format(day, "MMM d")}
+                      date={format(day, "MMM d", { locale: getDateFnsLocale() })}
                       isToday={isToday}
                     />
                   ))
                 ) : (
                   <ShiftCard
-                    date={format(day, "MMM d")}
+                    date={format(day, "MMM d", { locale: getDateFnsLocale() })}
                     isToday={isToday}
                   />
                 )}
@@ -75,15 +78,15 @@ export function WeeklyCalendar({ shifts, currentDate }: WeeklyCalendarProps) {
             const isToday = isSameDay(day, today);
             
             return (
-              <div key={index} className="space-y-2" role="gridcell" aria-label={`${format(day, "EEEE, MMMM d, yyyy")}`}>
+              <div key={index} className="space-y-2" role="gridcell" aria-label={`${format(day, "EEEE, MMMM d, yyyy", { locale: getDateFnsLocale() })}`}>
                 <div className="text-center">
                   <p className="text-sm font-medium text-muted-foreground">
-                    {format(day, "EEE")}
+                    {format(day, "EEE", { locale: getDateFnsLocale() })}
                   </p>
                   <p className={`text-lg font-semibold ${
                     isToday ? "text-today-accent" : "text-foreground"
                   }`}>
-                    {format(day, "d")}
+                    {format(day, "d", { locale: getDateFnsLocale() })}
                   </p>
                 </div>
 
@@ -101,7 +104,7 @@ export function WeeklyCalendar({ shifts, currentDate }: WeeklyCalendarProps) {
                       {dayShifts.length > 2 && (
                         <div className="text-center">
                           <Badge variant="outline" className="text-xs">
-                            +{dayShifts.length - 2} more
+                            {t('calendar.counts.more', { count: dayShifts.length - 2 })}
                           </Badge>
                         </div>
                       )}

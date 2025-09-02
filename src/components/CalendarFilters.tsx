@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 interface CalendarFiltersProps {
   selectedDoctor: string;
@@ -55,24 +56,25 @@ export function CalendarFilters({
   onShiftTypeChange,
   onClearFilters,
 }: CalendarFiltersProps) {
+  const { t } = useTranslation();
   const hasActiveFilters = 
-    selectedDoctor !== "All Doctors" ||
-    selectedDepartment !== "All Departments" ||
-    selectedShiftType !== "All Shifts";
+    selectedDoctor !== t('calendar.filters.allDoctors') ||
+    selectedDepartment !== t('calendar.filters.allDepartments') ||
+    selectedShiftType !== t('calendar.filters.allShifts');
 
   return (
     <div className="bg-card border border-border rounded-lg p-4 mb-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <div className="flex items-center gap-2">
           <Filter className="h-4 w-4 text-muted-foreground" />
-          <span className="text-sm font-medium">Filters</span>
+          <span className="text-sm font-medium">{t('calendar.filters.title')}</span>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 flex-1">
           <Select value={selectedDoctor} onValueChange={onDoctorChange}>
             <SelectTrigger className="w-full sm:w-[180px]">
               <Users className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Select Doctor" />
+              <SelectValue placeholder={t('calendar.filters.selectDoctor')} />
             </SelectTrigger>
             <SelectContent>
               {doctors.map((doctor) => (
@@ -86,7 +88,7 @@ export function CalendarFilters({
           <Select value={selectedDepartment} onValueChange={onDepartmentChange}>
             <SelectTrigger className="w-full sm:w-[180px]">
               <Building className="h-4 w-4 mr-2" />
-              <SelectValue placeholder="Select Department" />
+              <SelectValue placeholder={t('calendar.filters.selectDepartment')} />
             </SelectTrigger>
             <SelectContent>
               {departments.map((department) => (
@@ -105,7 +107,7 @@ export function CalendarFilters({
                 ) : (
                   <Sun className="h-4 w-4 mr-2" />
                 )}
-                <SelectValue placeholder="Select Shift Type" />
+                <SelectValue placeholder={t('calendar.filters.selectShiftType')} />
               </div>
             </SelectTrigger>
             <SelectContent>
@@ -124,7 +126,7 @@ export function CalendarFilters({
               {[selectedDoctor, selectedDepartment, selectedShiftType]
                 .filter((f) => !f.startsWith("All"))
                 .length}{" "}
-              active
+              {t('calendar.filters.active')}
             </Badge>
             <Button
               variant="outline"
@@ -132,7 +134,7 @@ export function CalendarFilters({
               onClick={onClearFilters}
               className="text-xs"
             >
-              Clear All
+              {t('calendar.filters.clearAll')}
             </Button>
           </div>
         )}

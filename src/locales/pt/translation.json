@@ -190,13 +190,14 @@
       "title": "Histórico de Solicitações de Troca",
       "emptyTitle": "Ainda não há solicitações de troca",
       "emptySubtitle": "Seu histórico de trocas aparecerá aqui",
-      "columns": {
+      "tableHeaders": {
         "shift": "Plantão",
         "department": "Departamento",
         "colleague": "Colega",
         "status": "Status",
         "submitted": "Enviado"
       },
+      "openToAll": "Aberto para todos",
       "status": {
         "requested": "Solicitado",
         "offered": "Oferecido",
@@ -236,7 +237,9 @@
         "requested": { "label": "Solicitado", "description": "Solicitação de troca enviada" },
         "offered": { "label": "Oferecido", "description": "Colega demonstrou interesse" },
         "accepted": { "label": "Aceito", "description": "Ambas as partes concordaram com a troca" },
-        "approved": { "label": "Aprovado", "description": "Administração aprovou a troca" }
+        "approved": { "label": "Aprovado", "description": "Administração aprovou a troca" },
+        "cancelled": { "label": "Cancelado", "description": "Solicitação de troca foi cancelada" },
+        "rejected": { "label": "Rejeitado", "description": "Solicitação de troca foi rejeitada" }
       },
       "stepMessages": {
         "requested": "Aguardando respostas dos colegas...",
@@ -642,6 +645,92 @@
         "confirmed": "Confirmado"
       }
     }
+  }
+  ,
+  "calendar": {
+    "filters": {
+      "title": "Filtros",
+      "selectDoctor": "Selecione o Médico",
+      "selectDepartment": "Selecione o Departamento",
+      "selectShiftType": "Selecione o Tipo de Plantão",
+      "clearAll": "Limpar Tudo",
+      "active": "ativos",
+      "allDoctors": "Todos os Médicos",
+      "allDepartments": "Todos os Departamentos",
+      "allShifts": "Todos os Plantões"
+    },
+    "sidebar": {
+      "brandName": "Escala AI",
+      "tagline": "Agendamento Médico",
+      "navigation": "Navegação",
+      "links": {
+        "dashboard": "Painel",
+        "calendar": "Calendário",
+        "myShifts": "Meus Plantões",
+        "tradeRequests": "Solicitações de Troca",
+        "preferences": "Preferências",
+        "administration": "Administração",
+        "chat": "Chat",
+        "notifications": "Notificações"
+      }
+    },
+    "weekdays": {
+      "mon": "Seg",
+      "tue": "Ter",
+      "wed": "Qua",
+      "thu": "Qui",
+      "fri": "Sex",
+      "sat": "Sáb",
+      "sun": "Dom"
+    },
+    "counts": {
+      "shifts_one": "{{count}} plantão",
+      "shifts_other": "{{count}} plantões",
+      "more": "+{{count}} mais"
+    },
+    "empty": {
+      "noShifts": "Sem plantões",
+      "unassigned": "Não atribuído",
+      "unassignedShift": "Plantão não atribuído",
+      "clickToAssign": "Clique para atribuir um plantão em {{date}}"
+    },
+    "actions": {
+      "requestTrade": "Solicitar Troca",
+      "markUnavailable": "Marcar Indisponível",
+      "viewDetails": "Ver Detalhes"
+    }
+  },
+  "preferencesPage": {
+    "title": "Preferências do Médico",
+    "subtitle": "Gerencie sua disponibilidade, férias, restrições e preferências",
+    "tabs": {
+      "availability": "Disponibilidade",
+      "vacations": "Férias",
+      "restrictions": "Restrições",
+      "aiPreferences": "Preferências de IA"
+    },
+    "saveButton": {
+      "save": "Salvar Preferências",
+      "saving": "Salvando..."
+    },
+    "toasts": {
+      "savedTitle": "Preferências salvas",
+      "savedDesc": "Suas preferências de agendamento foram atualizadas com sucesso."
+    }
+  },
+  "adminPage": {
+    "title": "Administração",
+    "subtitle": "Gerencie sua equipe, escalas e estatísticas de justiça.",
+    "tabs": {
+      "team": "Equipe",
+      "workOrders": "Ordens de Serviço",
+      "schedules": "Escalas",
+      "monitoring": "Monitoramento"
+    }
+  },
+  "tradeRequestPage": {
+    "title": "Solicitação de Troca de Plantão",
+    "subtitle": "Solicite uma troca, sugira um colega e acompanhe suas solicitações."
   }
 }
 

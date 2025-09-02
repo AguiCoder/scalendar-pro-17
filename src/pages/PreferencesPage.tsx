@@ -9,10 +9,12 @@ import { AvailabilitySection } from "@/components/preferences/AvailabilitySectio
 import { VacationsSection } from "@/components/preferences/VacationsSection";
 import { RestrictionsSection } from "@/components/preferences/RestrictionsSection";
 import { WeightedPreferencesSection } from "@/components/preferences/WeightedPreferencesSection";
+import { useTranslation } from "react-i18next";
 
 const PreferencesPage = () => {
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
+  const { t } = useTranslation();
 
   const handleSavePreferences = async () => {
     setIsSaving(true);
@@ -21,8 +23,8 @@ const PreferencesPage = () => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
-      title: "Preferences saved",
-      description: "Your scheduling preferences have been updated successfully.",
+      title: t('preferencesPage.toasts.savedTitle'),
+      description: t('preferencesPage.toasts.savedDesc'),
     });
     
     setIsSaving(false);
@@ -40,9 +42,9 @@ const PreferencesPage = () => {
               <div className="flex items-center gap-3">
                 <SidebarTrigger />
                 <div>
-                  <h1 className="page-title">Doctor Preferences</h1>
+                  <h1 className="page-title">{t('preferencesPage.title')}</h1>
                   <p className="section-subtitle">
-                    Manage your availability, vacations, restrictions, and preferences
+                    {t('preferencesPage.subtitle')}
                   </p>
                 </div>
               </div>
@@ -58,10 +60,10 @@ const PreferencesPage = () => {
             <div className="max-w-4xl mx-auto">
               <Tabs defaultValue="availability" className="space-y-6">
                 <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="availability">Availability</TabsTrigger>
-                  <TabsTrigger value="vacations">Vacations</TabsTrigger>
-                  <TabsTrigger value="restrictions">Restrictions</TabsTrigger>
-                  <TabsTrigger value="preferences">AI Preferences</TabsTrigger>
+                  <TabsTrigger value="availability">{t('preferencesPage.tabs.availability')}</TabsTrigger>
+                  <TabsTrigger value="vacations">{t('preferencesPage.tabs.vacations')}</TabsTrigger>
+                  <TabsTrigger value="restrictions">{t('preferencesPage.tabs.restrictions')}</TabsTrigger>
+                  <TabsTrigger value="preferences">{t('preferencesPage.tabs.aiPreferences')}</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="availability" className="space-y-6">
@@ -92,7 +94,7 @@ const PreferencesPage = () => {
                 className="flex items-center gap-2 min-w-[120px]"
               >
                 <Save className="h-4 w-4" />
-                {isSaving ? "Saving..." : "Save Preferences"}
+                {isSaving ? t('preferencesPage.saveButton.saving') : t('preferencesPage.saveButton.save')}
               </Button>
             </div>
           </div>

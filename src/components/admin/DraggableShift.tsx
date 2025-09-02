@@ -1,6 +1,7 @@
 import { useDrag } from "react-dnd";
 import { Badge } from "@/components/ui/badge";
 import { User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface DraggableShiftProps {
   shiftId: string;
@@ -17,6 +18,7 @@ export const DraggableShift = ({
   timeSlot, 
   status 
 }: DraggableShiftProps) => {
+  const { t } = useTranslation();
   const [{ isDragging }, drag] = useDrag({
     type: 'doctor',
     item: { doctorId, doctorName },
@@ -51,7 +53,7 @@ export const DraggableShift = ({
             ''
           }
         >
-          {status}
+          {t(`admin.draggable.status.${status}`)}
         </Badge>
       </div>
     </div>

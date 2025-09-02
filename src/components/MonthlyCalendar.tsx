@@ -2,6 +2,8 @@
 import { ShiftCard, type Shift } from "./ShiftCard";
 import { Badge } from "@/components/ui/badge";
 import { format, addDays, startOfMonth, endOfMonth, startOfWeek, endOfWeek, isSameDay, isSameMonth } from "date-fns";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 interface MonthlyCalendarProps {
   shifts: Shift[];
@@ -9,6 +11,7 @@ interface MonthlyCalendarProps {
 }
 
 export function MonthlyCalendar({ shifts, currentDate }: MonthlyCalendarProps) {
+  const { t } = useTranslation();
   const monthStart = startOfMonth(currentDate);
   const monthEnd = endOfMonth(currentDate);
   const calendarStart = startOfWeek(monthStart, { weekStartsOn: 1 });
@@ -44,12 +47,12 @@ export function MonthlyCalendar({ shifts, currentDate }: MonthlyCalendarProps) {
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-medium text-muted-foreground">
-                    {format(day, "EEE d")}
+                    {format(day, "EEE d", { locale: getDateFnsLocale() })}
                   </p>
                 </div>
                 {dayShifts.length > 0 && (
                   <Badge variant="secondary" className="text-xs">
-                    {dayShifts.length} shift{dayShifts.length > 1 ? 's' : ''}
+                    {dayShifts.length === 1 ? t('calendar.counts.shifts_one', { count: dayShifts.length }) : t('calendar.counts.shifts_other', { count: dayShifts.length })}
                   </Badge>
                 )}
               </div>
@@ -60,13 +63,13 @@ export function MonthlyCalendar({ shifts, currentDate }: MonthlyCalendarProps) {
                     <ShiftCard
                       key={shift.id}
                       shift={shift}
-                      date={format(day, "MMM d")}
+                      date={format(day, "MMM d", { locale: getDateFnsLocale() })}
                       isToday={isToday}
                     />
                   ))
                 ) : (
                   <ShiftCard
-                    date={format(day, "MMM d")}
+                    date={format(day, "MMM d", { locale: getDateFnsLocale() })}
                     isToday={isToday}
                   />
                 )}
@@ -80,7 +83,7 @@ export function MonthlyCalendar({ shifts, currentDate }: MonthlyCalendarProps) {
       <div className="hidden md:block">
         {/* Week day headers */}
         <div className="compact-grid grid-cols-7 gap-2 mb-4">
-          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+          {[t('calendar.weekdays.mon'), t('calendar.weekdays.tue'), t('calendar.weekdays.wed'), t('calendar.weekdays.thu'), t('calendar.weekdays.fri'), t('calendar.weekdays.sat'), t('calendar.weekdays.sun')].map((day) => (
             <div key={day} className="text-center text-sm font-semibold text-muted-foreground p-2 bg-muted/30 rounded-md">
               {day}
             </div>
@@ -99,14 +102,14 @@ export function MonthlyCalendar({ shifts, currentDate }: MonthlyCalendarProps) {
                 key={index} 
                 className={`min-h-[100px] space-y-1 ${!isCurrentMonth ? 'opacity-40' : ''}`}
                 role="gridcell" 
-                aria-label={`${format(day, "EEEE, MMMM d, yyyy")}`}
+                aria-label={`${format(day, "EEEE, MMMM d, yyyy", { locale: getDateFnsLocale() })}`}
               >
                 <div className="text-center mb-1">
                   <p className={`text-sm font-medium ${
                     isToday ? "text-today-accent font-bold" : 
                     isCurrentMonth ? "text-foreground" : "text-muted-foreground"
                   }`}>
-                    {format(day, "d")}
+                    {format(day, "d", { locale: getDateFnsLocale() })}
                   </p>
                 </div>
                 
@@ -116,21 +119,21 @@ export function MonthlyCalendar({ shifts, currentDate }: MonthlyCalendarProps) {
                       <ShiftCard
                         key={shift.id}
                         shift={shift}
-                        date={format(day, "d")}
+                        date={format(day, "d", { locale: getDateFnsLocale() })}
                         isToday={isToday}
                       />
                     ))}
                     {dayShifts.length > 1 && (
                       <div className="text-center">
                         <Badge variant="outline" className="text-[10px] py-0 px-1">
-                          +{dayShifts.length - 1}
+                          {t('calendar.counts.more', { count: dayShifts.length - 1 })}
                         </Badge>
                       </div>
                     )}
                   </>
                 ) : isCurrentMonth ? (
                   <ShiftCard
-                    date={format(day, "d")}
+                    date={format(day, "d", { locale: getDateFnsLocale() })}
                     isToday={isToday}
                   />
                 ) : null}
