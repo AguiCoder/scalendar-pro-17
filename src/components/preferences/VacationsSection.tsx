@@ -12,6 +12,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { Vacation } from "@/types/preferences";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 const VACATION_TYPES = [
   { value: 'vacation', label: 'Vacation', color: 'bg-status-vacation' },
@@ -38,6 +40,7 @@ const initialVacations: Vacation[] = [
 ];
 
 export function VacationsSection() {
+  const { t } = useTranslation();
   const [vacations, setVacations] = useState<Vacation[]>(initialVacations);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [startDate, setStartDate] = useState<Date>();
@@ -81,31 +84,31 @@ export function VacationsSection() {
           <div>
             <CardTitle className="flex items-center gap-2">
               <Plane className="h-5 w-5" />
-              Vacations & Time Off
+              {t('preferences.vacations.title')}
             </CardTitle>
             <CardDescription>
-              Manage your planned vacations and leave requests
+              {t('preferences.vacations.subtitle')}
             </CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="flex items-center gap-2">
                 <Plus className="h-4 w-4" />
-                Add Vacation
+                {t('preferences.vacations.add')}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
-                <DialogTitle>Add New Vacation</DialogTitle>
+                <DialogTitle>{t('preferences.vacations.dialog.title')}</DialogTitle>
                 <DialogDescription>
-                  Schedule your time off for better planning
+                  {t('preferences.vacations.dialog.description')}
                 </DialogDescription>
               </DialogHeader>
               
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="start-date">Start Date</Label>
+                    <Label htmlFor="start-date">{t('preferences.vacations.dialog.startDate')}</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -116,7 +119,7 @@ export function VacationsSection() {
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {startDate ? format(startDate, "PPP") : "Pick a date"}
+                          {startDate ? format(startDate, "PPP", { locale: getDateFnsLocale() }) : t('preferences.vacations.dialog.pickDate')}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
@@ -132,7 +135,7 @@ export function VacationsSection() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="end-date">End Date</Label>
+                    <Label htmlFor="end-date">{t('preferences.vacations.dialog.endDate')}</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -143,7 +146,7 @@ export function VacationsSection() {
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {endDate ? format(endDate, "PPP") : "Pick a date"}
+                          {endDate ? format(endDate, "PPP", { locale: getDateFnsLocale() }) : t('preferences.vacations.dialog.pickDate')}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
@@ -161,7 +164,7 @@ export function VacationsSection() {
                 </div>
                 
                 <div>
-                  <Label htmlFor="type">Type</Label>
+                  <Label htmlFor="type">{t('preferences.vacations.dialog.type')}</Label>
                   <Select value={type} onValueChange={(value: Vacation['type']) => setType(value)}>
                     <SelectTrigger>
                       <SelectValue />
@@ -177,25 +180,25 @@ export function VacationsSection() {
                 </div>
                 
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">{t('preferences.vacations.dialog.descriptionLabel')}</Label>
                   <Input
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Brief description of your time off"
+                    placeholder={t('preferences.vacations.dialog.descriptionPlaceholder')}
                   />
                 </div>
               </div>
               
               <DialogFooter>
                 <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                  Cancel
+                  {t('preferences.vacations.dialog.cancel')}
                 </Button>
                 <Button 
                   onClick={handleAddVacation}
                   disabled={!startDate || !endDate || !description.trim()}
                 >
-                  Add Vacation
+                  {t('preferences.vacations.dialog.confirm')}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -206,8 +209,8 @@ export function VacationsSection() {
         {vacations.length === 0 ? (
           <div className="text-center py-8">
             <Plane className="mx-auto h-12 w-12 text-muted-foreground/50" />
-            <h3 className="mt-4 text-lg font-medium">No vacations planned</h3>
-            <p className="text-muted-foreground">Add your first vacation to get started.</p>
+            <h3 className="mt-4 text-lg font-medium">{t('preferences.vacations.empty.title')}</h3>
+            <p className="text-muted-foreground">{t('preferences.vacations.empty.subtitle')}</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -227,7 +230,7 @@ export function VacationsSection() {
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        {format(vacation.startDate, "MMM d")} - {format(vacation.endDate, "MMM d, yyyy")} ({duration} day{duration !== 1 ? 's' : ''})
+                        {t('preferences.vacations.range', { start: format(vacation.startDate, 'PP', { locale: getDateFnsLocale() }), end: format(vacation.endDate, 'PP', { locale: getDateFnsLocale() }) })} ({duration} {duration === 1 ? t('preferences.vacations.day') : t('preferences.vacations.days')})
                       </p>
                     </div>
                   </div>
@@ -235,7 +238,7 @@ export function VacationsSection() {
                     variant="ghost"
                     size="sm"
                     onClick={() => handleRemoveVacation(vacation.id)}
-                    aria-label="Remove vacation"
+                    aria-label={t('preferences.vacations.ariaRemove')}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

@@ -1,0 +1,648 @@
+{
+  "app": {
+    "title": "Calendário de Plantões",
+    "subtitle": "Gerencie a escala da equipe médica"
+  },
+  "common": {
+    "weekView": "Visão Semanal",
+    "monthView": "Visão Mensal",
+    "totalShifts": "Plantões Totais",
+    "available": "Disponíveis",
+    "confirmed": "Confirmados",
+    "pending": "Pendentes",
+    "inNegotiation": "Em Negociação",
+    "previousMonth": "Mês anterior",
+    "nextMonth": "Próximo mês"
+  },
+  "dashboard": {
+    "title": "Painel",
+    "subtitle": "Seus próximos plantões, alertas e ações rápidas"
+  },
+  "myShifts": {
+    "title": "Meus Plantões",
+    "subtitle": "Revise seus plantões futuros e passados. Gerencie trocas e pedidos de folga.",
+    "filters": "Filtros",
+    "filterByStatus": "Filtrar por status",
+    "allStatuses": "Todos os Status",
+    "filterByDepartment": "Filtrar por departamento",
+    "allDepartments": "Todos os Departamentos",
+    "upcomingTab": "Próximos Plantões",
+    "pastTab": "Plantões Passados",
+    "upcomingTitle": "Próximos Plantões",
+    "scheduledComingDays": "Seus plantões agendados para os próximos dias",
+    "dateTime": "Data e Hora",
+    "department": "Departamento",
+    "location": "Local",
+    "status": "Status",
+    "actions": "Ações",
+    "noShiftsFound": "Nenhum plantão encontrado",
+    "trade": "Trocar",
+    "leave": "Folga",
+    "requestShiftTrade": "Solicitar Troca de Plantão",
+    "requestLeave": "Solicitar Folga",
+    "suggestedColleagueOptional": "Colega Sugerido (Opcional)",
+    "selectColleaguePlaceholder": "Selecione um colega para sugerir",
+    "reasonForTradeRequest": "Motivo da Solicitação de Troca",
+    "reasonPlaceholderTrade": "Explique por que você precisa trocar este plantão...",
+    "cancel": "Cancelar",
+    "submitRequest": "Enviar Solicitação",
+    "leaveType": "Tipo de Folga",
+    "selectLeaveType": "Selecione o tipo de folga",
+    "vacation": "Férias",
+    "sickLeave": "Licença Médica",
+    "personalLeave": "Assuntos Pessoais",
+    "emergencyLeave": "Emergência",
+    "reason": "Motivo",
+    "reasonPlaceholderLeave": "Motivo breve do pedido de folga...",
+    "requestTradeDescription": "Solicite uma troca para o seu plantão em {{date}} ({{time}})",
+    "requestLeaveDescription": "Solicite folga para o seu plantão em {{date}} ({{time}})",
+    "toast": {
+      "tradeSubmittedTitle": "Solicitação de troca enviada",
+      "tradeSubmittedDescription": "Sua solicitação para {{date}} foi enviada.",
+      "leaveSubmittedTitle": "Solicitação de folga enviada",
+      "leaveSubmittedDescription": "Seu pedido de {{leaveType}} para {{date}} foi enviado."
+    }
+  }
+  ,
+  "notifications": {
+    "title": "Notificações",
+    "subtitle": "Fique atualizado com sua agenda, trocas e alertas do sistema",
+    "unread": "não lidas",
+    "markAllRead": "Marcar tudo como lido",
+    "sort": {
+      "newest": "Ordenar por mais recentes",
+      "oldest": "Ordenar por mais antigas",
+      "newestShort": "Mais recentes",
+      "oldestShort": "Mais antigas"
+    },
+    "empty": {
+      "title": "Sem notificações",
+      "allCaughtUp": "Tudo em dia!",
+      "noneInCategory": "Nenhuma notificação de {{category}} encontrada."
+    },
+    "categories": {
+      "all": "Todas",
+      "trades": "Trocas",
+      "schedules": "Agendas",
+      "system": "Sistema"
+    },
+    "groups": {
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "last7Days": "Últimos 7 dias",
+      "older": "Mais antigas"
+    },
+    "sheet": {
+      "title": "Detalhes da Notificação",
+      "description": "Visualize e gerencie esta notificação"
+    },
+    "badge": {
+      "actionRequired": "Ação Necessária"
+    },
+    "priority": {
+      "low": "Baixa",
+      "normal": "Normal",
+      "high": "Alta",
+      "urgent": "Urgente"
+    },
+    "detail": {
+      "details": "Detalhes",
+      "doctor": "Médico:",
+      "date": "Data:",
+      "time": "Hora:",
+      "department": "Departamento:",
+      "unread": "Não lida",
+      "acceptTrade": "Aceitar Troca",
+      "decline": "Recusar",
+      "viewSchedule": "Ver Agenda",
+      "updateProfile": "Atualizar Perfil",
+      "markAsRead": "Marcar como lida",
+      "close": "Fechar"
+    },
+    "toast": {
+      "markedAsReadTitle": "Marcada como lida",
+      "markedAsReadDescription": "A notificação foi marcada como lida.",
+      "allMarkedTitle": "Todas as notificações marcadas como lidas",
+      "allMarkedDescription": "{{count}} notificações marcadas como lidas.",
+      "newNotificationTitle": "Nova notificação",
+      "newNotificationDescription": "{{doctor}} respondeu à sua solicitação de troca."
+    }
+  }
+  ,
+  "dashboardComponents": {
+    "upcomingShifts": {
+      "title": "Próximos Plantões"
+    },
+    "alerts": {
+      "title": "Alertas Recentes",
+      "actionable": "acionáveis",
+      "ariaLabel": "Alertas recentes",
+      "toastTitle": "Detalhes do Alerta",
+      "takeAction": "Agir",
+      "priority": {
+        "high": "Alta",
+        "medium": "Média",
+        "low": "Baixa"
+      }
+    },
+    "quickActions": {
+      "title": "Ações Rápidas",
+      "trade": {
+        "title": "Solicitar Troca de Plantão",
+        "subtitle": "Encontre alguém para cobrir seu plantão"
+      },
+      "leave": {
+        "title": "Solicitar Folga",
+        "subtitle": "Enviar férias ou tempo livre",
+        "toastTitle": "Solicitação de Folga",
+        "toastDescription": "Redirecionando para o formulário de folga..."
+      },
+      "schedule": {
+        "title": "Ver Agenda Completa",
+        "subtitle": "Veja todos os próximos plantões"
+      }
+    },
+    "metrics": {
+      "weeklyDistribution": {
+        "title": "Distribuição Semanal",
+        "description": "Plantões por dia nesta semana"
+      },
+      "shiftStatus": {
+        "title": "Status dos Plantões",
+        "description": "Distribuição do mês atual"
+      },
+      "monthlyHours": {
+        "title": "Horas Mensais",
+        "description": "Tendência de horas trabalhadas"
+      }
+    }
+  }
+  ,
+  "trade": {
+    "shiftSelector": {
+      "title": "Selecione o Plantão para Troca",
+      "availableForTrade": "Disponível para Troca",
+      "selectedForTrade": "Selecionado para Troca",
+      "location": "Local:",
+      "noAssigned": "Nenhum plantão designado disponível para troca"
+    },
+    "history": {
+      "title": "Histórico de Solicitações de Troca",
+      "emptyTitle": "Ainda não há solicitações de troca",
+      "emptySubtitle": "Seu histórico de trocas aparecerá aqui",
+      "columns": {
+        "shift": "Plantão",
+        "department": "Departamento",
+        "colleague": "Colega",
+        "status": "Status",
+        "submitted": "Enviado"
+      },
+      "status": {
+        "requested": "Solicitado",
+        "offered": "Oferecido",
+        "accepted": "Aceito",
+        "approved": "Aprovado",
+        "cancelled": "Cancelado",
+        "rejected": "Rejeitado"
+      },
+      "menu": {
+        "open": "Abrir menu de ações",
+        "viewDetails": "Ver Detalhes",
+        "cancel": "Cancelar Solicitação",
+        "resend": "Reenviar Solicitação"
+      },
+      "cancelDialog": {
+        "title": "Cancelar Solicitação de Troca",
+        "description": "Tem certeza de que deseja cancelar esta solicitação de troca? Esta ação não pode ser desfeita.",
+        "keep": "Manter Solicitação",
+        "confirm": "Cancelar Solicitação"
+      },
+      "toast": {
+        "cancelledTitle": "Solicitação de Troca Cancelada",
+        "cancelledDesc": "Sua solicitação de troca foi cancelada com sucesso.",
+        "resentTitle": "Solicitação de Troca Reenviada",
+        "resentDesc": "Sua solicitação de troca foi reenviada com sucesso."
+      }
+    },
+    "statusCard": {
+      "title": "Status da Solicitação de Troca",
+      "stepCounter": "Etapa {{current}} de {{total}}",
+      "badges": {
+        "completed": "Concluído",
+        "current": "Atual",
+        "pending": "Pendente"
+      },
+      "steps": {
+        "requested": { "label": "Solicitado", "description": "Solicitação de troca enviada" },
+        "offered": { "label": "Oferecido", "description": "Colega demonstrou interesse" },
+        "accepted": { "label": "Aceito", "description": "Ambas as partes concordaram com a troca" },
+        "approved": { "label": "Aprovado", "description": "Administração aprovou a troca" }
+      },
+      "stepMessages": {
+        "requested": "Aguardando respostas dos colegas...",
+        "offered": "Revise a oferta e aceite se adequado.",
+        "accepted": "Aguardando aprovação da administração.",
+        "approved": "Troca concluída com sucesso!"
+      }
+    },
+    "form": {
+      "title": "Detalhes da Solicitação de Troca",
+      "selectedShift": "Plantão Selecionado",
+      "suggestedColleagueOptional": "Colega Sugerido (Opcional)",
+      "selectColleaguePlaceholder": "Selecione um colega ou deixe aberto para todos",
+      "openToAll": "Aberto a todos os colegas",
+      "reasonLabel": "Motivo da Solicitação de Troca *",
+      "reasonPlaceholder": "Forneça um motivo detalhado para sua solicitação de troca. Isso ajuda os colegas a entenderem sua situação e aumenta a chance de encontrar um match.",
+      "submitting": "Enviando...",
+      "submit": "Enviar Solicitação de Troca",
+      "confirmTitle": "Confirmar Solicitação de Troca",
+      "confirmDescription": "Tem certeza de que deseja enviar esta solicitação de troca para o seu plantão em {{date}} de {{time}}?",
+      "confirmWillBeSent": "Esta solicitação será enviada para {{colleague}}.",
+      "confirmAndSubmit": "Confirmar e Enviar"
+    }
+  }
+  ,
+  "preferences": {
+    "vacations": {
+      "title": "Férias e Ausências",
+      "subtitle": "Gerencie suas férias planejadas e pedidos de folga",
+      "add": "Adicionar Férias",
+      "dialog": {
+        "title": "Adicionar Nova Férias",
+        "description": "Agende suas ausências para melhor planejamento",
+        "startDate": "Data de Início",
+        "endDate": "Data de Término",
+        "pickDate": "Escolha uma data",
+        "type": "Tipo",
+        "descriptionLabel": "Descrição",
+        "descriptionPlaceholder": "Breve descrição da sua ausência",
+        "cancel": "Cancelar",
+        "confirm": "Adicionar Férias"
+      },
+      "empty": {
+        "title": "Nenhuma férias planejada",
+        "subtitle": "Adicione sua primeira férias para começar."
+      },
+      "range": "{{start}} - {{end}}",
+      "day": "dia",
+      "days": "dias",
+      "ariaRemove": "Remover férias"
+    },
+    "weighted": {
+      "title": "Preferências de Agendamento por IA",
+      "subtitle": "Defina preferências ponderadas para orientar o motor de agendamento",
+      "add": "Adicionar Preferência",
+      "dialog": {
+        "title": "Adicionar Nova Preferência",
+        "description": "Crie uma preferência ponderada para o motor de agendamento",
+        "category": "Categoria",
+        "titleLabel": "Título",
+        "titlePlaceholder": "Título breve para sua preferência",
+        "descriptionLabel": "Descrição",
+        "descriptionPlaceholder": "Descrição detalhada da sua preferência",
+        "importance": "Nível de Importância",
+        "low0": "Baixa (0)",
+        "medium5": "Média (5)",
+        "critical10": "Crítica (10)",
+        "cancel": "Cancelar",
+        "confirm": "Adicionar Preferência"
+      },
+      "categories": {
+        "time_preference": "Preferência de Horário",
+        "shift_type": "Tipo de Plantão",
+        "department": "Departamento",
+        "colleague": "Colega",
+        "custom": "Personalizada"
+      },
+      "weights": {
+        "none": "Nenhuma",
+        "veryLow": "Muito Baixa",
+        "low": "Baixa",
+        "medium": "Média",
+        "high": "Alta",
+        "veryHigh": "Muito Alta",
+        "critical": "Crítica"
+      },
+      "empty": {
+        "title": "Nenhuma preferência definida",
+        "subtitle": "Adicione preferências ponderadas para orientar o agendamento por IA."
+      },
+      "labels": {
+        "weight": "Peso:",
+        "removeAria": "Remover preferência"
+      }
+    },
+    "restrictions": {
+      "title": "Restrições de Agendamento",
+      "subtitle": "Defina regras e limites para seus plantões",
+      "add": "Adicionar Restrição",
+      "dialog": {
+        "title": "Adicionar Nova Restrição",
+        "description": "Crie regras para orientar suas preferências de agendamento",
+        "type": "Tipo de Restrição",
+        "chooseType": "Escolha um tipo de restrição",
+        "custom": "Restrição Personalizada",
+        "titleLabel": "Título",
+        "titlePlaceholder": "Informe o título da restrição",
+        "descriptionLabel": "Descrição",
+        "descriptionPlaceholder": "Descreva a restrição em detalhes",
+        "value": "Valor",
+        "cancel": "Cancelar",
+        "confirm": "Adicionar Restrição"
+      },
+      "empty": {
+        "title": "Nenhuma restrição definida",
+        "subtitle": "Adicione regras para orientar suas preferências de agendamento."
+      },
+      "aria": {
+        "toggle": "Alternar {{title}}",
+        "remove": "Remover restrição"
+      },
+      "badges": {
+        "custom": "Personalizada"
+      }
+    },
+    "availability": {
+      "title": "Disponibilidade Semanal",
+      "subtitle": "Defina seus dias e horários disponíveis para agendamento",
+      "days": {
+        "monday": "Segunda-feira",
+        "tuesday": "Terça-feira",
+        "wednesday": "Quarta-feira",
+        "thursday": "Quinta-feira",
+        "friday": "Sexta-feira",
+        "saturday": "Sábado",
+        "sunday": "Domingo"
+      },
+      "to": "até",
+      "addTimeRange": "Adicionar intervalo de horário",
+      "notAvailable": "Não disponível",
+      "start": "Início",
+      "end": "Fim",
+      "remove": "Remover",
+      "rangesCount": "({{count}} intervalo{{s}})"
+    }
+  }
+  ,
+  "admin": {
+    "team": {
+      "title": "Gestão de Equipe",
+      "subtitle": "Gerencie médicos, departamentos e especialidades",
+      "tabs": {
+        "doctors": "Médicos",
+        "departments": "Departamentos",
+        "specialties": "Especialidades"
+      },
+      "doctors": {
+        "title": "Médicos",
+        "subtitle": "Gerencie a equipe médica e suas especialidades",
+        "add": "Adicionar Médico",
+        "edit": "Editar Médico",
+        "addNew": "Adicionar Novo Médico",
+        "updateInfo": "Atualize as informações do médico",
+        "addInfo": "Adicione um novo médico ao sistema",
+        "form": {
+          "fullName": "Nome Completo",
+          "crm": "Número do CRM",
+          "primarySpecialty": "Especialidade Principal",
+          "selectSpecialty": "Selecione a especialidade",
+          "department": "Departamento",
+          "selectDepartment": "Selecione o departamento",
+          "activeStatus": "Status Ativo",
+          "activeHint": "O médico pode ser escalado para plantões"
+        },
+        "actions": {
+          "cancel": "Cancelar",
+          "add": "Adicionar Médico",
+          "update": "Atualizar Médico",
+          "deactivate": "Desativar",
+          "activate": "Ativar"
+        },
+        "table": {
+          "name": "Nome",
+          "crm": "CRM",
+          "specialties": "Especialidades",
+          "department": "Departamento",
+          "status": "Status",
+          "actions": "Ações",
+          "active": "Ativo",
+          "inactive": "Inativo"
+        },
+        "toasts": {
+          "updated": "Médico atualizado com sucesso",
+          "added": "Médico adicionado com sucesso",
+          "statusUpdated": "Status do médico atualizado"
+        }
+      },
+      "departments": {
+        "title": "Departamentos",
+        "subtitle": "Gerencie departamentos e unidades do hospital",
+        "add": "Adicionar Departamento",
+        "edit": "Editar Departamento",
+        "addNew": "Adicionar Novo Departamento",
+        "updateInfo": "Atualize as informações do departamento",
+        "addInfo": "Adicione um novo departamento ao sistema",
+        "form": {
+          "name": "Nome do Departamento",
+          "description": "Descrição",
+          "descriptionPlaceholder": "Breve descrição dos serviços do departamento"
+        },
+        "actions": {
+          "cancel": "Cancelar",
+          "add": "Adicionar Departamento",
+          "update": "Atualizar Departamento"
+        },
+        "table": {
+          "name": "Nome",
+          "description": "Descrição",
+          "actions": "Ações"
+        },
+        "toasts": {
+          "updated": "Departamento atualizado com sucesso",
+          "added": "Departamento adicionado com sucesso",
+          "deleted": "Departamento excluído com sucesso"
+        }
+      },
+      "specialties": {
+        "title": "Especialidades",
+        "subtitle": "Gerencie especialidades médicas e certificações",
+        "add": "Adicionar Especialidade",
+        "edit": "Editar Especialidade",
+        "addNew": "Adicionar Nova Especialidade",
+        "updateInfo": "Atualize as informações da especialidade",
+        "addInfo": "Adicione uma nova especialidade médica",
+        "form": {
+          "code": "Código da Especialidade",
+          "name": "Nome da Especialidade"
+        },
+        "actions": {
+          "cancel": "Cancelar",
+          "add": "Adicionar Especialidade",
+          "update": "Atualizar Especialidade"
+        },
+        "table": {
+          "code": "Código",
+          "name": "Nome",
+          "actions": "Ações"
+        },
+        "toasts": {
+          "updated": "Especialidade atualizada com sucesso",
+          "added": "Especialidade adicionada com sucesso",
+          "deleted": "Especialidade excluída com sucesso"
+        }
+      }
+    },
+    "schedule": {
+      "title": "Gestão de Agenda",
+      "subtitle": "Gere, valide e publique escalas da equipe médica",
+      "statusCard": {
+        "label": "Status",
+        "published": "Publicada",
+        "draft": "Rascunho",
+        "unassigned": "Não atribuídos",
+        "assigned": "Atribuídos",
+        "confirmed": "Confirmados"
+      },
+      "actions": {
+        "generate": "Gerar Escala",
+        "generating": "Gerando...",
+        "validate": "Validar",
+        "publish": "Publicar"
+      },
+      "progress": {
+        "generating": "Gerando escala ótima..."
+      },
+      "warnings": {
+        "unassigned": "{{count}} plantões ainda não atribuídos. Conclua as atribuições antes de publicar."
+      },
+      "manual": {
+        "title": "Editor Manual de Escala",
+        "subtitle": "Arraste e solte médicos para atribuir plantões manualmente",
+        "selectWeek": "Selecione a semana",
+        "weeks": {
+          "2024-01-15": "Semana de 15 Jan 2024",
+          "2024-01-22": "Semana de 22 Jan 2024",
+          "2024-01-29": "Semana de 29 Jan 2024"
+        },
+        "availableDoctors": "Médicos Disponíveis",
+        "table": {
+          "date": "Data",
+          "timeSlot": "Horário",
+          "department": "Departamento",
+          "assignedDoctor": "Médico Atribuído",
+          "status": "Status",
+          "dropHere": "Solte o médico aqui"
+        }
+      },
+      "toasts": {
+        "generatedTitle": "Escala gerada com sucesso",
+        "generatedDesc": "Revise e valide a escala antes de publicar",
+        "validatedTitle": "Escala validada",
+        "validatedDesc": "Todas as restrições satisfeitas. Pronta para publicar.",
+        "publishedTitle": "Escala publicada",
+        "publishedDesc": "Notificações enviadas para todos os médicos atribuídos",
+        "assignedTitle": "Plantão atribuído",
+        "assignedDesc": "{{doctor}} atribuído ao plantão"
+      }
+    },
+    "workOrders": {
+      "title": "Importação de Ordens de Serviço",
+      "subtitle": "Importe ordens de serviço via arquivo CSV para gerar escalas",
+      "upload": {
+        "uploadCsv": "Enviar Arquivo CSV",
+        "hint": "Arraste e solte o CSV de ordens ou clique para buscar",
+        "chooseFile": "Escolher Arquivo",
+        "template": "Modelo",
+        "processing": "Processando arquivo...",
+        "invalidTypeTitle": "Tipo de arquivo inválido",
+        "invalidTypeDesc": "Envie um arquivo CSV",
+        "uploadedTitle": "Arquivo enviado com sucesso",
+        "uploadedDesc": "Processadas {{count}} ordens de serviço"
+      },
+      "summary": {
+        "valid": "Ordens Válidas",
+        "errors": "Erros",
+        "total": "Total"
+      },
+      "preview": {
+        "title": "Pré-visualização e Validação",
+        "subtitle": "Revise as ordens importadas antes de processar",
+        "import": "Importar {{count}} Ordens Válidas",
+        "errorAlert": "{{count}} ordens possuem erros de validação. Corrija antes de importar.",
+        "table": {
+          "id": "ID",
+          "date": "Data",
+          "department": "Departamento",
+          "specialty": "Especialidade",
+          "shiftType": "Tipo de Plantão",
+          "priority": "Prioridade",
+          "status": "Status",
+          "valid": "Válido",
+          "error": "Erro"
+        }
+      },
+      "toasts": {
+        "importedTitle": "Ordens importadas",
+        "importedDesc": "{{count}} ordens importadas com sucesso"
+      }
+    },
+    "monitoring": {
+      "overview": {
+        "coverageGaps": "Lacunas de Cobertura",
+        "coverageRate": "Taxa de Cobertura",
+        "avgFairness": "Justiça Média",
+        "activeDoctors": "Médicos Ativos",
+        "thisMonth": "Este mês",
+        "thisPeriod": "Neste período",
+        "highPriority": "alta prioridade"
+      },
+      "gaps": {
+        "title": "Lacunas de Cobertura",
+        "subtitle": "Plantões não atribuídos exigindo atenção imediata",
+        "table": {
+          "date": "Data",
+          "timeSlot": "Horário",
+          "department": "Departamento",
+          "duration": "Duração",
+          "priority": "Prioridade",
+          "none": "Nenhuma lacuna encontrada"
+        }
+      },
+      "fairness": {
+        "title": "Estatísticas de Justiça",
+        "subtitle": "Distribuição de trabalho entre médicos",
+        "night": "Noite",
+        "weekend": "Fim de semana",
+        "total": "Total"
+      },
+      "distribution": {
+        "title": "Distribuição de Plantões",
+        "subtitle": "Distribuição de plantões noturnos e de fim de semana por médico",
+        "legend": {
+          "nightShifts": "Plantões Noturnos",
+          "weekendShifts": "Plantões de Fim de Semana"
+        }
+      },
+      "coverage": {
+        "title": "Visão Geral da Cobertura",
+        "subtitle": "Status geral de cobertura da escala",
+        "metrics": {
+          "coverageMetrics": "Métricas de Cobertura",
+          "totalShifts": "Plantões Totais",
+          "coveredShifts": "Plantões Cobertos",
+          "coverageGaps": "Lacunas de Cobertura",
+          "coverageRate": "Taxa de Cobertura"
+        }
+      }
+    },
+    "draggable": {
+      "status": {
+        "unassigned": "Não atribuído",
+        "assigned": "Atribuído",
+        "confirmed": "Confirmado"
+      }
+    }
+  }
+}
+
+

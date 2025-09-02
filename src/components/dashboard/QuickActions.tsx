@@ -3,10 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 export function QuickActions() {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleTradeRequest = () => {
     navigate("/trade-requests");
@@ -14,8 +16,8 @@ export function QuickActions() {
 
   const handleLeaveRequest = () => {
     toast({
-      title: "Leave Request",
-      description: "Redirecting to leave request form...",
+      title: t('dashboardComponents.quickActions.leave.toastTitle'),
+      description: t('dashboardComponents.quickActions.leave.toastDescription'),
     });
     // Would navigate to leave request page when implemented
   };
@@ -29,7 +31,7 @@ export function QuickActions() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Plus className="h-5 w-5 text-primary" />
-          Quick Actions
+          {t('dashboardComponents.quickActions.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -40,8 +42,8 @@ export function QuickActions() {
         >
           <ArrowLeftRight className="h-4 w-4" />
           <div className="text-left">
-            <div className="font-medium">Request Shift Trade</div>
-            <div className="text-xs opacity-90">Find someone to cover your shift</div>
+            <div className="font-medium">{t('dashboardComponents.quickActions.trade.title')}</div>
+            <div className="text-xs opacity-90">{t('dashboardComponents.quickActions.trade.subtitle')}</div>
           </div>
         </Button>
 
@@ -52,8 +54,8 @@ export function QuickActions() {
         >
           <Plane className="h-4 w-4" />
           <div className="text-left">
-            <div className="font-medium">Request Leave</div>
-            <div className="text-xs text-muted-foreground">Submit vacation or time off</div>
+            <div className="font-medium">{t('dashboardComponents.quickActions.leave.title')}</div>
+            <div className="text-xs text-muted-foreground">{t('dashboardComponents.quickActions.leave.subtitle')}</div>
           </div>
         </Button>
 
@@ -64,8 +66,8 @@ export function QuickActions() {
         >
           <Calendar className="h-4 w-4" />
           <div className="text-left">
-            <div className="font-medium">View Full Schedule</div>
-            <div className="text-xs text-muted-foreground">See all upcoming shifts</div>
+            <div className="font-medium">{t('dashboardComponents.quickActions.schedule.title')}</div>
+            <div className="text-xs text-muted-foreground">{t('dashboardComponents.quickActions.schedule.subtitle')}</div>
           </div>
         </Button>
       </CardContent>

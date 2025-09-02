@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 interface Alert {
   id: string;
@@ -86,6 +88,7 @@ const getPriorityColor = (priority: string) => {
 export function AlertsSection() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleAlertClick = (alert: Alert) => {
     if (alert.type === "trade_request") {
@@ -94,7 +97,7 @@ export function AlertsSection() {
       navigate("/");
     } else {
       toast({
-        title: "Alert Details",
+        title: t('dashboardComponents.alerts.toastTitle'),
         description: alert.description,
       });
     }
@@ -105,14 +108,14 @@ export function AlertsSection() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bell className="h-5 w-5 text-primary" />
-          Recent Alerts
+          {t('dashboardComponents.alerts.title')}
           <Badge variant="secondary" className="ml-auto">
-            {mockAlerts.filter(a => a.actionable).length} actionable
+            {mockAlerts.filter(a => a.actionable).length} {t('dashboardComponents.alerts.actionable')}
           </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3" role="region" aria-live="polite" aria-label="Recent alerts">
+        <div className="space-y-3" role="region" aria-live="polite" aria-label={t('dashboardComponents.alerts.ariaLabel')}>
           {mockAlerts.map((alert) => (
             <div 
               key={alert.id}
@@ -137,10 +140,10 @@ export function AlertsSection() {
                   </h3>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className={`text-xs font-medium ${getPriorityColor(alert.priority)}`}>
-                      {alert.priority}
+                      {t(`dashboardComponents.alerts.priority.${alert.priority}`)}
                     </span>
                     <span className="text-xs text-muted-foreground">
-                      {format(alert.timestamp, "MMM d, HH:mm")}
+                      {format(alert.timestamp, "PP p", { locale: getDateFnsLocale() })}
                     </span>
                   </div>
                 </div>
@@ -157,7 +160,7 @@ export function AlertsSection() {
                       handleAlertClick(alert);
                     }}
                   >
-                    Take Action
+                    {t('dashboardComponents.alerts.takeAction')}
                   </Button>
                 )}
               </div>

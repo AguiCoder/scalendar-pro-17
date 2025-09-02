@@ -7,15 +7,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import type { DayAvailability, TimeRange } from "@/types/preferences";
+import { useTranslation } from "react-i18next";
 
 const DAYS = [
-  { key: 'monday', label: 'Monday' },
-  { key: 'tuesday', label: 'Tuesday' },
-  { key: 'wednesday', label: 'Wednesday' },
-  { key: 'thursday', label: 'Thursday' },
-  { key: 'friday', label: 'Friday' },
-  { key: 'saturday', label: 'Saturday' },
-  { key: 'sunday', label: 'Sunday' },
+  { key: 'monday', labelKey: 'preferences.availability.days.monday' },
+  { key: 'tuesday', labelKey: 'preferences.availability.days.tuesday' },
+  { key: 'wednesday', labelKey: 'preferences.availability.days.wednesday' },
+  { key: 'thursday', labelKey: 'preferences.availability.days.thursday' },
+  { key: 'friday', labelKey: 'preferences.availability.days.friday' },
+  { key: 'saturday', labelKey: 'preferences.availability.days.saturday' },
+  { key: 'sunday', labelKey: 'preferences.availability.days.sunday' },
 ] as const;
 
 const initialAvailability: DayAvailability[] = DAYS.map(day => ({
@@ -27,6 +28,7 @@ const initialAvailability: DayAvailability[] = DAYS.map(day => ({
 }));
 
 export function AvailabilitySection() {
+  const { t } = useTranslation();
   const [availability, setAvailability] = useState<DayAvailability[]>(initialAvailability);
 
   const updateDayAvailability = (dayKey: string, isAvailable: boolean) => {
@@ -77,10 +79,10 @@ export function AvailabilitySection() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Clock className="h-5 w-5" />
-          Weekly Availability
+          {t('preferences.availability.title')}
         </CardTitle>
         <CardDescription>
-          Set your available days and time ranges for scheduling
+          {t('preferences.availability.subtitle')}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -88,7 +90,7 @@ export function AvailabilitySection() {
         <div className="hidden md:block">
           <div className="space-y-4">
             {availability.map((day) => {
-              const dayLabel = DAYS.find(d => d.key === day.day)?.label || '';
+              const dayLabel = t(DAYS.find(d => d.key === day.day)?.labelKey || '');
               
               return (
                 <div key={day.day} className="flex items-start gap-4 p-4 border border-border rounded-lg">
@@ -112,7 +114,7 @@ export function AvailabilitySection() {
                               onChange={(e) => updateTimeRange(day.day, range.id, 'start', e.target.value)}
                               className="w-32"
                             />
-                            <span className="text-muted-foreground">to</span>
+                            <span className="text-muted-foreground">{t('preferences.availability.to')}</span>
                             <Input
                               type="time"
                               value={range.end}
@@ -137,12 +139,12 @@ export function AvailabilitySection() {
                           className="flex items-center gap-1"
                         >
                           <Plus className="h-3 w-3" />
-                          Add time range
+                          {t('preferences.availability.addTimeRange')}
                         </Button>
                       </div>
                     )}
                     {!day.isAvailable && (
-                      <p className="text-sm text-muted-foreground">Not available</p>
+                      <p className="text-sm text-muted-foreground">{t('preferences.availability.notAvailable')}</p>
                     )}
                   </div>
                 </div>
@@ -155,7 +157,7 @@ export function AvailabilitySection() {
         <div className="md:hidden">
           <Accordion type="multiple" className="space-y-2">
             {availability.map((day) => {
-              const dayLabel = DAYS.find(d => d.key === day.day)?.label || '';
+              const dayLabel = t(DAYS.find(d => d.key === day.day)?.labelKey || '');
               
               return (
                 <AccordionItem key={day.day} value={day.day} className="border border-border rounded-lg">
@@ -170,7 +172,7 @@ export function AvailabilitySection() {
                       <span className="font-medium">{dayLabel}</span>
                       {day.isAvailable && (
                         <span className="text-sm text-muted-foreground">
-                          ({day.timeRanges.length} range{day.timeRanges.length !== 1 ? 's' : ''})
+                          {t('preferences.availability.rangesCount', { count: day.timeRanges.length, s: day.timeRanges.length !== 1 ? 's' : '' })}
                         </span>
                       )}
                     </div>
@@ -182,7 +184,7 @@ export function AvailabilitySection() {
                           <div key={range.id} className="space-y-2">
                             <div className="grid grid-cols-2 gap-2">
                               <div>
-                                <Label className="text-xs text-muted-foreground">Start</Label>
+                                <Label className="text-xs text-muted-foreground">{t('preferences.availability.start')}</Label>
                                 <Input
                                   type="time"
                                   value={range.start}
@@ -190,7 +192,7 @@ export function AvailabilitySection() {
                                 />
                               </div>
                               <div>
-                                <Label className="text-xs text-muted-foreground">End</Label>
+                                <Label className="text-xs text-muted-foreground">{t('preferences.availability.end')}</Label>
                                 <Input
                                   type="time"
                                   value={range.end}
@@ -206,7 +208,7 @@ export function AvailabilitySection() {
                                 className="w-full flex items-center gap-1"
                               >
                                 <Trash2 className="h-3 w-3" />
-                                Remove
+                                {t('preferences.availability.remove')}
                               </Button>
                             )}
                           </div>

@@ -3,6 +3,8 @@ import { Clock, MapPin, CheckCircle2, AlertCircle, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 interface Shift {
   id: string;
@@ -67,12 +69,13 @@ const getStatusVariant = (status: string) => {
 };
 
 export function UpcomingShifts() {
+  const { t } = useTranslation();
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Clock className="h-5 w-5 text-primary" />
-          Upcoming Shifts
+          {t('dashboardComponents.upcomingShifts.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -86,13 +89,13 @@ export function UpcomingShifts() {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-foreground">
-                      {format(shift.date, "EEEE, MMM d")}
+                      {format(shift.date, "PPPP", { locale: getDateFnsLocale() })}
                     </h3>
                     <Badge 
                       variant={getStatusVariant(shift.status)}
                       className="text-xs"
                     >
-                      {shift.status}
+                      {shift.status === 'confirmed' ? t('common.confirmed') : shift.status === 'pending' ? t('common.pending') : t('common.inNegotiation')}
                     </Badge>
                   </div>
                   

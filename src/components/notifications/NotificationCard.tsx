@@ -16,6 +16,8 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import type { Notification } from '@/types/notifications';
+import { useTranslation } from 'react-i18next';
+import { getDateFnsLocale } from '@/lib/dateLocale';
 
 const notificationIcons = {
   trade: ArrowLeftRight,
@@ -52,9 +54,10 @@ interface NotificationCardProps {
 }
 
 export function NotificationCard({ notification, onClick }: NotificationCardProps) {
+  const { t } = useTranslation();
   const Icon = notificationIcons[notification.type];
-  const timeAgo = formatDistanceToNow(notification.timestamp, { addSuffix: true });
-  const fullTimestamp = format(notification.timestamp, 'MMM d, yyyy \'at\' h:mm a');
+  const timeAgo = formatDistanceToNow(notification.timestamp, { addSuffix: true, locale: getDateFnsLocale() as any });
+  const fullTimestamp = format(notification.timestamp, 'PPP p', { locale: getDateFnsLocale() });
 
   const getStatusIcon = () => {
     if (notification.title.toLowerCase().includes('accepted')) return statusIcons.accepted;
@@ -121,13 +124,13 @@ export function NotificationCard({ notification, onClick }: NotificationCardProp
                       variant={priorityBadges[notification.priority]}
                       className="text-xs"
                     >
-                      {notification.priority}
+                      {t(`notifications.priority.${notification.priority}`)}
                     </Badge>
                   )}
                   
                   {notification.actionRequired && (
                     <Badge variant="outline" className="text-xs text-status-negotiation border-status-negotiation">
-                      Action Required
+                      {t('notifications.badge.actionRequired')}
                     </Badge>
                   )}
 

@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 // Mock data
 const mockDoctors = [
@@ -63,6 +64,7 @@ const DoctorManagement = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDoctor, setEditingDoctor] = useState<typeof mockDoctors[0] | null>(null);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const form = useForm<DoctorFormData>({
     resolver: zodResolver(doctorSchema),
@@ -84,7 +86,7 @@ const DoctorManagement = () => {
           ? { ...doc, name: data.name, crm: data.crm, specialties: [data.specialties], department: data.department, active: data.active }
           : doc
       ));
-      toast({ title: "Doctor updated successfully" });
+      toast({ title: t("admin.team.doctors.toasts.updated") });
     } else {
       const newDoctor = {
         id: String(doctors.length + 1),
@@ -95,7 +97,7 @@ const DoctorManagement = () => {
         active: data.active
       };
       setDoctors(prev => [...prev, newDoctor]);
-      toast({ title: "Doctor added successfully" });
+      toast({ title: t("admin.team.doctors.toasts.added") });
     }
     
     setDialogOpen(false);
@@ -119,7 +121,7 @@ const DoctorManagement = () => {
     setDoctors(prev => prev.map(doc => 
       doc.id === doctorId ? { ...doc, active: !doc.active } : doc
     ));
-    toast({ title: "Doctor status updated" });
+    toast({ title: t("admin.team.doctors.toasts.statusUpdated") });
   };
 
   return (
@@ -129,22 +131,22 @@ const DoctorManagement = () => {
           <div>
             <CardTitle className="flex items-center gap-2">
               <UserPlus className="h-5 w-5" />
-              Doctors
+              {t('admin.team.doctors.title')}
             </CardTitle>
-            <CardDescription>Manage medical staff and their specialties</CardDescription>
+            <CardDescription>{t('admin.team.doctors.subtitle')}</CardDescription>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button onClick={() => { setEditingDoctor(null); form.reset(); }}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Doctor
+                {t('admin.team.doctors.add')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{editingDoctor ? "Edit Doctor" : "Add New Doctor"}</DialogTitle>
+                <DialogTitle>{editingDoctor ? t('admin.team.doctors.edit') : t('admin.team.doctors.addNew')}</DialogTitle>
                 <DialogDescription>
-                  {editingDoctor ? "Update doctor information" : "Add a new doctor to the system"}
+                  {editingDoctor ? t('admin.team.doctors.updateInfo') : t('admin.team.doctors.addInfo')}
                 </DialogDescription>
               </DialogHeader>
               
@@ -155,7 +157,7 @@ const DoctorManagement = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Full Name</FormLabel>
+                        <FormLabel>{t('admin.team.doctors.form.fullName')}</FormLabel>
                         <FormControl>
                           <Input placeholder="Dr. John Doe" {...field} />
                         </FormControl>
@@ -169,7 +171,7 @@ const DoctorManagement = () => {
                     name="crm"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>CRM Number</FormLabel>
+                        <FormLabel>{t('admin.team.doctors.form.crm')}</FormLabel>
                         <FormControl>
                           <Input placeholder="CRM-12345" {...field} />
                         </FormControl>
@@ -183,11 +185,11 @@ const DoctorManagement = () => {
                     name="specialties"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Primary Specialty</FormLabel>
+                        <FormLabel>{t('admin.team.doctors.form.primarySpecialty')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select specialty" />
+                              <SelectValue placeholder={t('admin.team.doctors.form.selectSpecialty')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -208,11 +210,11 @@ const DoctorManagement = () => {
                     name="department"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Department</FormLabel>
+                        <FormLabel>{t('admin.team.doctors.form.department')}</FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select department" />
+                              <SelectValue placeholder={t('admin.team.doctors.form.selectDepartment')} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
@@ -234,9 +236,9 @@ const DoctorManagement = () => {
                     render={({ field }) => (
                       <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                         <div className="space-y-0.5">
-                          <FormLabel className="text-base">Active Status</FormLabel>
+                          <FormLabel className="text-base">{t('admin.team.doctors.form.activeStatus')}</FormLabel>
                           <div className="text-sm text-muted-foreground">
-                            Doctor can be assigned to shifts
+                            {t('admin.team.doctors.form.activeHint')}
                           </div>
                         </div>
                         <FormControl>
@@ -251,10 +253,10 @@ const DoctorManagement = () => {
                   
                   <div className="flex justify-end gap-2">
                     <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
-                      Cancel
+                      {t('admin.team.doctors.actions.cancel')}
                     </Button>
                     <Button type="submit">
-                      {editingDoctor ? "Update" : "Add"} Doctor
+                      {editingDoctor ? t('admin.team.doctors.actions.update') : t('admin.team.doctors.actions.add')}
                     </Button>
                   </div>
                 </form>
@@ -268,12 +270,12 @@ const DoctorManagement = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>CRM</TableHead>
-                <TableHead>Specialties</TableHead>
-                <TableHead>Department</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t('admin.team.doctors.table.name')}</TableHead>
+                <TableHead>{t('admin.team.doctors.table.crm')}</TableHead>
+                <TableHead>{t('admin.team.doctors.table.specialties')}</TableHead>
+                <TableHead>{t('admin.team.doctors.table.department')}</TableHead>
+                <TableHead>{t('admin.team.doctors.table.status')}</TableHead>
+                <TableHead>{t('admin.team.doctors.table.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -296,7 +298,7 @@ const DoctorManagement = () => {
                       variant={doctor.active ? "secondary" : "outline"}
                       className={doctor.active ? "bg-status-confirmed text-status-confirmed-foreground" : ""}
                     >
-                      {doctor.active ? "Active" : "Inactive"}
+                      {doctor.active ? t('admin.team.doctors.table.active') : t('admin.team.doctors.table.inactive')}
                     </Badge>
                   </TableCell>
                   <TableCell>
@@ -309,7 +311,7 @@ const DoctorManagement = () => {
                         variant="outline"
                         onClick={() => handleToggleActive(doctor.id)}
                       >
-                        {doctor.active ? "Deactivate" : "Activate"}
+                        {doctor.active ? t('admin.team.doctors.actions.deactivate') : t('admin.team.doctors.actions.activate')}
                       </Button>
                     </div>
                   </TableCell>
@@ -328,6 +330,7 @@ const DepartmentManagement = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDepartment, setEditingDepartment] = useState<typeof mockDepartments[0] | null>(null);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const form = useForm<DepartmentFormData>({
     resolver: zodResolver(departmentSchema),
@@ -341,11 +344,11 @@ const DepartmentManagement = () => {
       setDepartments(prev => prev.map(dept => 
         dept.id === editingDepartment.id ? { ...dept, name: data.name, description: data.description } : dept
       ));
-      toast({ title: "Department updated successfully" });
+      toast({ title: t('admin.team.departments.toasts.updated') });
     } else {
       const newDepartment = { id: String(departments.length + 1), name: data.name, description: data.description };
       setDepartments(prev => [...prev, newDepartment]);
-      toast({ title: "Department added successfully" });
+      toast({ title: t('admin.team.departments.toasts.added') });
     }
     
     setDialogOpen(false);
@@ -361,7 +364,7 @@ const DepartmentManagement = () => {
 
   const handleDelete = (departmentId: string) => {
     setDepartments(prev => prev.filter(dept => dept.id !== departmentId));
-    toast({ title: "Department deleted successfully" });
+    toast({ title: t('admin.team.departments.toasts.deleted') });
   };
 
   return (
@@ -371,22 +374,22 @@ const DepartmentManagement = () => {
           <div>
             <CardTitle className="flex items-center gap-2">
               <Building className="h-5 w-5" />
-              Departments
+              {t('admin.team.departments.title')}
             </CardTitle>
-            <CardDescription>Manage hospital departments and units</CardDescription>
+            <CardDescription>{t('admin.team.departments.subtitle')}</CardDescription>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button onClick={() => { setEditingDepartment(null); form.reset(); }}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Department
+                {t('admin.team.departments.add')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{editingDepartment ? "Edit Department" : "Add New Department"}</DialogTitle>
+                <DialogTitle>{editingDepartment ? t('admin.team.departments.edit') : t('admin.team.departments.addNew')}</DialogTitle>
                 <DialogDescription>
-                  {editingDepartment ? "Update department information" : "Add a new department to the system"}
+                  {editingDepartment ? t('admin.team.departments.updateInfo') : t('admin.team.departments.addInfo')}
                 </DialogDescription>
               </DialogHeader>
               
@@ -397,7 +400,7 @@ const DepartmentManagement = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Department Name</FormLabel>
+                        <FormLabel>{t('admin.team.departments.form.name')}</FormLabel>
                         <FormControl>
                           <Input placeholder="Emergency Medicine" {...field} />
                         </FormControl>
@@ -411,10 +414,10 @@ const DepartmentManagement = () => {
                     name="description"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Description</FormLabel>
+                        <FormLabel>{t('admin.team.departments.form.description')}</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Brief description of the department's services"
+                            placeholder={t('admin.team.departments.form.descriptionPlaceholder')}
                             {...field}
                           />
                         </FormControl>
@@ -425,10 +428,10 @@ const DepartmentManagement = () => {
                   
                   <div className="flex justify-end gap-2">
                     <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
-                      Cancel
+                      {t('admin.team.departments.actions.cancel')}
                     </Button>
                     <Button type="submit">
-                      {editingDepartment ? "Update" : "Add"} Department
+                      {editingDepartment ? t('admin.team.departments.actions.update') : t('admin.team.departments.actions.add')}
                     </Button>
                   </div>
                 </form>
@@ -442,9 +445,9 @@ const DepartmentManagement = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t('admin.team.departments.table.name')}</TableHead>
+                <TableHead>{t('admin.team.departments.table.description')}</TableHead>
+                <TableHead>{t('admin.team.departments.table.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -481,6 +484,7 @@ const SpecialtyManagement = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingSpecialty, setEditingSpecialty] = useState<typeof mockSpecialties[0] | null>(null);
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const form = useForm<SpecialtyFormData>({
     resolver: zodResolver(specialtySchema),
@@ -494,11 +498,11 @@ const SpecialtyManagement = () => {
       setSpecialties(prev => prev.map(spec => 
         spec.id === editingSpecialty.id ? { ...spec, code: data.code, name: data.name } : spec
       ));
-      toast({ title: "Specialty updated successfully" });
+      toast({ title: t('admin.team.specialties.toasts.updated') });
     } else {
       const newSpecialty = { id: String(specialties.length + 1), code: data.code, name: data.name };
       setSpecialties(prev => [...prev, newSpecialty]);
-      toast({ title: "Specialty added successfully" });
+      toast({ title: t('admin.team.specialties.toasts.added') });
     }
     
     setDialogOpen(false);
@@ -514,7 +518,7 @@ const SpecialtyManagement = () => {
 
   const handleDelete = (specialtyId: string) => {
     setSpecialties(prev => prev.filter(spec => spec.id !== specialtyId));
-    toast({ title: "Specialty deleted successfully" });
+    toast({ title: t('admin.team.specialties.toasts.deleted') });
   };
 
   return (
@@ -524,22 +528,22 @@ const SpecialtyManagement = () => {
           <div>
             <CardTitle className="flex items-center gap-2">
               <Award className="h-5 w-5" />
-              Specialties
+              {t('admin.team.specialties.title')}
             </CardTitle>
-            <CardDescription>Manage medical specialties and certifications</CardDescription>
+            <CardDescription>{t('admin.team.specialties.subtitle')}</CardDescription>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
               <Button onClick={() => { setEditingSpecialty(null); form.reset(); }}>
                 <Plus className="h-4 w-4 mr-2" />
-                Add Specialty
+                {t('admin.team.specialties.add')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>{editingSpecialty ? "Edit Specialty" : "Add New Specialty"}</DialogTitle>
+                <DialogTitle>{editingSpecialty ? t('admin.team.specialties.edit') : t('admin.team.specialties.addNew')}</DialogTitle>
                 <DialogDescription>
-                  {editingSpecialty ? "Update specialty information" : "Add a new medical specialty"}
+                  {editingSpecialty ? t('admin.team.specialties.updateInfo') : t('admin.team.specialties.addInfo')}
                 </DialogDescription>
               </DialogHeader>
               
@@ -550,7 +554,7 @@ const SpecialtyManagement = () => {
                     name="code"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Specialty Code</FormLabel>
+                        <FormLabel>{t('admin.team.specialties.form.code')}</FormLabel>
                         <FormControl>
                           <Input placeholder="CARD" {...field} />
                         </FormControl>
@@ -564,7 +568,7 @@ const SpecialtyManagement = () => {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Specialty Name</FormLabel>
+                        <FormLabel>{t('admin.team.specialties.form.name')}</FormLabel>
                         <FormControl>
                           <Input placeholder="Cardiology" {...field} />
                         </FormControl>
@@ -575,10 +579,10 @@ const SpecialtyManagement = () => {
                   
                   <div className="flex justify-end gap-2">
                     <Button type="button" variant="outline" onClick={() => setDialogOpen(false)}>
-                      Cancel
+                      {t('admin.team.specialties.actions.cancel')}
                     </Button>
                     <Button type="submit">
-                      {editingSpecialty ? "Update" : "Add"} Specialty
+                      {editingSpecialty ? t('admin.team.specialties.actions.update') : t('admin.team.specialties.actions.add')}
                     </Button>
                   </div>
                 </form>
@@ -592,9 +596,9 @@ const SpecialtyManagement = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Code</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Actions</TableHead>
+                <TableHead>{t('admin.team.specialties.table.code')}</TableHead>
+                <TableHead>{t('admin.team.specialties.table.name')}</TableHead>
+                <TableHead>{t('admin.team.specialties.table.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -627,18 +631,19 @@ const SpecialtyManagement = () => {
 };
 
 export const TeamManagement = () => {
+  const { t } = useTranslation();
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Team Management</CardTitle>
-        <CardDescription>Manage doctors, departments, and specialties</CardDescription>
+        <CardTitle>{t('admin.team.title')}</CardTitle>
+        <CardDescription>{t('admin.team.subtitle')}</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="doctors" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="doctors">Doctors</TabsTrigger>
-            <TabsTrigger value="departments">Departments</TabsTrigger>
-            <TabsTrigger value="specialties">Specialties</TabsTrigger>
+            <TabsTrigger value="doctors">{t('admin.team.tabs.doctors')}</TabsTrigger>
+            <TabsTrigger value="departments">{t('admin.team.tabs.departments')}</TabsTrigger>
+            <TabsTrigger value="specialties">{t('admin.team.tabs.specialties')}</TabsTrigger>
           </TabsList>
           
           <TabsContent value="doctors" className="space-y-4">

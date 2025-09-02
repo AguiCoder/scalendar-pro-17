@@ -8,6 +8,7 @@ import {
   Shield,
   Circle
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface TradeStatusStepperProps {
   currentStatus: "requested" | "offered" | "accepted" | "approved";
@@ -16,31 +17,32 @@ interface TradeStatusStepperProps {
 const steps = [
   {
     key: "requested",
-    label: "Requested",
-    description: "Trade request submitted",
+    label: "trade.statusCard.steps.requested.label",
+    description: "trade.statusCard.steps.requested.description",
     icon: Clock,
   },
   {
     key: "offered",
-    label: "Offered",
-    description: "Colleague responded with interest",
+    label: "trade.statusCard.steps.offered.label",
+    description: "trade.statusCard.steps.offered.description",
     icon: UserCheck,
   },
   {
     key: "accepted",
-    label: "Accepted",
-    description: "Both parties agreed to trade",
+    label: "trade.statusCard.steps.accepted.label",
+    description: "trade.statusCard.steps.accepted.description",
     icon: CheckCircle,
   },
   {
     key: "approved",
-    label: "Approved",
-    description: "Administration approved the trade",
+    label: "trade.statusCard.steps.approved.label",
+    description: "trade.statusCard.steps.approved.description",
     icon: Shield,
   },
 ] as const;
 
 export function TradeStatusStepper({ currentStatus }: TradeStatusStepperProps) {
+  const { t } = useTranslation();
   const currentStepIndex = steps.findIndex(step => step.key === currentStatus);
   const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
@@ -66,19 +68,19 @@ export function TradeStatusStepper({ currentStatus }: TradeStatusStepperProps) {
       case "completed":
         return (
           <Badge variant="secondary" className="bg-status-confirmed-light text-status-confirmed border-status-confirmed/20">
-            Completed
+            {t('trade.statusCard.badges.completed')}
           </Badge>
         );
       case "current":
         return (
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
-            Current
+            {t('trade.statusCard.badges.current')}
           </Badge>
         );
       default:
         return (
           <Badge variant="secondary" className="bg-muted text-muted-foreground">
-            Pending
+            {t('trade.statusCard.badges.pending')}
           </Badge>
         );
     }
@@ -87,11 +89,11 @@ export function TradeStatusStepper({ currentStatus }: TradeStatusStepperProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Trade Request Status</CardTitle>
+        <CardTitle>{t('trade.statusCard.title')}</CardTitle>
         <div className="space-y-2">
           <Progress value={progress} className="h-2" />
           <p className="text-sm text-muted-foreground">
-            Step {currentStepIndex + 1} of {steps.length}
+            {t('trade.statusCard.stepCounter', { current: currentStepIndex + 1, total: steps.length })}
           </p>
         </div>
       </CardHeader>
@@ -121,21 +123,21 @@ export function TradeStatusStepper({ currentStatus }: TradeStatusStepperProps) {
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center justify-between">
                     <h4 className={`font-medium ${getStatusColor(status)}`}>
-                      {step.label}
+                      {t(step.label)}
                     </h4>
                     {getStatusBadge(status)}
                   </div>
                   
                   <p className="text-sm text-muted-foreground">
-                    {step.description}
+                    {t(step.description)}
                   </p>
                   
                   {status === "current" && (
                     <div className="text-xs text-primary bg-primary/5 p-2 rounded border border-primary/20">
-                      {step.key === "requested" && "Waiting for colleague responses..."}
-                      {step.key === "offered" && "Review the offer and accept if suitable."}
-                      {step.key === "accepted" && "Pending administration approval."}
-                      {step.key === "approved" && "Trade completed successfully!"}
+                      {step.key === "requested" && t('trade.statusCard.stepMessages.requested')}
+                      {step.key === "offered" && t('trade.statusCard.stepMessages.offered')}
+                      {step.key === "accepted" && t('trade.statusCard.stepMessages.accepted')}
+                      {step.key === "approved" && t('trade.statusCard.stepMessages.approved')}
                     </div>
                   )}
                 </div>

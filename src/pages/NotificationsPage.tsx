@@ -14,16 +14,18 @@ import { NotificationCard } from "@/components/notifications/NotificationCard";
 import { NotificationDetail } from "@/components/notifications/NotificationDetail";
 import { mockNotifications } from "@/data/mockNotifications";
 import type { Notification, NotificationCategory, NotificationGroup } from "@/types/notifications";
+import { useTranslation } from "react-i18next";
 
 const CATEGORIES = [
-  { value: 'all', label: 'All', count: 0 },
-  { value: 'trades', label: 'Trades', count: 0 },
-  { value: 'schedules', label: 'Schedules', count: 0 },
-  { value: 'system', label: 'System', count: 0 }
+  { value: 'all', labelKey: 'notifications.categories.all', count: 0 },
+  { value: 'trades', labelKey: 'notifications.categories.trades', count: 0 },
+  { value: 'schedules', labelKey: 'notifications.categories.schedules', count: 0 },
+  { value: 'system', labelKey: 'notifications.categories.system', count: 0 }
 ] as const;
 
 const NotificationsPage = () => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
   const [selectedCategory, setSelectedCategory] = useState<NotificationCategory>('all');
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
@@ -70,7 +72,7 @@ const NotificationsPage = () => {
     if (todayNotifications.length > 0) {
       groups.push({
         date: format(today, 'yyyy-MM-dd'),
-        label: 'Today',
+        label: t('notifications.groups.today'),
         notifications: todayNotifications
       });
     }
@@ -78,7 +80,7 @@ const NotificationsPage = () => {
     if (yesterdayNotifications.length > 0) {
       groups.push({
         date: format(yesterday, 'yyyy-MM-dd'),
-        label: 'Yesterday',
+        label: t('notifications.groups.yesterday'),
         notifications: yesterdayNotifications
       });
     }
@@ -86,7 +88,7 @@ const NotificationsPage = () => {
     if (thisWeekNotifications.length > 0) {
       groups.push({
         date: format(weekAgo, 'yyyy-MM-dd'),
-        label: 'Last 7 Days',
+        label: t('notifications.groups.last7Days'),
         notifications: thisWeekNotifications
       });
     }
@@ -94,7 +96,7 @@ const NotificationsPage = () => {
     if (olderNotifications.length > 0) {
       groups.push({
         date: '1970-01-01',
-        label: 'Older',
+        label: t('notifications.groups.older'),
         notifications: olderNotifications
       });
     }
@@ -117,8 +119,8 @@ const NotificationsPage = () => {
     ));
     
     toast({
-      title: "Marked as read",
-      description: "Notification has been marked as read.",
+      title: t('notifications.toast.markedAsReadTitle'),
+      description: t('notifications.toast.markedAsReadDescription'),
     });
   };
 
@@ -133,8 +135,8 @@ const NotificationsPage = () => {
     }));
 
     toast({
-      title: "All notifications marked as read",
-      description: `${unreadInCategory.length} notifications marked as read.`,
+      title: t('notifications.toast.allMarkedTitle'),
+      description: t('notifications.toast.allMarkedDescription', { count: unreadInCategory.length }),
     });
   };
 
@@ -144,14 +146,14 @@ const NotificationsPage = () => {
       // Randomly show a toast notification (for demo purposes)
       if (Math.random() < 0.1) { // 10% chance every 10 seconds
         toast({
-          title: "New notification",
-          description: "Dr. Martinez responded to your trade request.",
+          title: t('notifications.toast.newNotificationTitle'),
+          description: t('notifications.toast.newNotificationDescription', { doctor: 'Dr. Martinez' }),
         });
       }
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [toast]);
+  }, [toast, t]);
 
   return (
     <SidebarProvider>
@@ -166,15 +168,15 @@ const NotificationsPage = () => {
                 <SidebarTrigger />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="page-title">Notifications</h1>
+                    <h1 className="page-title">{t('notifications.title')}</h1>
                     {unreadCount > 0 && (
                       <Badge variant="default" className="bg-status-available text-status-available-foreground">
-                        {unreadCount} unread
+                        {unreadCount} {t('notifications.unread')}
                       </Badge>
                     )}
                   </div>
                   <p className="section-subtitle">
-                    Stay updated with your schedule, trades, and system alerts
+                    {t('notifications.subtitle')}
                   </p>
                 </div>
               </div>
@@ -188,7 +190,7 @@ const NotificationsPage = () => {
                   className="flex items-center gap-2"
                 >
                   <CheckCheck className="h-4 w-4" />
-                  Mark All Read
+                  {t('notifications.markAllRead')}
                 </Button>
                 
                 <DropdownMenu>
@@ -199,10 +201,10 @@ const NotificationsPage = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem onClick={() => setSortOrder('newest')}>
-                      Sort by Newest
+                      {t('notifications.sort.newest')}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setSortOrder('oldest')}>
-                      Sort by Oldest
+                      {t('notifications.sort.oldest')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -227,7 +229,7 @@ const NotificationsPage = () => {
                         value={category.value}
                         className="flex items-center gap-2"
                       >
-                        {category.label}
+                        {t(category.labelKey)}
                         {category.count > 0 && (
                           <Badge variant="secondary" className="text-xs">
                             {category.count}
@@ -243,8 +245,8 @@ const NotificationsPage = () => {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newest">Newest First</SelectItem>
-                    <SelectItem value="oldest">Oldest First</SelectItem>
+                    <SelectItem value="newest">{t('notifications.sort.newestShort')}</SelectItem>
+                    <SelectItem value="oldest">{t('notifications.sort.oldestShort')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -254,11 +256,11 @@ const NotificationsPage = () => {
                 {notificationGroups.length === 0 ? (
                   <div className="text-center py-12">
                     <Bell className="mx-auto h-12 w-12 text-muted-foreground/50" />
-                    <h3 className="mt-4 text-lg font-medium">No notifications</h3>
+                    <h3 className="mt-4 text-lg font-medium">{t('notifications.empty.title')}</h3>
                     <p className="text-muted-foreground">
                       {selectedCategory === 'all' 
-                        ? "You're all caught up!" 
-                        : `No ${selectedCategory} notifications found.`}
+                        ? t('notifications.empty.allCaughtUp')
+                        : t('notifications.empty.noneInCategory', { category: t(`notifications.categories.${selectedCategory}`) })}
                     </p>
                   </div>
                 ) : (
@@ -288,9 +290,9 @@ const NotificationsPage = () => {
         <Sheet open={isDetailOpen} onOpenChange={setIsDetailOpen}>
           <SheetContent className="w-full sm:max-w-md overflow-y-auto">
             <SheetHeader className="mb-6">
-              <SheetTitle>Notification Details</SheetTitle>
+              <SheetTitle>{t('notifications.sheet.title')}</SheetTitle>
               <SheetDescription>
-                View and manage this notification
+                {t('notifications.sheet.description')}
               </SheetDescription>
             </SheetHeader>
             
