@@ -21,45 +21,48 @@ interface WorkOrder {
   errors?: string[];
 }
 
-const mockWorkOrders: WorkOrder[] = [
-  {
-    id: "WO-001",
-    date: "2024-01-15",
-    department: "Emergency Medicine",
-    specialty: "Emergency Medicine",
-    shiftType: "Day Shift",
-    priority: "High",
-    status: "valid"
-  },
-  {
-    id: "WO-002",
-    date: "2024-01-16",
-    department: "Cardiology",
-    specialty: "Cardiology",
-    shiftType: "Night Shift",
-    priority: "Medium",
-    status: "error",
-    errors: ["Invalid specialty code", "Missing required field: location"]
-  },
-  {
-    id: "WO-003",
-    date: "2024-01-17",
-    department: "Neurology",
-    specialty: "Neurology",
-    shiftType: "Day Shift",
-    priority: "Low",
-    status: "valid"
-  }
-];
+
 
 export const WorkOrdersImport = () => {
+  const { t } = useTranslation();
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isImported, setIsImported] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-  const { t } = useTranslation();
+  
+  // Mock data with translations
+  const mockWorkOrders: WorkOrder[] = [
+    {
+      id: "WO-001",
+      date: "2024-01-15",
+      department: t('mocks.departments.emergencyMedicine'),
+      specialty: t('mocks.departments.emergencyMedicine'),
+      shiftType: t('mocks.shiftTypes.dayShift'),
+      priority: "High",
+      status: "valid"
+    },
+    {
+      id: "WO-002",
+      date: "2024-01-16",
+      department: t('mocks.departments.cardiology'),
+      specialty: t('mocks.departments.cardiology'),
+      shiftType: t('mocks.shiftTypes.nightShift'),
+      priority: "Medium",
+      status: "error",
+      errors: ["Invalid specialty code", "Missing required field: location"]
+    },
+    {
+      id: "WO-003",
+      date: "2024-01-17",
+      department: t('mocks.departments.neurology'),
+      specialty: t('mocks.departments.neurology'),
+      shiftType: t('mocks.shiftTypes.dayShift'),
+      priority: "Low",
+      status: "valid"
+    }
+  ];
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -110,8 +113,8 @@ export const WorkOrdersImport = () => {
 
   const downloadTemplate = () => {
     const csvContent = `id,date,department,specialty,shiftType,priority,location
-WO-001,2024-01-15,Emergency Medicine,Emergency Medicine,Day Shift,High,Floor 1
-WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
+WO-001,2024-01-15,${t('mocks.departments.emergencyMedicine')},${t('mocks.departments.emergencyMedicine')},${t('mocks.shiftTypes.dayShift')},High,${t('mocks.locations.floor1')}
+WO-002,2024-01-16,${t('mocks.departments.cardiology')},${t('mocks.departments.cardiology')},${t('mocks.shiftTypes.nightShift')},Medium,${t('mocks.locations.floor2')}`;
     
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);

@@ -17,25 +17,6 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "react-i18next";
 
-// Mock data
-const mockDoctors = [
-  { id: "1", name: "Dr. Sarah Johnson", crm: "CRM-12345", specialties: ["Cardiology"], department: "Emergency Medicine", active: true },
-  { id: "2", name: "Dr. Michael Chen", crm: "CRM-23456", specialties: ["Neurology"], department: "Neurology", active: true },
-  { id: "3", name: "Dr. Emily Rodriguez", crm: "CRM-34567", specialties: ["Pediatrics"], department: "Pediatrics", active: false },
-];
-
-const mockDepartments = [
-  { id: "1", name: "Emergency Medicine", description: "24/7 emergency care services" },
-  { id: "2", name: "Cardiology", description: "Heart and cardiovascular system treatment" },
-  { id: "3", name: "Neurology", description: "Nervous system disorders treatment" },
-];
-
-const mockSpecialties = [
-  { id: "1", code: "CARD", name: "Cardiology" },
-  { id: "2", code: "NEUR", name: "Neurology" },
-  { id: "3", code: "PEDI", name: "Pediatrics" },
-];
-
 // Form schemas
 const doctorSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -60,11 +41,31 @@ type DepartmentFormData = z.infer<typeof departmentSchema>;
 type SpecialtyFormData = z.infer<typeof specialtySchema>;
 
 const DoctorManagement = () => {
+  const { t } = useTranslation();
+  
+  // Mock data with translations
+  const mockDoctors = [
+    { id: "1", name: t('mocks.doctors.sarahJohnson'), crm: "CRM-12345", specialties: [t('mocks.specialties.cardiology')], department: t('mocks.departments.emergencyMedicine'), active: true },
+    { id: "2", name: t('mocks.doctors.michaelChen'), crm: "CRM-23456", specialties: [t('mocks.specialties.neurology')], department: t('mocks.departments.neurology'), active: true },
+    { id: "3", name: t('mocks.doctors.emilyRodriguez'), crm: "CRM-34567", specialties: [t('mocks.specialties.pediatrics')], department: t('mocks.departments.pediatrics'), active: false },
+  ];
+
+  const mockDepartments = [
+    { id: "1", name: t('mocks.departments.emergencyMedicine'), description: "24/7 emergency care services" },
+    { id: "2", name: t('mocks.departments.cardiology'), description: "Heart and cardiovascular system treatment" },
+    { id: "3", name: t('mocks.departments.neurology'), description: "Nervous system disorders treatment" },
+  ];
+
+  const mockSpecialties = [
+    { id: "1", code: "CARD", name: t('mocks.specialties.cardiology') },
+    { id: "2", code: "NEUR", name: t('mocks.specialties.neurology') },
+    { id: "3", code: "PEDI", name: t('mocks.specialties.pediatrics') },
+  ];
+  
   const [doctors, setDoctors] = useState(mockDoctors);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingDoctor, setEditingDoctor] = useState<typeof mockDoctors[0] | null>(null);
   const { toast } = useToast();
-  const { t } = useTranslation();
 
   const form = useForm<DoctorFormData>({
     resolver: zodResolver(doctorSchema),

@@ -42,28 +42,30 @@ const RESTRICTION_TEMPLATES = [
   }
 ];
 
-const initialRestrictions: Restriction[] = [
-  {
-    id: '1',
-    type: 'max_consecutive_nights',
-    title: 'Maximum consecutive night shifts',
-    description: 'No more than 2 consecutive night shifts',
-    value: 2,
-    isActive: true
-  },
-  {
-    id: '2',
-    type: 'min_weekends_off',
-    title: 'Minimum weekends off per month',
-    description: 'At least 1 weekend off per month',
-    value: 1,
-    isActive: true
-  }
-];
-
 export function RestrictionsSection() {
   const { t } = useTranslation();
+  
+  const initialRestrictions: Restriction[] = [
+    {
+      id: '1',
+      type: 'max_consecutive_nights',
+      title: t('preferences.restrictions.types.maxConsecutiveNights.title'),
+      description: t('preferences.restrictions.types.maxConsecutiveNights.description'),
+      value: 2,
+      isActive: true
+    },
+    {
+      id: '2',
+      type: 'min_weekends_off',
+      title: t('preferences.restrictions.types.minWeekendsOff.title'),
+      description: t('preferences.restrictions.types.minWeekendsOff.description'),
+      value: 1,
+      isActive: true
+    }
+  ];
+  
   const [restrictions, setRestrictions] = useState<Restriction[]>(initialRestrictions);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
   const [customTitle, setCustomTitle] = useState('');
@@ -80,7 +82,7 @@ export function RestrictionsSection() {
 
     const newRestriction: Restriction = {
       id: Date.now().toString(),
-      type: isCustom ? 'custom' : (selectedTemplate as any),
+      type: isCustom ? 'custom' : (selectedTemplate as Restriction['type']),
       title: isCustom ? customTitle.trim() : template!.title,
       description: isCustom ? customDescription.trim() : `${template!.description}${template!.valueType === 'number' ? ` (${restrictionValue})` : ''}`,
       value: template?.valueType === 'number' ? parseInt(restrictionValue) : restrictionValue || 'enabled',

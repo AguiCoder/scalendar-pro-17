@@ -126,12 +126,34 @@
       "allMarkedDescription": "{{count}} notificações marcadas como lidas.",
       "newNotificationTitle": "Nova notificação",
       "newNotificationDescription": "{{doctor}} respondeu à sua solicitação de troca."
+    },
+    "messages": {
+      "shiftTradeAccepted": {
+        "title": "Troca de Plantão Aceita",
+        "description": "Dr. Sarah Johnson aceitou sua solicitação de troca para 15 de setembro, 19h-07h plantão noturno no Departamento de Emergência."
+      },
+      "weeklySchedulePublished": {
+        "title": "Agenda Semanal Publicada",
+        "description": "Sua agenda para 18-24 de setembro foi publicada e está pronta para revisão."
+      },
+      "profileUpdateRequired": {
+        "title": "Atualização de Perfil Necessária",
+        "description": "Por favor, atualize suas preferências de disponibilidade. Suas configurações atuais expiram em 30 de setembro."
+      },
+      "newTradeRequest": {
+        "title": "Nova Solicitação de Troca",
+        "description": "Dr. Michael Chen solicitou trocar seu plantão matutino de 20 de setembro (08h-18h) em Cardiologia."
+      }
     }
   }
   ,
   "dashboardComponents": {
     "upcomingShifts": {
       "title": "Próximos Plantões"
+    },
+    "pastShifts": {
+      "title": "Plantões Anteriores",
+      "subtitle": "Seu histórico de plantões concluídos"
     },
     "alerts": {
       "title": "Alertas Recentes",
@@ -143,6 +165,24 @@
         "high": "Alta",
         "medium": "Média",
         "low": "Baixa"
+      },
+      "messages": {
+        "tradeRequestPending": {
+          "title": "Solicitação de Troca Pendente",
+          "description": "Dr. Sarah Miller quer trocar seu plantão de 15 de dezembro"
+        },
+        "schedulePublished": {
+          "title": "Agenda de Janeiro Publicada",
+          "description": "Sua agenda para janeiro de 2024 está disponível"
+        },
+        "shiftChangeRequired": {
+          "title": "Mudança de Plantão Necessária",
+          "description": "Cobertura de emergência necessária para UTI em 12 de dezembro, 14h-22h"
+        },
+        "leaveRequestApproved": {
+          "title": "Solicitação de Licença Aprovada",
+          "description": "Sua solicitação de férias para 20-25 de dezembro foi aprovada"
+        }
       }
     },
     "quickActions": {
@@ -263,8 +303,92 @@
       "confirmWillBeSent": "Esta solicitação será enviada para {{colleague}}.",
       "confirmAndSubmit": "Confirmar e Enviar"
     }
-  }
-  ,
+  },
+  "mocks": {
+    "departments": {
+      "emergencyMedicine": "Medicina de Emergência",
+      "cardiology": "Cardiologia",
+      "neurology": "Neurologia",
+      "pediatrics": "Pediatria",
+      "internalMedicine": "Medicina Interna",
+      "surgery": "Cirurgia",
+      "orthopedics": "Ortopedia",
+      "psychiatry": "Psiquiatria",
+      "radiology": "Radiologia",
+      "anesthesiology": "Anestesiologia"
+    },
+    "doctors": {
+      "sarahJohnson": "Dr. Sarah Johnson",
+      "michaelChen": "Dr. Michael Chen",
+      "emilyRodriguez": "Dr. Emily Rodriguez",
+      "davidKim": "Dr. David Kim",
+      "lisaThompson": "Dr. Lisa Thompson",
+      "alexBrown": "Dr. Alex Brown",
+      "mariaGarcia": "Dr. Maria Garcia",
+      "jamesWilson": "Dr. James Wilson"
+    },
+    "shiftTypes": {
+      "dayShift": "Plantão Diurno",
+      "nightShift": "Plantão Noturno",
+      "morningShift": "Plantão Matutino",
+      "eveningShift": "Plantão Vespertino",
+      "weekendShift": "Plantão de Fim de Semana",
+      "holidayShift": "Plantão de Feriado"
+    },
+    "specialties": {
+      "cardiology": "Cardiologia",
+      "neurology": "Neurologia",
+      "pediatrics": "Pediatria",
+      "emergencyMedicine": "Medicina de Emergência",
+      "internalMedicine": "Medicina Interna",
+      "surgery": "Cirurgia",
+      "orthopedics": "Ortopedia",
+      "psychiatry": "Psiquiatria"
+    },
+    "preferences": {
+      "avoidSundayNights": {
+        "title": "Evitar noites de domingo",
+        "description": "Preferir não trabalhar plantões noturnos de domingo"
+      },
+      "preferMorningShifts": {
+        "title": "Preferir plantões matutinos",
+        "description": "Trabalhar melhor durante as horas da manhã"
+      },
+      "emergencyDepartmentPreference": {
+        "title": "Preferência pelo Departamento de Emergência",
+        "description": "Preferir trabalhar no Departamento de Emergência"
+      },
+      "avoidNightShifts": {
+        "title": "Evitar plantões noturnos",
+        "description": "Preferir não trabalhar plantões noturnos"
+      },
+      "preferWeekendShifts": {
+        "title": "Preferir plantões de fim de semana",
+        "description": "Disponível para cobertura de fim de semana"
+      },
+      "avoidHolidays": {
+        "title": "Evitar feriados",
+        "description": "Preferir não trabalhar em feriados"
+      }
+    },
+    "locations": {
+      "floor1": "Andar 1",
+      "floor2": "Andar 2",
+      "floor3": "Andar 3",
+      "icu": "UTI",
+      "er": "Sala de Emergência",
+      "operatingRoom": "Sala de Cirurgia",
+      "recoveryRoom": "Sala de Recuperação"
+    },
+    "workOrderTypes": {
+      "maintenance": "Manutenção",
+      "repair": "Reparo",
+      "inspection": "Inspeção",
+      "cleaning": "Limpeza",
+      "equipment": "Equipamento",
+      "facility": "Instalação"
+    }
+  },
   "preferences": {
     "vacations": {
       "title": "Férias e Ausências",
@@ -319,11 +443,11 @@
       },
       "weights": {
         "none": "Nenhuma",
-        "veryLow": "Muito Baixa",
+        "verylow": "Muito Baixa",
         "low": "Baixa",
         "medium": "Média",
         "high": "Alta",
-        "veryHigh": "Muito Alta",
+        "veryhigh": "Muito Alta",
         "critical": "Crítica"
       },
       "empty": {
@@ -363,6 +487,16 @@
       },
       "badges": {
         "custom": "Personalizada"
+      },
+      "types": {
+        "maxConsecutiveNights": {
+          "title": "Máximo de plantões noturnos consecutivos",
+          "description": "Não mais que 2 plantões noturnos consecutivos"
+        },
+        "minWeekendsOff": {
+          "title": "Mínimo de fins de semana livres por mês",
+          "description": "Pelo menos 1 fim de semana livre por mês"
+        }
       }
     },
     "availability": {

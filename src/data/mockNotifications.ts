@@ -1,13 +1,14 @@
 import { addHours, subHours, subDays, subWeeks } from 'date-fns';
 import type { Notification } from '@/types/notifications';
 
-export const mockNotifications: Notification[] = [
+// This function will be called to get translated notifications
+export const getMockNotifications = (t: (key: string) => string): Notification[] => [
   {
     id: '1',
     type: 'trade',
     category: 'trades',
-    title: 'Shift Trade Accepted',
-    description: 'Dr. Sarah Johnson accepted your trade request for September 15, 7:00 PM - 7:00 AM night shift in Emergency Department.',
+    title: t('notifications.messages.shiftTradeAccepted.title'),
+    description: t('notifications.messages.shiftTradeAccepted.description'),
     timestamp: subHours(new Date(), 2),
     status: 'unread',
     priority: 'high',
@@ -23,8 +24,8 @@ export const mockNotifications: Notification[] = [
     id: '2',
     type: 'schedule',
     category: 'schedules',
-    title: 'Weekly Schedule Published',
-    description: 'Your schedule for September 18-24 has been published and is ready for review.',
+    title: t('notifications.messages.weeklySchedulePublished.title'),
+    description: t('notifications.messages.weeklySchedulePublished.description'),
     timestamp: subHours(new Date(), 5),
     status: 'unread',
     priority: 'normal',
@@ -37,8 +38,8 @@ export const mockNotifications: Notification[] = [
     id: '3',
     type: 'system',
     category: 'system',
-    title: 'Profile Update Required',
-    description: 'Please update your availability preferences. Your current settings expire on September 30.',
+    title: t('notifications.messages.profileUpdateRequired.title'),
+    description: t('notifications.messages.profileUpdateRequired.description'),
     timestamp: subHours(new Date(), 8),
     status: 'read',
     priority: 'normal',
@@ -48,8 +49,8 @@ export const mockNotifications: Notification[] = [
     id: '4',
     type: 'trade',
     category: 'trades',
-    title: 'New Trade Request',
-    description: 'Dr. Michael Chen requested to trade their September 20 morning shift (8:00 AM - 6:00 PM) in Cardiology.',
+    title: t('notifications.messages.newTradeRequest.title'),
+    description: t('notifications.messages.newTradeRequest.description'),
     timestamp: subDays(new Date(), 1),
     status: 'read',
     priority: 'normal',
@@ -138,3 +139,6 @@ export const mockNotifications: Notification[] = [
     actionRequired: true
   }
 ];
+
+// Keep the old export for backward compatibility
+export const mockNotifications = getMockNotifications(() => '');

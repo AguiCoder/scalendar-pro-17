@@ -27,51 +27,52 @@ interface TradeRequest {
   reason: string;
 }
 
-const mockTradeRequests: TradeRequest[] = [
-  {
-    id: "tr-001",
-    shiftDate: "2024-12-15",
-    shiftTime: "08:00 - 14:00",
-    department: "Emergency Medicine",
-    colleagueInvolved: "Dr. Sarah Johnson",
-    status: "accepted",
-    createdAt: "2024-12-10T10:30:00Z",
-    reason: "Family emergency - need to attend my child's school event"
-  },
-  {
-    id: "tr-002", 
-    shiftDate: "2024-12-20",
-    shiftTime: "19:00 - 07:00",
-    department: "Cardiology",
-    status: "requested",
-    createdAt: "2024-12-08T14:20:00Z",
-    reason: "Medical appointment that couldn't be rescheduled"
-  },
-  {
-    id: "tr-003",
-    shiftDate: "2024-12-12",
-    shiftTime: "14:00 - 20:00", 
-    department: "Neurology",
-    colleagueInvolved: "Dr. Michael Chen",
-    status: "rejected",
-    createdAt: "2024-12-05T09:15:00Z",
-    reason: "Personal vacation - already booked flights"
-  },
-  {
-    id: "tr-004",
-    shiftDate: "2024-12-25",
-    shiftTime: "08:00 - 14:00",
-    department: "Pediatrics", 
-    colleagueInvolved: "Dr. Emily Rodriguez",
-    status: "approved",
-    createdAt: "2024-12-01T16:45:00Z",
-    reason: "Christmas with family - willing to take New Year's shift in exchange"
-  }
-];
-
 export function TradeRequestHistory() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  
+  const mockTradeRequests: TradeRequest[] = [
+    {
+      id: "tr-001",
+      shiftDate: "2024-12-15",
+      shiftTime: "08:00 - 14:00",
+      department: t('mocks.departments.emergencyMedicine'),
+      colleagueInvolved: t('mocks.doctors.sarahJohnson'),
+      status: "accepted",
+      createdAt: "2024-12-10T10:30:00Z",
+      reason: "Family emergency - need to attend my child's school event"
+    },
+    {
+      id: "tr-002", 
+      shiftDate: "2024-12-20",
+      shiftTime: "19:00 - 07:00",
+      department: t('mocks.departments.cardiology'),
+      status: "requested",
+      createdAt: "2024-12-08T14:20:00Z",
+      reason: "Medical appointment that couldn't be rescheduled"
+    },
+    {
+      id: "tr-003",
+      shiftDate: "2024-12-12",
+      shiftTime: "14:00 - 20:00", 
+      department: t('mocks.departments.neurology'),
+      colleagueInvolved: t('mocks.doctors.michaelChen'),
+      status: "rejected",
+      createdAt: "2024-12-05T09:15:00Z",
+      reason: "Personal vacation - already booked flights"
+    },
+    {
+      id: "tr-004",
+      shiftDate: "2024-12-25",
+      shiftTime: "08:00 - 14:00",
+      department: t('mocks.departments.pediatrics'), 
+      colleagueInvolved: t('mocks.doctors.emilyRodriguez'),
+      status: "approved",
+      createdAt: "2024-12-01T16:45:00Z",
+      reason: "Christmas with family - willing to take New Year's shift in exchange"
+    }
+  ];
+  
   const [requests, setRequests] = useState<TradeRequest[]>(mockTradeRequests);
 
   const getStatusBadge = (status: TradeRequest["status"]) => {
@@ -124,8 +125,8 @@ export function TradeRequestHistory() {
       )
     );
     toast({
-      title: t('trade.toast.cancelledTitle'),
-      description: t('trade.toast.cancelledDesc'),
+      title: t('trade.history.toast.cancelledTitle'),
+      description: t('trade.history.toast.cancelledDesc'),
     });
   };
 
@@ -138,8 +139,8 @@ export function TradeRequestHistory() {
       )
     );
     toast({
-      title: t('trade.toast.resentTitle'),
-      description: t('trade.toast.resentDesc'),
+      title: t('trade.history.toast.resentTitle'),
+      description: t('trade.history.toast.resentDesc'),
     });
   };
 
@@ -213,13 +214,13 @@ export function TradeRequestHistory() {
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                             <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">{t('trade.menu.open')}</span>
+                            <span className="sr-only">{t('trade.history.menu.open')}</span>
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem>
                             <Eye className="h-4 w-4 mr-2" />
-                            {t('trade.menu.viewDetails')}
+                            {t('trade.history.menu.viewDetails')}
                           </DropdownMenuItem>
                           
                           {canCancel(request.status) && (
@@ -227,23 +228,23 @@ export function TradeRequestHistory() {
                               <AlertDialogTrigger asChild>
                                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                   <X className="h-4 w-4 mr-2" />
-                                  {t('trade.menu.cancel')}
+                                  {t('trade.history.menu.cancel')}
                                 </DropdownMenuItem>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>{t('trade.cancelDialog.title')}</AlertDialogTitle>
+                                  <AlertDialogTitle>{t('trade.history.cancelDialog.title')}</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    {t('trade.cancelDialog.description')}
+                                    {t('trade.history.cancelDialog.description')}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>{t('trade.cancelDialog.keep')}</AlertDialogCancel>
+                                  <AlertDialogCancel>{t('trade.history.cancelDialog.keep')}</AlertDialogCancel>
                                   <AlertDialogAction 
                                     onClick={() => handleCancel(request.id)}
                                     className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                   >
-                                    {t('trade.cancelDialog.confirm')}
+                                    {t('trade.history.cancelDialog.confirm')}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -253,7 +254,7 @@ export function TradeRequestHistory() {
                           {canResend(request.status) && (
                             <DropdownMenuItem onClick={() => handleResend(request.id)}>
                               <RefreshCw className="h-4 w-4 mr-2" />
-                              {t('trade.menu.resend')}
+                              {t('trade.history.menu.resend')}
                             </DropdownMenuItem>
                           )}
                         </DropdownMenuContent>

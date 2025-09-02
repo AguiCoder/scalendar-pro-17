@@ -126,12 +126,34 @@
       "allMarkedDescription": "{{count}} notifications marked as read.",
       "newNotificationTitle": "New notification",
       "newNotificationDescription": "{{doctor}} responded to your trade request."
+    },
+    "messages": {
+      "shiftTradeAccepted": {
+        "title": "Shift Trade Accepted",
+        "description": "Dr. Sarah Johnson accepted your trade request for September 15, 7:00 PM - 7:00 AM night shift in Emergency Department."
+      },
+      "weeklySchedulePublished": {
+        "title": "Weekly Schedule Published",
+        "description": "Your schedule for September 18-24 has been published and is ready for review."
+      },
+      "profileUpdateRequired": {
+        "title": "Profile Update Required",
+        "description": "Please update your availability preferences. Your current settings expire on September 30."
+      },
+      "newTradeRequest": {
+        "title": "New Trade Request",
+        "description": "Dr. Michael Chen requested to trade their September 20 morning shift (8:00 AM - 6:00 PM) in Cardiology."
+      }
     }
   }
   ,
   "dashboardComponents": {
     "upcomingShifts": {
       "title": "Upcoming Shifts"
+    },
+    "pastShifts": {
+      "title": "Past Shifts",
+      "subtitle": "Your completed shift history"
     },
     "alerts": {
       "title": "Recent Alerts",
@@ -143,6 +165,24 @@
         "high": "High",
         "medium": "Medium",
         "low": "Low"
+      },
+      "messages": {
+        "tradeRequestPending": {
+          "title": "Trade Request Pending",
+          "description": "Dr. Sarah Miller wants to trade your Dec 15th shift"
+        },
+        "schedulePublished": {
+          "title": "January Schedule Published",
+          "description": "Your schedule for January 2024 is now available"
+        },
+        "shiftChangeRequired": {
+          "title": "Shift Change Required",
+          "description": "Emergency coverage needed for ICU Dec 12th, 2-10 PM"
+        },
+        "leaveRequestApproved": {
+          "title": "Leave Request Approved",
+          "description": "Your vacation request for Dec 20-25 has been approved"
+        }
       }
     },
     "quickActions": {
@@ -263,8 +303,92 @@
       "confirmWillBeSent": "This request will be sent to {{colleague}}.",
       "confirmAndSubmit": "Confirm & Submit"
     }
-  }
-  ,
+  },
+  "mocks": {
+    "departments": {
+      "emergencyMedicine": "Emergency Medicine",
+      "cardiology": "Cardiology",
+      "neurology": "Neurology",
+      "pediatrics": "Pediatrics",
+      "internalMedicine": "Internal Medicine",
+      "surgery": "Surgery",
+      "orthopedics": "Orthopedics",
+      "psychiatry": "Psychiatry",
+      "radiology": "Radiology",
+      "anesthesiology": "Anesthesiology"
+    },
+    "doctors": {
+      "sarahJohnson": "Dr. Sarah Johnson",
+      "michaelChen": "Dr. Michael Chen",
+      "emilyRodriguez": "Dr. Emily Rodriguez",
+      "davidKim": "Dr. David Kim",
+      "lisaThompson": "Dr. Lisa Thompson",
+      "alexBrown": "Dr. Alex Brown",
+      "mariaGarcia": "Dr. Maria Garcia",
+      "jamesWilson": "Dr. James Wilson"
+    },
+    "shiftTypes": {
+      "dayShift": "Day Shift",
+      "nightShift": "Night Shift",
+      "morningShift": "Morning Shift",
+      "eveningShift": "Evening Shift",
+      "weekendShift": "Weekend Shift",
+      "holidayShift": "Holiday Shift"
+    },
+    "specialties": {
+      "cardiology": "Cardiology",
+      "neurology": "Neurology",
+      "pediatrics": "Pediatrics",
+      "emergencyMedicine": "Emergency Medicine",
+      "internalMedicine": "Internal Medicine",
+      "surgery": "Surgery",
+      "orthopedics": "Orthopedics",
+      "psychiatry": "Psychiatry"
+    },
+    "preferences": {
+      "avoidSundayNights": {
+        "title": "Avoid Sunday nights",
+        "description": "Prefer not to work Sunday evening shifts"
+      },
+      "preferMorningShifts": {
+        "title": "Prefer morning shifts",
+        "description": "Work better during morning hours"
+      },
+      "emergencyDepartmentPreference": {
+        "title": "Emergency Department preference",
+        "description": "Prefer working in the Emergency Department"
+      },
+      "avoidNightShifts": {
+        "title": "Avoid night shifts",
+        "description": "Prefer not to work overnight shifts"
+      },
+      "preferWeekendShifts": {
+        "title": "Prefer weekend shifts",
+        "description": "Available for weekend coverage"
+      },
+      "avoidHolidays": {
+        "title": "Avoid holidays",
+        "description": "Prefer not to work on holidays"
+      }
+    },
+    "locations": {
+      "floor1": "Floor 1",
+      "floor2": "Floor 2",
+      "floor3": "Floor 3",
+      "icu": "ICU",
+      "er": "Emergency Room",
+      "operatingRoom": "Operating Room",
+      "recoveryRoom": "Recovery Room"
+    },
+    "workOrderTypes": {
+      "maintenance": "Maintenance",
+      "repair": "Repair",
+      "inspection": "Inspection",
+      "cleaning": "Cleaning",
+      "equipment": "Equipment",
+      "facility": "Facility"
+    }
+  },
   "preferences": {
     "vacations": {
       "title": "Vacations & Time Off",
@@ -363,6 +487,16 @@
       },
       "badges": {
         "custom": "Custom"
+      },
+      "types": {
+        "maxConsecutiveNights": {
+          "title": "Maximum consecutive night shifts",
+          "description": "No more than 2 consecutive night shifts"
+        },
+        "minWeekendsOff": {
+          "title": "Minimum weekends off per month",
+          "description": "At least 1 weekend off per month"
+        }
       }
     },
     "availability": {

@@ -25,70 +25,7 @@ import {
   Shield
 } from "lucide-react";
 
-// Mock data for coverage gaps
-const coverageGaps = [
-  {
-    date: "2024-01-20",
-    timeSlot: "22:00-06:00",
-    department: "Emergency Medicine",
-    priority: "High",
-    duration: "8 hours"
-  },
-  {
-    date: "2024-01-22",
-    timeSlot: "14:00-22:00", 
-    department: "Cardiology",
-    priority: "Medium",
-    duration: "8 hours"
-  },
-  {
-    date: "2024-01-25",
-    timeSlot: "06:00-14:00",
-    department: "Neurology", 
-    priority: "Low",
-    duration: "8 hours"
-  }
-];
 
-// Mock fairness statistics
-const fairnessData = [
-  {
-    doctorName: "Dr. Sarah Johnson",
-    nightShifts: 8,
-    weekendShifts: 6,
-    totalShifts: 24,
-    fairnessScore: 85
-  },
-  {
-    doctorName: "Dr. Michael Chen",
-    nightShifts: 12,
-    weekendShifts: 8,
-    totalShifts: 28,
-    fairnessScore: 72
-  },
-  {
-    doctorName: "Dr. Emily Rodriguez",
-    nightShifts: 6,
-    weekendShifts: 4,
-    totalShifts: 20,
-    fairnessScore: 92
-  },
-  {
-    doctorName: "Dr. David Kim",
-    nightShifts: 10,
-    weekendShifts: 7,
-    totalShifts: 26,
-    fairnessScore: 78
-  }
-];
-
-// Chart data for shift distribution
-const shiftDistributionData = [
-  { name: "Dr. Johnson", nightShifts: 8, weekendShifts: 6, totalShifts: 24 },
-  { name: "Dr. Chen", nightShifts: 12, weekendShifts: 8, totalShifts: 28 },
-  { name: "Dr. Rodriguez", nightShifts: 6, weekendShifts: 4, totalShifts: 20 },
-  { name: "Dr. Kim", nightShifts: 10, weekendShifts: 7, totalShifts: 26 }
-];
 
 // Pie chart data for coverage
 const coverageData = [
@@ -113,6 +50,72 @@ const getPriorityColor = (priority: string) => {
 
 export const MonitoringInsights = () => {
   const { t } = useTranslation();
+  
+  // Mock data with translations
+  const coverageGaps = [
+    {
+      date: "2024-01-20",
+      timeSlot: "22:00-06:00",
+      department: t('mocks.departments.emergencyMedicine'),
+      priority: "High",
+      duration: "8 hours"
+    },
+    {
+      date: "2024-01-22",
+      timeSlot: "14:00-22:00", 
+      department: t('mocks.departments.cardiology'),
+      priority: "Medium",
+      duration: "8 hours"
+    },
+    {
+      date: "2024-01-25",
+      timeSlot: "06:00-14:00",
+      department: t('mocks.departments.neurology'), 
+      priority: "Low",
+      duration: "8 hours"
+    }
+  ];
+
+  // Mock fairness statistics
+  const fairnessData = [
+    {
+      doctorName: t('mocks.doctors.sarahJohnson'),
+      nightShifts: 8,
+      weekendShifts: 6,
+      totalShifts: 24,
+      fairnessScore: 85
+    },
+    {
+      doctorName: t('mocks.doctors.michaelChen'),
+      nightShifts: 12,
+      weekendShifts: 8,
+      totalShifts: 28,
+      fairnessScore: 72
+    },
+    {
+      doctorName: t('mocks.doctors.emilyRodriguez'),
+      nightShifts: 6,
+      weekendShifts: 4,
+      totalShifts: 20,
+      fairnessScore: 92
+    },
+    {
+      doctorName: t('mocks.doctors.davidKim'),
+      nightShifts: 10,
+      weekendShifts: 7,
+      totalShifts: 26,
+      fairnessScore: 78
+    }
+  ];
+
+  // Chart data for shift distribution
+  const shiftDistributionData = [
+    { name: t('mocks.doctors.sarahJohnson'), nightShifts: 8, weekendShifts: 6, totalShifts: 24 },
+    { name: t('mocks.doctors.michaelChen'), nightShifts: 12, weekendShifts: 8, totalShifts: 28 },
+    { name: t('mocks.doctors.emilyRodriguez'), nightShifts: 6, weekendShifts: 4, totalShifts: 20 },
+    { name: t('mocks.doctors.davidKim'), nightShifts: 10, weekendShifts: 7, totalShifts: 26 }
+  ];
+  
   const totalGaps = coverageGaps.length;
   const highPriorityGaps = coverageGaps.filter(gap => gap.priority === "High").length;
   const averageFairness = Math.round(

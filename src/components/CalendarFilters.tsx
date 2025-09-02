@@ -21,32 +21,6 @@ interface CalendarFiltersProps {
   onClearFilters: () => void;
 }
 
-const doctors = [
-  "All Doctors",
-  "Dr. Sarah Johnson",
-  "Dr. Michael Chen",
-  "Dr. Emily Rodriguez",
-  "Dr. David Kim",
-  "Dr. Lisa Thompson",
-];
-
-const departments = [
-  "All Departments",
-  "Emergency Medicine",
-  "Cardiology",
-  "Neurology",
-  "Pediatrics",
-  "Radiology",
-];
-
-const shiftTypes = [
-  "All Shifts",
-  "Day Shift",
-  "Night Shift",
-  "Weekend",
-  "Holiday",
-];
-
 export function CalendarFilters({
   selectedDoctor,
   selectedDepartment,
@@ -57,6 +31,33 @@ export function CalendarFilters({
   onClearFilters,
 }: CalendarFiltersProps) {
   const { t } = useTranslation();
+  
+  const doctors = [
+    t('calendar.filters.allDoctors'),
+    t('mocks.doctors.sarahJohnson'),
+    t('mocks.doctors.michaelChen'),
+    t('mocks.doctors.emilyRodriguez'),
+    t('mocks.doctors.davidKim'),
+    t('mocks.doctors.lisaThompson'),
+  ];
+
+  const departments = [
+    t('calendar.filters.allDepartments'),
+    t('mocks.departments.emergencyMedicine'),
+    t('mocks.departments.cardiology'),
+    t('mocks.departments.neurology'),
+    t('mocks.departments.pediatrics'),
+    t('mocks.departments.radiology'),
+  ];
+
+  const shiftTypes = [
+    t('calendar.filters.allShifts'),
+    t('mocks.shiftTypes.dayShift'),
+    t('mocks.shiftTypes.nightShift'),
+    t('calendar.filters.weekend'),
+    t('calendar.filters.holiday'),
+  ];
+
   const hasActiveFilters = 
     selectedDoctor !== t('calendar.filters.allDoctors') ||
     selectedDepartment !== t('calendar.filters.allDepartments') ||

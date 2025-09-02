@@ -49,35 +49,36 @@ const getWeightBadgeVariant = (weight: number) => {
   return 'destructive';
 };
 
-const initialPreferences: WeightedPreference[] = [
-  {
-    id: '1',
-    category: 'time_preference',
-    title: 'Avoid Sunday nights',
-    description: 'Prefer not to work Sunday evening shifts',
-    weight: 8,
-    isActive: true
-  },
-  {
-    id: '2',
-    category: 'shift_type',
-    title: 'Prefer morning shifts',
-    description: 'Work better during morning hours',
-    weight: 6,
-    isActive: true
-  },
-  {
-    id: '3',
-    category: 'department',
-    title: 'Emergency Department preference',
-    description: 'Prefer working in the Emergency Department',
-    weight: 4,
-    isActive: true
-  }
-];
-
 export function WeightedPreferencesSection() {
   const { t } = useTranslation();
+  
+  const initialPreferences: WeightedPreference[] = [
+    {
+      id: '1',
+      category: 'time_preference',
+      title: t('mocks.preferences.avoidSundayNights.title'),
+      description: t('mocks.preferences.avoidSundayNights.description'),
+      weight: 8,
+      isActive: true
+    },
+    {
+      id: '2',
+      category: 'shift_type',
+      title: t('mocks.preferences.preferMorningShifts.title'),
+      description: t('mocks.preferences.preferMorningShifts.description'),
+      weight: 6,
+      isActive: true
+    },
+    {
+      id: '3',
+      category: 'department',
+      title: t('mocks.preferences.emergencyDepartmentPreference.title'),
+      description: t('mocks.preferences.emergencyDepartmentPreference.description'),
+      weight: 4,
+      isActive: true
+    }
+  ];
+  
   const [preferences, setPreferences] = useState<WeightedPreference[]>(initialPreferences);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [category, setCategory] = useState<WeightedPreference['category']>('time_preference');
@@ -211,7 +212,7 @@ export function WeightedPreferencesSection() {
                     </div>
                     <div className="text-center">
                       <Badge variant={getWeightBadgeVariant(weight[0])} className="px-3 py-1">
-                        {weight[0]} - {t(`preferences.weighted.weights.${WEIGHT_LABELS[weight[0] as keyof typeof WEIGHT_LABELS].replace(' ', '')}`)}
+                        {weight[0]} - {t(`preferences.weighted.weights.${WEIGHT_LABELS[weight[0] as keyof typeof WEIGHT_LABELS].replace(' ', '').toLowerCase()}`)}
                       </Badge>
                     </div>
                   </div>
@@ -295,7 +296,7 @@ export function WeightedPreferencesSection() {
                         variant={getWeightBadgeVariant(preference.weight)}
                         className="min-w-[80px] justify-center"
                       >
-                        {preference.weight} - {t(`preferences.weighted.weights.${WEIGHT_LABELS[preference.weight as keyof typeof WEIGHT_LABELS].replace(' ', '')}`)}
+                        {preference.weight} - {t(`preferences.weighted.weights.${WEIGHT_LABELS[preference.weight as keyof typeof WEIGHT_LABELS].replace(' ', '').toLowerCase()}`)}
                       </Badge>
                     </div>
                   </div>

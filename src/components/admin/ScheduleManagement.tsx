@@ -32,39 +32,7 @@ interface ScheduleShift {
   status: "unassigned" | "assigned" | "confirmed";
 }
 
-const mockScheduleData: ScheduleShift[] = [
-  {
-    id: "shift-1",
-    date: "2024-01-15",
-    timeSlot: "08:00-16:00",
-    doctorId: "doc-1",
-    doctorName: "Dr. Sarah Johnson",
-    department: "Emergency Medicine",
-    status: "assigned"
-  },
-  {
-    id: "shift-2",
-    date: "2024-01-15",
-    timeSlot: "16:00-00:00",
-    department: "Emergency Medicine",
-    status: "unassigned"
-  },
-  {
-    id: "shift-3",
-    date: "2024-01-16",
-    timeSlot: "00:00-08:00",
-    doctorId: "doc-2",
-    doctorName: "Dr. Michael Chen",
-    department: "Neurology",
-    status: "confirmed"
-  }
-];
 
-const mockDoctors = [
-  { id: "doc-1", name: "Dr. Sarah Johnson", department: "Emergency Medicine" },
-  { id: "doc-2", name: "Dr. Michael Chen", department: "Neurology" },
-  { id: "doc-3", name: "Dr. Emily Rodriguez", department: "Pediatrics" },
-];
 
 interface DroppableSlotProps {
   shift: ScheduleShift;
@@ -111,6 +79,42 @@ const DroppableSlot = ({ shift, onDrop }: DroppableSlotProps) => {
 
 export const ScheduleManagement = () => {
   const { t } = useTranslation();
+  
+  // Mock data with translations
+  const mockScheduleData: ScheduleShift[] = [
+    {
+      id: "shift-1",
+      date: "2024-01-15",
+      timeSlot: "08:00-16:00",
+      doctorId: "doc-1",
+      doctorName: t('mocks.doctors.sarahJohnson'),
+      department: t('mocks.departments.emergencyMedicine'),
+      status: "assigned"
+    },
+    {
+      id: "shift-2",
+      date: "2024-01-15",
+      timeSlot: "16:00-00:00",
+      department: t('mocks.departments.emergencyMedicine'),
+      status: "unassigned"
+    },
+    {
+      id: "shift-3",
+      date: "2024-01-16",
+      timeSlot: "00:00-08:00",
+      doctorId: "doc-2",
+      doctorName: t('mocks.doctors.michaelChen'),
+      department: t('mocks.departments.neurology'),
+      status: "confirmed"
+    }
+  ];
+
+  const mockDoctors = [
+    { id: "doc-1", name: t('mocks.doctors.sarahJohnson'), department: t('mocks.departments.emergencyMedicine') },
+    { id: "doc-2", name: t('mocks.doctors.michaelChen'), department: t('mocks.departments.neurology') },
+    { id: "doc-3", name: t('mocks.doctors.emilyRodriguez'), department: t('mocks.departments.pediatrics') },
+  ];
+  
   const [scheduleStatus, setScheduleStatus] = useState<"draft" | "published">("draft");
   const [generationProgress, setGenerationProgress] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);

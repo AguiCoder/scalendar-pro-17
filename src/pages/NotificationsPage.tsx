@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MedicalSidebar } from "@/components/MedicalSidebar";
 import { NotificationCard } from "@/components/notifications/NotificationCard";
 import { NotificationDetail } from "@/components/notifications/NotificationDetail";
-import { mockNotifications } from "@/data/mockNotifications";
+import { getMockNotifications } from "@/data/mockNotifications";
 import type { Notification, NotificationCategory, NotificationGroup } from "@/types/notifications";
 import { useTranslation } from "react-i18next";
 
@@ -26,7 +26,7 @@ const CATEGORIES = [
 const NotificationsPage = () => {
   const { toast } = useToast();
   const { t } = useTranslation();
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+  const [notifications, setNotifications] = useState<Notification[]>(getMockNotifications(t));
   const [selectedCategory, setSelectedCategory] = useState<NotificationCategory>('all');
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);

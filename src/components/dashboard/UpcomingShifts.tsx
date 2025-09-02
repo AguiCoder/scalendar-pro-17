@@ -15,32 +15,7 @@ interface Shift {
   status: "confirmed" | "pending" | "negotiation";
 }
 
-const mockUpcomingShifts: Shift[] = [
-  {
-    id: "1",
-    date: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
-    startTime: "08:00",
-    endTime: "16:00",
-    department: "Emergency Department",
-    status: "confirmed"
-  },
-  {
-    id: "2", 
-    date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
-    startTime: "20:00",
-    endTime: "08:00",
-    department: "ICU",
-    status: "pending"
-  },
-  {
-    id: "3",
-    date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
-    startTime: "12:00", 
-    endTime: "20:00",
-    department: "Cardiology",
-    status: "negotiation"
-  }
-];
+
 
 const getStatusIcon = (status: string) => {
   switch (status) {
@@ -70,6 +45,35 @@ const getStatusVariant = (status: string) => {
 
 export function UpcomingShifts() {
   const { t } = useTranslation();
+  
+  // Mock data with translations
+  const mockUpcomingShifts = [
+    {
+      id: "1",
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
+      startTime: "08:00",
+      endTime: "16:00",
+      department: t('mocks.locations.icu'),
+      status: "confirmed"
+    },
+    {
+      id: "2",
+      date: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days from now
+      startTime: "20:00",
+      endTime: "08:00",
+      department: t('mocks.locations.icu'),
+      status: "pending"
+    },
+    {
+      id: "3",
+      date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+      startTime: "12:00", 
+      endTime: "20:00",
+      department: t('mocks.departments.cardiology'),
+      status: "negotiation"
+    }
+  ];
+  
   return (
     <Card>
       <CardHeader>
