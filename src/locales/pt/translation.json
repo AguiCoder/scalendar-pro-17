@@ -30,6 +30,8 @@
     "pastTab": "Plantões Passados",
     "upcomingTitle": "Próximos Plantões",
     "scheduledComingDays": "Seus plantões agendados para os próximos dias",
+    "pastTitle": "Plantões Anteriores",
+    "completedShiftHistory": "Seu histórico de plantões concluídos",
     "dateTime": "Data e Hora",
     "department": "Departamento",
     "location": "Local",
@@ -61,6 +63,10 @@
       "tradeSubmittedDescription": "Sua solicitação para {{date}} foi enviada.",
       "leaveSubmittedTitle": "Solicitação de folga enviada",
       "leaveSubmittedDescription": "Seu pedido de {{leaveType}} para {{date}} foi enviado."
+    },
+    "validation": {
+      "tradeReasonMin": "Por favor, forneça um motivo detalhado (mínimo 10 caracteres)",
+      "leaveReasonMin": "Por favor, forneça um motivo (mínimo 5 caracteres)"
     }
   }
   ,
@@ -143,6 +149,30 @@
       "newTradeRequest": {
         "title": "Nova Solicitação de Troca",
         "description": "Dr. Michael Chen solicitou trocar seu plantão matutino de 20 de setembro (08h-18h) em Cardiologia."
+      },
+      "lastMinuteScheduleChange": {
+        "title": "Mudança de Agenda de Última Hora",
+        "description": "Seu plantão de 16 de setembro foi movido de 14h-22h para 06h-14h devido à escassez de pessoal."
+      },
+      "tradeRequestDenied": {
+        "title": "Solicitação de Troca Negada",
+        "description": "Sua solicitação de troca para o plantão noturno de 12 de setembro foi negada pela administração devido aos requisitos mínimos de pessoal."
+      },
+      "systemMaintenanceComplete": {
+        "title": "Manutenção do Sistema Concluída",
+        "description": "A manutenção programada foi concluída. Todos os recursos estão agora totalmente operacionais."
+      },
+      "monthlyScheduleDraft": {
+        "title": "Rascunho da Agenda Mensal",
+        "description": "O rascunho da agenda de outubro está disponível para revisão. Por favor, envie quaisquer alterações de preferência até 25 de setembro."
+      },
+      "tradeDeadlineReminder": {
+        "title": "Lembrete do Prazo de Troca",
+        "description": "Lembrete: Solicitações de troca para plantões nas próximas 48 horas requerem aprovação do supervisor."
+      },
+      "welcomeToEscalaAI": {
+        "title": "Bem-vindo ao Escala AI",
+        "description": "Bem-vindo! Sua conta foi configurada com sucesso. Complete seu perfil para começar com o agendamento inteligente."
       }
     }
   }
@@ -333,7 +363,9 @@
       "morningShift": "Plantão Matutino",
       "eveningShift": "Plantão Vespertino",
       "weekendShift": "Plantão de Fim de Semana",
-      "holidayShift": "Plantão de Feriado"
+      "holidayShift": "Plantão de Feriado",
+      "weekend": "Fim de Semana",
+      "holiday": "Feriado"
     },
     "specialties": {
       "cardiology": "Cardiologia",

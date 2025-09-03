@@ -9,7 +9,7 @@ import { MedicalSidebar } from "@/components/MedicalSidebar";
 import { CalendarFilters } from "@/components/CalendarFilters";
 import { WeeklyCalendar } from "@/components/WeeklyCalendar";
 import { MonthlyCalendar } from "@/components/MonthlyCalendar";
-import { mockShifts } from "@/data/mockShifts";
+import { generateMockShifts } from "@/data/mockShifts";
 import type { Shift } from "@/components/ShiftCard";
 import { useTranslation } from "react-i18next";
 import { getDateFnsLocale } from "@/lib/dateLocale";
@@ -19,13 +19,13 @@ const Index = () => {
   const [viewType, setViewType] = useState<"week" | "month">("week");
   const { t } = useTranslation();
   
-  // Filter states
-  const [selectedDoctor, setSelectedDoctor] = useState("All Doctors");
-  const [selectedDepartment, setSelectedDepartment] = useState("All Departments");
-  const [selectedShiftType, setSelectedShiftType] = useState("All Shifts");
+  // Filter states - use original values for logic
+  const [selectedDoctor, setSelectedDoctor] = useState('All Doctors');
+  const [selectedDepartment, setSelectedDepartment] = useState('All Departments');
+  const [selectedShiftType, setSelectedShiftType] = useState('All Shifts');
 
   // Filter shifts based on selected criteria
-  const filteredShifts = mockShifts.filter((shift: Shift) => {
+  const filteredShifts = generateMockShifts(t, new Date(), 30).filter((shift: Shift) => {
     if (selectedDoctor !== "All Doctors" && shift.doctorName !== selectedDoctor) {
       return false;
     }
@@ -39,9 +39,9 @@ const Index = () => {
   });
 
   const handleClearFilters = () => {
-    setSelectedDoctor("All Doctors");
-    setSelectedDepartment("All Departments");
-    setSelectedShiftType("All Shifts");
+    setSelectedDoctor('All Doctors');
+    setSelectedDepartment('All Departments');
+    setSelectedShiftType('All Shifts');
   };
 
   const navigateMonth = (direction: "prev" | "next") => {

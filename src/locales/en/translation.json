@@ -30,6 +30,8 @@
     "pastTab": "Past Shifts",
     "upcomingTitle": "Upcoming Shifts",
     "scheduledComingDays": "Your scheduled shifts for the coming days",
+    "pastTitle": "Past Shifts",
+    "completedShiftHistory": "Your completed shift history",
     "dateTime": "Date & Time",
     "department": "Department",
     "location": "Location",
@@ -58,9 +60,11 @@
     "requestLeaveDescription": "Request leave for your shift on {{date}} ({{time}})",
     "toast": {
       "tradeSubmittedTitle": "Trade request submitted",
-      "tradeSubmittedDescription": "Your request for {{date}} has been sent.",
-      "leaveSubmittedTitle": "Leave request submitted",
       "leaveSubmittedDescription": "Your {{leaveType}} request for {{date}} has been sent."
+    },
+    "validation": {
+      "tradeReasonMin": "Please provide a detailed reason (minimum 10 characters)",
+      "leaveReasonMin": "Please provide a reason (minimum 5 characters)"
     }
   }
   ,
@@ -143,6 +147,30 @@
       "newTradeRequest": {
         "title": "New Trade Request",
         "description": "Dr. Michael Chen requested to trade their September 20 morning shift (8:00 AM - 6:00 PM) in Cardiology."
+      },
+      "lastMinuteScheduleChange": {
+        "title": "Last-Minute Schedule Change",
+        "description": "Your September 16 shift has been moved from 2:00 PM - 10:00 PM to 6:00 AM - 2:00 PM due to staff shortage."
+      },
+      "tradeRequestDenied": {
+        "title": "Trade Request Denied",
+        "description": "Your trade request for September 12 night shift was denied by administration due to minimum staffing requirements."
+      },
+      "systemMaintenanceComplete": {
+        "title": "System Maintenance Complete",
+        "description": "The scheduled maintenance has been completed. All features are now fully operational."
+      },
+      "monthlyScheduleDraft": {
+        "title": "Monthly Schedule Draft",
+        "description": "October schedule draft is available for review. Please submit any preference changes by September 25."
+      },
+      "tradeDeadlineReminder": {
+        "title": "Trade Deadline Reminder",
+        "description": "Reminder: Trade requests for shifts in the next 48 hours require supervisor approval."
+      },
+      "welcomeToEscalaAI": {
+        "title": "Welcome to Escala AI",
+        "description": "Welcome! Your account has been set up successfully. Complete your profile to get started with intelligent scheduling."
       }
     }
   }
@@ -333,7 +361,9 @@
       "morningShift": "Morning Shift",
       "eveningShift": "Evening Shift",
       "weekendShift": "Weekend Shift",
-      "holidayShift": "Holiday Shift"
+      "holidayShift": "Holiday Shift",
+      "weekend": "Weekend",
+      "holiday": "Holiday"
     },
     "specialties": {
       "cardiology": "Cardiology",

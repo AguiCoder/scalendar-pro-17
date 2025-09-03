@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Shift } from "@/components/ShiftCard";
-import { mockShifts } from "@/data/mockShifts";
+import { generateMockShifts } from "@/data/mockShifts";
 import { format, parseISO } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { getDateFnsLocale } from "@/lib/dateLocale";
@@ -18,7 +18,7 @@ interface ShiftSelectorProps {
 export function ShiftSelector({ selectedShift, onShiftSelect }: ShiftSelectorProps) {
   const { t } = useTranslation();
   // Filter for assigned shifts only (has doctorName)
-  const assignedShifts = mockShifts.filter(shift => shift.doctorName);
+  const assignedShifts = generateMockShifts(t, new Date(), 30).filter(shift => shift.doctorName);
 
   const getStatusBadge = (status: Shift["status"]) => {
     switch (status) {

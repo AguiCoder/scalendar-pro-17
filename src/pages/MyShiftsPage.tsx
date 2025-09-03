@@ -21,24 +21,22 @@ import { Shift } from "@/components/ShiftCard";
 import { useTranslation } from "react-i18next";
 import { getDateFnsLocale } from "@/lib/dateLocale";
 
-// Generate shifts for past and upcoming
-const allShifts = [
-  ...generateMockShifts(subDays(new Date(), 30), 30), // Past 30 days
-  ...generateMockShifts(new Date(), 30), // Next 30 days
-];
 
-const tradeFormSchema = z.object({
-  suggestedColleague: z.string().optional(),
-  reason: z.string().min(10, "Please provide a detailed reason (minimum 10 characters)"),
+
+const createSchemas = (t: (key: string) => string) => ({
+  tradeFormSchema: z.object({
+    suggestedColleague: z.string().optional(),
+    reason: z.string().min(10, t("myShifts.validation.tradeReasonMin")),
+  }),
+  
+  leaveFormSchema: z.object({
+    leaveType: z.string(),
+    reason: z.string().min(5, t("myShifts.validation.leaveReasonMin")),
+  })
 });
 
-const leaveFormSchema = z.object({
-  leaveType: z.string(),
-  reason: z.string().min(5, "Please provide a reason"),
-});
-
-type TradeFormData = z.infer<typeof tradeFormSchema>;
-type LeaveFormData = z.infer<typeof leaveFormSchema>;
+type TradeFormData = z.infer<ReturnType<typeof createSchemas>['tradeFormSchema']>;
+type LeaveFormData = z.infer<ReturnType<typeof createSchemas>['leaveFormSchema']>;
 
 const mockColleagues = [
   "Dr. Sarah Johnson",
@@ -84,6 +82,8 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
   const [tradeDialogOpen, setTradeDialogOpen] = useState(false);
   const [leaveDialogOpen, setLeaveDialogOpen] = useState(false);
   const { t } = useTranslation();
+
+  const { tradeFormSchema, leaveFormSchema } = createSchemas(t);
 
   const tradeForm = useForm<TradeFormData>({
     resolver: zodResolver(tradeFormSchema),
@@ -405,6 +405,12 @@ export default function MyShiftsPage() {
 
   const today = new Date();
   
+  // Generate shifts for past and upcoming with translations
+  const allShifts = [
+    ...generateMockShifts(t, subDays(new Date(), 30), 30), // Past 30 days
+    ...generateMockShifts(t, new Date(), 30), // Next 30 days
+  ];
+  
   // Filter shifts by upcoming/past
   const upcomingShifts = allShifts.filter(shift => 
     isAfter(new Date(shift.date), subDays(today, 1)) && shift.doctorName
@@ -517,9 +523,9 @@ export default function MyShiftsPage() {
                 <TabsContent value="past" className="space-y-4">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Past Shifts ({filterShifts(pastShifts).length})</CardTitle>
+                      <CardTitle>{t("myShifts.pastTitle")} ({filterShifts(pastShifts).length})</CardTitle>
                       <CardDescription>
-                        Your completed shift history
+                        {t("myShifts.completedShiftHistory")}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">

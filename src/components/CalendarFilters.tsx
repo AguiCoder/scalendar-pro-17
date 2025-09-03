@@ -32,36 +32,37 @@ export function CalendarFilters({
 }: CalendarFiltersProps) {
   const { t } = useTranslation();
   
+  // Use original values for logic, translate only for display
   const doctors = [
-    t('calendar.filters.allDoctors'),
-    t('mocks.doctors.sarahJohnson'),
-    t('mocks.doctors.michaelChen'),
-    t('mocks.doctors.emilyRodriguez'),
-    t('mocks.doctors.davidKim'),
-    t('mocks.doctors.lisaThompson'),
+    { value: 'All Doctors', label: t('calendar.filters.allDoctors') },
+    { value: 'Dr. Sarah Johnson', label: 'Dr. Sarah Johnson' },
+    { value: 'Dr. Michael Chen', label: 'Dr. Michael Chen' },
+    { value: 'Dr. Emily Rodriguez', label: 'Dr. Emily Rodriguez' },
+    { value: 'Dr. David Kim', label: 'Dr. David Kim' },
+    { value: 'Dr. Lisa Thompson', label: 'Dr. Lisa Thompson' },
   ];
 
   const departments = [
-    t('calendar.filters.allDepartments'),
-    t('mocks.departments.emergencyMedicine'),
-    t('mocks.departments.cardiology'),
-    t('mocks.departments.neurology'),
-    t('mocks.departments.pediatrics'),
-    t('mocks.departments.radiology'),
+    { value: 'All Departments', label: t('calendar.filters.allDepartments') },
+    { value: 'Emergency Medicine', label: t('mocks.departments.emergencyMedicine') },
+    { value: 'Cardiology', label: t('mocks.departments.cardiology') },
+    { value: 'Neurology', label: t('mocks.departments.neurology') },
+    { value: 'Pediatrics', label: t('mocks.departments.pediatrics') },
+    { value: 'Radiology', label: t('mocks.departments.radiology') },
   ];
 
   const shiftTypes = [
-    t('calendar.filters.allShifts'),
-    t('mocks.shiftTypes.dayShift'),
-    t('mocks.shiftTypes.nightShift'),
-    t('calendar.filters.weekend'),
-    t('calendar.filters.holiday'),
+    { value: 'All Shifts', label: t('calendar.filters.allShifts') },
+    { value: 'Day Shift', label: t('mocks.shiftTypes.dayShift') },
+    { value: 'Night Shift', label: t('mocks.shiftTypes.nightShift') },
+    { value: 'Weekend', label: t('calendar.filters.weekend') },
+    { value: 'Holiday', label: t('calendar.filters.holiday') },
   ];
 
   const hasActiveFilters = 
-    selectedDoctor !== t('calendar.filters.allDoctors') ||
-    selectedDepartment !== t('calendar.filters.allDepartments') ||
-    selectedShiftType !== t('calendar.filters.allShifts');
+    selectedDoctor !== 'All Doctors' ||
+    selectedDepartment !== 'All Departments' ||
+    selectedShiftType !== 'All Shifts';
 
   return (
     <div className="bg-card border border-border rounded-lg p-4 mb-6">
@@ -79,22 +80,22 @@ export function CalendarFilters({
             </SelectTrigger>
             <SelectContent>
               {doctors.map((doctor) => (
-                <SelectItem key={doctor} value={doctor}>
-                  {doctor}
+                <SelectItem key={doctor.value} value={doctor.value}>
+                  {doctor.label}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
 
           <Select value={selectedDepartment} onValueChange={onDepartmentChange}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full min-w-[220px] sm:w-[180px]">
               <Building className="h-4 w-4 mr-2" />
               <SelectValue placeholder={t('calendar.filters.selectDepartment')} />
             </SelectTrigger>
             <SelectContent>
               {departments.map((department) => (
-                <SelectItem key={department} value={department}>
-                  {department}
+                <SelectItem key={department.value} value={department.value}>
+                  {department.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -113,8 +114,8 @@ export function CalendarFilters({
             </SelectTrigger>
             <SelectContent>
               {shiftTypes.map((shiftType) => (
-                <SelectItem key={shiftType} value={shiftType}>
-                  {shiftType}
+                <SelectItem key={shiftType.value} value={shiftType.value}>
+                  {shiftType.label}
                 </SelectItem>
               ))}
             </SelectContent>
