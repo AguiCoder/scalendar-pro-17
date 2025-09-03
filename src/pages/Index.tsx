@@ -9,20 +9,23 @@ import { MedicalSidebar } from "@/components/MedicalSidebar";
 import { CalendarFilters } from "@/components/CalendarFilters";
 import { WeeklyCalendar } from "@/components/WeeklyCalendar";
 import { MonthlyCalendar } from "@/components/MonthlyCalendar";
-import { mockShifts } from "@/data/mockShifts";
+import { generateMockShifts } from "@/data/mockShifts";
 import type { Shift } from "@/components/ShiftCard";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 const Index = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewType, setViewType] = useState<"week" | "month">("week");
+  const { t } = useTranslation();
   
-  // Filter states
-  const [selectedDoctor, setSelectedDoctor] = useState("All Doctors");
-  const [selectedDepartment, setSelectedDepartment] = useState("All Departments");
-  const [selectedShiftType, setSelectedShiftType] = useState("All Shifts");
+  // Filter states - use original values for logic
+  const [selectedDoctor, setSelectedDoctor] = useState('All Doctors');
+  const [selectedDepartment, setSelectedDepartment] = useState('All Departments');
+  const [selectedShiftType, setSelectedShiftType] = useState('All Shifts');
 
   // Filter shifts based on selected criteria
-  const filteredShifts = mockShifts.filter((shift: Shift) => {
+  const filteredShifts = generateMockShifts(t, new Date(), 30).filter((shift: Shift) => {
     if (selectedDoctor !== "All Doctors" && shift.doctorName !== selectedDoctor) {
       return false;
     }
@@ -36,9 +39,9 @@ const Index = () => {
   });
 
   const handleClearFilters = () => {
-    setSelectedDoctor("All Doctors");
-    setSelectedDepartment("All Departments");
-    setSelectedShiftType("All Shifts");
+    setSelectedDoctor('All Doctors');
+    setSelectedDepartment('All Departments');
+    setSelectedShiftType('All Shifts');
   };
 
   const navigateMonth = (direction: "prev" | "next") => {
@@ -57,9 +60,9 @@ const Index = () => {
               <div className="flex items-center gap-3">
                 <SidebarTrigger />
                 <div>
-                  <h1 className="page-title">Shift Calendar</h1>
+                  <h1 className="page-title">{t("app.title")}</h1>
                   <p className="section-subtitle">
-                    Manage medical staff scheduling
+                    {t("app.subtitle")}
                   </p>
                 </div>
               </div>
@@ -69,19 +72,19 @@ const Index = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => navigateMonth("prev")}
-                  aria-label="Previous month"
+                  aria-label={t("common.previousMonth")}
                   className="h-8 w-8 p-0"
                 >
                   ←
                 </Button>
                 <span className="text-sm font-semibold min-w-[140px] text-center px-2">
-                  {format(currentDate, "MMMM yyyy")}
+                  {format(currentDate, "MMMM yyyy", { locale: getDateFnsLocale() })}
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => navigateMonth("next")}
-                  aria-label="Next month"
+                  aria-label={t("common.nextMonth")}
                   className="h-8 w-8 p-0"
                 >
                   →
@@ -113,11 +116,11 @@ const Index = () => {
                 <TabsList className="grid w-fit grid-cols-2">
                   <TabsTrigger value="week" className="flex items-center gap-2">
                     <CalendarDays className="h-4 w-4" />
-                    Week View
+                    {t("common.weekView")}
                   </TabsTrigger>
                   <TabsTrigger value="month" className="flex items-center gap-2">
                     <Grid3X3 className="h-4 w-4" />
-                    Month View
+                    {t("common.monthView")}
                   </TabsTrigger>
                 </TabsList>
 
@@ -135,7 +138,7 @@ const Index = () => {
                 <div className="bg-card border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-medium text-muted-foreground">Total Shifts</h3>
+                      <h3 className="text-sm font-medium text-muted-foreground">{t("common.totalShifts")}</h3>
                       <p className="text-2xl font-bold text-foreground">{filteredShifts.length}</p>
                     </div>
                     <div className="w-2 h-8 bg-primary/20 rounded-full" />
@@ -144,7 +147,7 @@ const Index = () => {
                 <div className="bg-card border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-medium text-muted-foreground">Available</h3>
+                      <h3 className="text-sm font-medium text-muted-foreground">{t("common.available")}</h3>
                       <p className="text-2xl font-bold text-status-available">
                         {filteredShifts.filter(s => s.status === "available").length}
                       </p>
@@ -155,7 +158,7 @@ const Index = () => {
                 <div className="bg-card border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-medium text-muted-foreground">Confirmed</h3>
+                      <h3 className="text-sm font-medium text-muted-foreground">{t("common.confirmed")}</h3>
                       <p className="text-2xl font-bold text-status-confirmed">
                         {filteredShifts.filter(s => s.status === "confirmed").length}
                       </p>
@@ -166,7 +169,7 @@ const Index = () => {
                 <div className="bg-card border border-border rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-sm font-medium text-muted-foreground">In Negotiation</h3>
+                      <h3 className="text-sm font-medium text-muted-foreground">{t("common.inNegotiation")}</h3>
                       <p className="text-2xl font-bold text-status-negotiation">
                         {filteredShifts.filter(s => s.status === "negotiation").length}
                       </p>

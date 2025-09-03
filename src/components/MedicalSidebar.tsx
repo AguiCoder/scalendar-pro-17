@@ -24,16 +24,17 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useTranslation } from "react-i18next";
 
 const navigationItems = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Calendar", url: "/", icon: Calendar },
-  { title: "My Shifts", url: "/shifts", icon: Clock },
-  { title: "Trade Requests", url: "/trade-requests", icon: ArrowLeftRight },
-  { title: "Preferences", url: "/preferences", icon: Settings },
-  { title: "Administration", url: "/admin", icon: Shield },
-  { title: "Chat", url: "/chat", icon: MessageCircle },
-  { title: "Notifications", url: "/notifications", icon: Bell },
+  { key: "dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { key: "calendar", url: "/", icon: Calendar },
+  { key: "myShifts", url: "/shifts", icon: Clock },
+  { key: "tradeRequests", url: "/trade-requests", icon: ArrowLeftRight },
+  { key: "preferences", url: "/preferences", icon: Settings },
+  { key: "administration", url: "/admin", icon: Shield },
+  { key: "chat", url: "/chat", icon: MessageCircle },
+  { key: "notifications", url: "/notifications", icon: Bell },
 ];
 
 export function MedicalSidebar() {
@@ -41,6 +42,7 @@ export function MedicalSidebar() {
   const location = useLocation();
   const currentPath = location.pathname;
   const isCollapsed = state === "collapsed";
+  const { t } = useTranslation();
 
   const isActive = (path: string) => {
     if (path === "/" && currentPath === "/") return true;
@@ -58,19 +60,19 @@ export function MedicalSidebar() {
             </div>
             {!isCollapsed && (
               <div>
-                <h2 className="font-semibold text-sidebar-foreground">Escala AI</h2>
-                <p className="text-xs text-sidebar-foreground/60">Medical Scheduling</p>
+                <h2 className="font-semibold text-sidebar-foreground">{t('calendar.sidebar.brandName')}</h2>
+                <p className="text-xs text-sidebar-foreground/60">{t('calendar.sidebar.tagline')}</p>
               </div>
             )}
           </div>
         </div>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel>{t('calendar.sidebar.navigation')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.key}>
                   <SidebarMenuButton
                     asChild
                     className={
@@ -81,7 +83,7 @@ export function MedicalSidebar() {
                   >
                     <Link to={item.url} className="flex items-center gap-2">
                       <item.icon className="h-4 w-4" />
-                      {!isCollapsed && <span>{item.title}</span>}
+                      {!isCollapsed && <span>{t(`calendar.sidebar.links.${item.key}`)}</span>}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

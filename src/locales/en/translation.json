@@ -1,0 +1,901 @@
+{
+  "app": {
+    "title": "Shift Calendar",
+    "subtitle": "Manage medical staff scheduling"
+  },
+  "common": {
+    "weekView": "Week View",
+    "monthView": "Month View",
+    "totalShifts": "Total Shifts",
+    "available": "Available",
+    "confirmed": "Confirmed",
+    "pending": "Pending",
+    "inNegotiation": "In Negotiation",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Your upcoming shifts, alerts, and quick actions"
+  },
+  "myShifts": {
+    "title": "My Shifts",
+    "subtitle": "Review your upcoming and past shifts. Manage trades and leave requests.",
+    "filters": "Filters",
+    "filterByStatus": "Filter by status",
+    "allStatuses": "All Statuses",
+    "filterByDepartment": "Filter by department",
+    "allDepartments": "All Departments",
+    "upcomingTab": "Upcoming Shifts",
+    "pastTab": "Past Shifts",
+    "upcomingTitle": "Upcoming Shifts",
+    "scheduledComingDays": "Your scheduled shifts for the coming days",
+    "pastTitle": "Past Shifts",
+    "completedShiftHistory": "Your completed shift history",
+    "dateTime": "Date & Time",
+    "department": "Department",
+    "location": "Location",
+    "status": "Status",
+    "actions": "Actions",
+    "noShiftsFound": "No shifts found",
+    "trade": "Trade",
+    "leave": "Leave",
+    "requestShiftTrade": "Request Shift Trade",
+    "requestLeave": "Request Leave",
+    "suggestedColleagueOptional": "Suggested Colleague (Optional)",
+    "selectColleaguePlaceholder": "Select a colleague to suggest",
+    "reasonForTradeRequest": "Reason for Trade Request",
+    "reasonPlaceholderTrade": "Please explain why you need to trade this shift...",
+    "cancel": "Cancel",
+    "submitRequest": "Submit Request",
+    "leaveType": "Leave Type",
+    "selectLeaveType": "Select leave type",
+    "vacation": "Vacation",
+    "sickLeave": "Sick Leave",
+    "personalLeave": "Personal Leave",
+    "emergencyLeave": "Emergency Leave",
+    "reason": "Reason",
+    "reasonPlaceholderLeave": "Brief reason for leave request...",
+    "requestTradeDescription": "Request a trade for your shift on {{date}} ({{time}})",
+    "requestLeaveDescription": "Request leave for your shift on {{date}} ({{time}})",
+    "toast": {
+      "tradeSubmittedTitle": "Trade request submitted",
+      "leaveSubmittedDescription": "Your {{leaveType}} request for {{date}} has been sent."
+    },
+    "validation": {
+      "tradeReasonMin": "Please provide a detailed reason (minimum 10 characters)",
+      "leaveReasonMin": "Please provide a reason (minimum 5 characters)"
+    }
+  }
+  ,
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Stay updated with your schedule, trades, and system alerts",
+    "unread": "unread",
+    "markAllRead": "Mark All Read",
+    "sort": {
+      "newest": "Sort by Newest",
+      "oldest": "Sort by Oldest",
+      "newestShort": "Newest First",
+      "oldestShort": "Oldest First"
+    },
+    "empty": {
+      "title": "No notifications",
+      "allCaughtUp": "You're all caught up!",
+      "noneInCategory": "No {{category}} notifications found."
+    },
+    "categories": {
+      "all": "All",
+      "trades": "Trades",
+      "schedules": "Schedules",
+      "system": "System"
+    },
+    "groups": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "last7Days": "Last 7 Days",
+      "older": "Older"
+    },
+    "sheet": {
+      "title": "Notification Details",
+      "description": "View and manage this notification"
+    },
+    "badge": {
+      "actionRequired": "Action Required"
+    },
+    "priority": {
+      "low": "Low",
+      "normal": "Normal",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "detail": {
+      "details": "Details",
+      "doctor": "Doctor:",
+      "date": "Date:",
+      "time": "Time:",
+      "department": "Department:",
+      "unread": "Unread",
+      "acceptTrade": "Accept Trade",
+      "decline": "Decline",
+      "viewSchedule": "View Schedule",
+      "updateProfile": "Update Profile",
+      "markAsRead": "Mark as Read",
+      "close": "Close"
+    },
+    "toast": {
+      "markedAsReadTitle": "Marked as read",
+      "markedAsReadDescription": "Notification has been marked as read.",
+      "allMarkedTitle": "All notifications marked as read",
+      "allMarkedDescription": "{{count}} notifications marked as read.",
+      "newNotificationTitle": "New notification",
+      "newNotificationDescription": "{{doctor}} responded to your trade request."
+    },
+    "messages": {
+      "shiftTradeAccepted": {
+        "title": "Shift Trade Accepted",
+        "description": "Dr. Sarah Johnson accepted your trade request for September 15, 7:00 PM - 7:00 AM night shift in Emergency Department."
+      },
+      "weeklySchedulePublished": {
+        "title": "Weekly Schedule Published",
+        "description": "Your schedule for September 18-24 has been published and is ready for review."
+      },
+      "profileUpdateRequired": {
+        "title": "Profile Update Required",
+        "description": "Please update your availability preferences. Your current settings expire on September 30."
+      },
+      "newTradeRequest": {
+        "title": "New Trade Request",
+        "description": "Dr. Michael Chen requested to trade their September 20 morning shift (8:00 AM - 6:00 PM) in Cardiology."
+      },
+      "lastMinuteScheduleChange": {
+        "title": "Last-Minute Schedule Change",
+        "description": "Your September 16 shift has been moved from 2:00 PM - 10:00 PM to 6:00 AM - 2:00 PM due to staff shortage."
+      },
+      "tradeRequestDenied": {
+        "title": "Trade Request Denied",
+        "description": "Your trade request for September 12 night shift was denied by administration due to minimum staffing requirements."
+      },
+      "systemMaintenanceComplete": {
+        "title": "System Maintenance Complete",
+        "description": "The scheduled maintenance has been completed. All features are now fully operational."
+      },
+      "monthlyScheduleDraft": {
+        "title": "Monthly Schedule Draft",
+        "description": "October schedule draft is available for review. Please submit any preference changes by September 25."
+      },
+      "tradeDeadlineReminder": {
+        "title": "Trade Deadline Reminder",
+        "description": "Reminder: Trade requests for shifts in the next 48 hours require supervisor approval."
+      },
+      "welcomeToEscalaAI": {
+        "title": "Welcome to Escala AI",
+        "description": "Welcome! Your account has been set up successfully. Complete your profile to get started with intelligent scheduling."
+      }
+    }
+  }
+  ,
+  "dashboardComponents": {
+    "upcomingShifts": {
+      "title": "Upcoming Shifts"
+    },
+    "pastShifts": {
+      "title": "Past Shifts",
+      "subtitle": "Your completed shift history"
+    },
+    "alerts": {
+      "title": "Recent Alerts",
+      "actionable": "actionable",
+      "ariaLabel": "Recent alerts",
+      "toastTitle": "Alert Details",
+      "takeAction": "Take Action",
+      "priority": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      },
+      "messages": {
+        "tradeRequestPending": {
+          "title": "Trade Request Pending",
+          "description": "Dr. Sarah Miller wants to trade your Dec 15th shift"
+        },
+        "schedulePublished": {
+          "title": "January Schedule Published",
+          "description": "Your schedule for January 2024 is now available"
+        },
+        "shiftChangeRequired": {
+          "title": "Shift Change Required",
+          "description": "Emergency coverage needed for ICU Dec 12th, 2-10 PM"
+        },
+        "leaveRequestApproved": {
+          "title": "Leave Request Approved",
+          "description": "Your vacation request for Dec 20-25 has been approved"
+        }
+      }
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "trade": {
+        "title": "Request Shift Trade",
+        "subtitle": "Find someone to cover your shift"
+      },
+      "leave": {
+        "title": "Request Leave",
+        "subtitle": "Submit vacation or time off",
+        "toastTitle": "Leave Request",
+        "toastDescription": "Redirecting to leave request form..."
+      },
+      "schedule": {
+        "title": "View Full Schedule",
+        "subtitle": "See all upcoming shifts"
+      }
+    },
+    "metrics": {
+      "weeklyDistribution": {
+        "title": "Weekly Distribution",
+        "description": "Shifts per day this week"
+      },
+      "shiftStatus": {
+        "title": "Shift Status",
+        "description": "Current month breakdown"
+      },
+      "monthlyHours": {
+        "title": "Monthly Hours",
+        "description": "Working hours trend"
+      }
+    }
+  }
+  ,
+  "trade": {
+    "shiftSelector": {
+      "title": "Select Shift to Trade",
+      "availableForTrade": "Available for Trade",
+      "selectedForTrade": "Selected for Trade",
+      "location": "Location:",
+      "noAssigned": "No assigned shifts available for trade"
+    },
+    "history": {
+      "title": "Trade Request History",
+      "emptyTitle": "No trade requests yet",
+      "emptySubtitle": "Your trade request history will appear here",
+      "tableHeaders": {
+        "shift": "Shift",
+        "department": "Department",
+        "colleague": "Colleague",
+        "status": "Status",
+        "submitted": "Submitted"
+      },
+      "openToAll": "Open to all",
+      "status": {
+        "requested": "Requested",
+        "offered": "Offered",
+        "accepted": "Accepted",
+        "approved": "Approved",
+        "cancelled": "Cancelled",
+        "rejected": "Rejected"
+      },
+      "menu": {
+        "open": "Open actions menu",
+        "viewDetails": "View Details",
+        "cancel": "Cancel Request",
+        "resend": "Resend Request"
+      },
+      "cancelDialog": {
+        "title": "Cancel Trade Request",
+        "description": "Are you sure you want to cancel this trade request? This action cannot be undone.",
+        "keep": "Keep Request",
+        "confirm": "Cancel Request"
+      },
+      "toast": {
+        "cancelledTitle": "Trade Request Cancelled",
+        "cancelledDesc": "Your trade request has been cancelled successfully.",
+        "resentTitle": "Trade Request Resent",
+        "resentDesc": "Your trade request has been resent successfully."
+      }
+    },
+    "statusCard": {
+      "title": "Trade Request Status",
+      "stepCounter": "Step {{current}} of {{total}}",
+      "badges": {
+        "completed": "Completed",
+        "current": "Current",
+        "pending": "Pending"
+      },
+      "steps": {
+        "requested": { "label": "Requested", "description": "Trade request submitted" },
+        "offered": { "label": "Offered", "description": "Colleague responded with interest" },
+        "accepted": { "label": "Accepted", "description": "Both parties agreed to trade" },
+        "approved": { "label": "Approved", "description": "Administration approved the trade" },
+        "cancelled": { "label": "Cancelled", "description": "Trade request was cancelled" },
+        "rejected": { "label": "Rejected", "description": "Trade request was rejected" }
+      },
+      "stepMessages": {
+        "requested": "Waiting for colleague responses...",
+        "offered": "Review the offer and accept if suitable.",
+        "accepted": "Pending administration approval.",
+        "approved": "Trade completed successfully!"
+      }
+    },
+    "form": {
+      "title": "Trade Request Details",
+      "selectedShift": "Selected Shift",
+      "suggestedColleagueOptional": "Suggested Colleague (Optional)",
+      "selectColleaguePlaceholder": "Select a colleague or leave open for all",
+      "openToAll": "Open to all colleagues",
+      "reasonLabel": "Reason for Trade Request *",
+      "reasonPlaceholder": "Please provide a detailed reason for your trade request. This helps colleagues understand your situation and increases the likelihood of finding a match.",
+      "submitting": "Submitting...",
+      "submit": "Submit Trade Request",
+      "confirmTitle": "Confirm Trade Request",
+      "confirmDescription": "Are you sure you want to submit this trade request for your shift on {{date}} from {{time}}?",
+      "confirmWillBeSent": "This request will be sent to {{colleague}}.",
+      "confirmAndSubmit": "Confirm & Submit"
+    }
+  },
+  "mocks": {
+    "departments": {
+      "emergencyMedicine": "Emergency Medicine",
+      "cardiology": "Cardiology",
+      "neurology": "Neurology",
+      "pediatrics": "Pediatrics",
+      "internalMedicine": "Internal Medicine",
+      "surgery": "Surgery",
+      "orthopedics": "Orthopedics",
+      "psychiatry": "Psychiatry",
+      "radiology": "Radiology",
+      "anesthesiology": "Anesthesiology"
+    },
+    "doctors": {
+      "sarahJohnson": "Dr. Sarah Johnson",
+      "michaelChen": "Dr. Michael Chen",
+      "emilyRodriguez": "Dr. Emily Rodriguez",
+      "davidKim": "Dr. David Kim",
+      "lisaThompson": "Dr. Lisa Thompson",
+      "alexBrown": "Dr. Alex Brown",
+      "mariaGarcia": "Dr. Maria Garcia",
+      "jamesWilson": "Dr. James Wilson"
+    },
+    "shiftTypes": {
+      "dayShift": "Day Shift",
+      "nightShift": "Night Shift",
+      "morningShift": "Morning Shift",
+      "eveningShift": "Evening Shift",
+      "weekendShift": "Weekend Shift",
+      "holidayShift": "Holiday Shift",
+      "weekend": "Weekend",
+      "holiday": "Holiday"
+    },
+    "specialties": {
+      "cardiology": "Cardiology",
+      "neurology": "Neurology",
+      "pediatrics": "Pediatrics",
+      "emergencyMedicine": "Emergency Medicine",
+      "internalMedicine": "Internal Medicine",
+      "surgery": "Surgery",
+      "orthopedics": "Orthopedics",
+      "psychiatry": "Psychiatry"
+    },
+    "preferences": {
+      "avoidSundayNights": {
+        "title": "Avoid Sunday nights",
+        "description": "Prefer not to work Sunday evening shifts"
+      },
+      "preferMorningShifts": {
+        "title": "Prefer morning shifts",
+        "description": "Work better during morning hours"
+      },
+      "emergencyDepartmentPreference": {
+        "title": "Emergency Department preference",
+        "description": "Prefer working in the Emergency Department"
+      },
+      "avoidNightShifts": {
+        "title": "Avoid night shifts",
+        "description": "Prefer not to work overnight shifts"
+      },
+      "preferWeekendShifts": {
+        "title": "Prefer weekend shifts",
+        "description": "Available for weekend coverage"
+      },
+      "avoidHolidays": {
+        "title": "Avoid holidays",
+        "description": "Prefer not to work on holidays"
+      }
+    },
+    "locations": {
+      "floor1": "Floor 1",
+      "floor2": "Floor 2",
+      "floor3": "Floor 3",
+      "icu": "ICU",
+      "er": "Emergency Room",
+      "operatingRoom": "Operating Room",
+      "recoveryRoom": "Recovery Room"
+    },
+    "workOrderTypes": {
+      "maintenance": "Maintenance",
+      "repair": "Repair",
+      "inspection": "Inspection",
+      "cleaning": "Cleaning",
+      "equipment": "Equipment",
+      "facility": "Facility"
+    }
+  },
+  "preferences": {
+    "vacations": {
+      "title": "Vacations & Time Off",
+      "subtitle": "Manage your planned vacations and leave requests",
+      "add": "Add Vacation",
+      "dialog": {
+        "title": "Add New Vacation",
+        "description": "Schedule your time off for better planning",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "pickDate": "Pick a date",
+        "type": "Type",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Brief description of your time off",
+        "cancel": "Cancel",
+        "confirm": "Add Vacation"
+      },
+      "empty": {
+        "title": "No vacations planned",
+        "subtitle": "Add your first vacation to get started."
+      },
+      "range": "{{start}} - {{end}}",
+      "day": "day",
+      "days": "days",
+      "ariaRemove": "Remove vacation"
+    },
+    "weighted": {
+      "title": "AI Scheduling Preferences",
+      "subtitle": "Set weighted preferences to guide the AI scheduling engine",
+      "add": "Add Preference",
+      "dialog": {
+        "title": "Add New Preference",
+        "description": "Create a weighted preference for the AI scheduling engine",
+        "category": "Category",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Brief title for your preference",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Detailed description of your preference",
+        "importance": "Importance Level",
+        "low0": "Low (0)",
+        "medium5": "Medium (5)",
+        "critical10": "Critical (10)",
+        "cancel": "Cancel",
+        "confirm": "Add Preference"
+      },
+      "categories": {
+        "time_preference": "Time Preference",
+        "shift_type": "Shift Type",
+        "department": "Department",
+        "colleague": "Colleague",
+        "custom": "Custom"
+      },
+      "weights": {
+        "none": "None",
+        "veryLow": "Very Low",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "veryHigh": "Very High",
+        "critical": "Critical"
+      },
+      "empty": {
+        "title": "No preferences set",
+        "subtitle": "Add weighted preferences to guide AI scheduling."
+      },
+      "labels": {
+        "weight": "Weight:",
+        "removeAria": "Remove preference"
+      }
+    },
+    "restrictions": {
+      "title": "Scheduling Restrictions",
+      "subtitle": "Set rules and constraints for your shift assignments",
+      "add": "Add Restriction",
+      "dialog": {
+        "title": "Add New Restriction",
+        "description": "Create rules to guide your scheduling preferences",
+        "type": "Restriction Type",
+        "chooseType": "Choose a restriction type",
+        "custom": "Custom Restriction",
+        "titleLabel": "Title",
+        "titlePlaceholder": "Enter restriction title",
+        "descriptionLabel": "Description",
+        "descriptionPlaceholder": "Describe the restriction in detail",
+        "value": "Value",
+        "cancel": "Cancel",
+        "confirm": "Add Restriction"
+      },
+      "empty": {
+        "title": "No restrictions set",
+        "subtitle": "Add rules to guide your scheduling preferences."
+      },
+      "aria": {
+        "toggle": "Toggle {{title}}",
+        "remove": "Remove restriction"
+      },
+      "badges": {
+        "custom": "Custom"
+      },
+      "types": {
+        "maxConsecutiveNights": {
+          "title": "Maximum consecutive night shifts",
+          "description": "No more than 2 consecutive night shifts"
+        },
+        "minWeekendsOff": {
+          "title": "Minimum weekends off per month",
+          "description": "At least 1 weekend off per month"
+        }
+      }
+    },
+    "availability": {
+      "title": "Weekly Availability",
+      "subtitle": "Set your available days and time ranges for scheduling",
+      "days": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      },
+      "to": "to",
+      "addTimeRange": "Add time range",
+      "notAvailable": "Not available",
+      "start": "Start",
+      "end": "End",
+      "remove": "Remove",
+      "rangesCount": "({{count}} range{{s}})"
+    }
+  }
+  ,
+  "admin": {
+    "team": {
+      "title": "Team Management",
+      "subtitle": "Manage doctors, departments, and specialties",
+      "tabs": {
+        "doctors": "Doctors",
+        "departments": "Departments",
+        "specialties": "Specialties"
+      },
+      "doctors": {
+        "title": "Doctors",
+        "subtitle": "Manage medical staff and their specialties",
+        "add": "Add Doctor",
+        "edit": "Edit Doctor",
+        "addNew": "Add New Doctor",
+        "updateInfo": "Update doctor information",
+        "addInfo": "Add a new doctor to the system",
+        "form": {
+          "fullName": "Full Name",
+          "crm": "CRM Number",
+          "primarySpecialty": "Primary Specialty",
+          "selectSpecialty": "Select specialty",
+          "department": "Department",
+          "selectDepartment": "Select department",
+          "activeStatus": "Active Status",
+          "activeHint": "Doctor can be assigned to shifts"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "add": "Add Doctor",
+          "update": "Update Doctor",
+          "deactivate": "Deactivate",
+          "activate": "Activate"
+        },
+        "table": {
+          "name": "Name",
+          "crm": "CRM",
+          "specialties": "Specialties",
+          "department": "Department",
+          "status": "Status",
+          "actions": "Actions",
+          "active": "Active",
+          "inactive": "Inactive"
+        },
+        "toasts": {
+          "updated": "Doctor updated successfully",
+          "added": "Doctor added successfully",
+          "statusUpdated": "Doctor status updated"
+        }
+      },
+      "departments": {
+        "title": "Departments",
+        "subtitle": "Manage hospital departments and units",
+        "add": "Add Department",
+        "edit": "Edit Department",
+        "addNew": "Add New Department",
+        "updateInfo": "Update department information",
+        "addInfo": "Add a new department to the system",
+        "form": {
+          "name": "Department Name",
+          "description": "Description",
+          "descriptionPlaceholder": "Brief description of the department's services"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "add": "Add Department",
+          "update": "Update Department"
+        },
+        "table": {
+          "name": "Name",
+          "description": "Description",
+          "actions": "Actions"
+        },
+        "toasts": {
+          "updated": "Department updated successfully",
+          "added": "Department added successfully",
+          "deleted": "Department deleted successfully"
+        }
+      },
+      "specialties": {
+        "title": "Specialties",
+        "subtitle": "Manage medical specialties and certifications",
+        "add": "Add Specialty",
+        "edit": "Edit Specialty",
+        "addNew": "Add New Specialty",
+        "updateInfo": "Update specialty information",
+        "addInfo": "Add a new medical specialty",
+        "form": {
+          "code": "Specialty Code",
+          "name": "Specialty Name"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "add": "Add Specialty",
+          "update": "Update Specialty"
+        },
+        "table": {
+          "code": "Code",
+          "name": "Name",
+          "actions": "Actions"
+        },
+        "toasts": {
+          "updated": "Specialty updated successfully",
+          "added": "Specialty added successfully",
+          "deleted": "Specialty deleted successfully"
+        }
+      }
+    },
+    "schedule": {
+      "title": "Schedule Management",
+      "subtitle": "Generate, validate, and publish medical staff schedules",
+      "statusCard": {
+        "label": "Status",
+        "published": "Published",
+        "draft": "Draft",
+        "unassigned": "Unassigned",
+        "assigned": "Assigned",
+        "confirmed": "Confirmed"
+      },
+      "actions": {
+        "generate": "Generate Schedule",
+        "generating": "Generating...",
+        "validate": "Validate",
+        "publish": "Publish"
+      },
+      "progress": {
+        "generating": "Generating optimal schedule..."
+      },
+      "warnings": {
+        "unassigned": "{{count}} shifts are still unassigned. Complete assignments before publishing."
+      },
+      "manual": {
+        "title": "Manual Schedule Editor",
+        "subtitle": "Drag and drop doctors to assign shifts manually",
+        "selectWeek": "Select week",
+        "weeks": {
+          "2024-01-15": "Week of Jan 15, 2024",
+          "2024-01-22": "Week of Jan 22, 2024",
+          "2024-01-29": "Week of Jan 29, 2024"
+        },
+        "availableDoctors": "Available Doctors",
+        "table": {
+          "date": "Date",
+          "timeSlot": "Time Slot",
+          "department": "Department",
+          "assignedDoctor": "Assigned Doctor",
+          "status": "Status",
+          "dropHere": "Drop doctor here"
+        }
+      },
+      "toasts": {
+        "generatedTitle": "Schedule generated successfully",
+        "generatedDesc": "Review and validate the schedule before publishing",
+        "validatedTitle": "Schedule validated",
+        "validatedDesc": "All constraints satisfied. Ready to publish.",
+        "publishedTitle": "Schedule published",
+        "publishedDesc": "Notifications sent to all assigned doctors",
+        "assignedTitle": "Shift assigned",
+        "assignedDesc": "{{doctor}} assigned to shift"
+      }
+    },
+    "workOrders": {
+      "title": "Work Orders Import",
+      "subtitle": "Import service orders via CSV file to generate schedules",
+      "upload": {
+        "uploadCsv": "Upload CSV File",
+        "hint": "Drag and drop your work orders CSV file or click to browse",
+        "chooseFile": "Choose File",
+        "template": "Template",
+        "processing": "Processing file...",
+        "invalidTypeTitle": "Invalid file type",
+        "invalidTypeDesc": "Please upload a CSV file",
+        "uploadedTitle": "File uploaded successfully",
+        "uploadedDesc": "Processed {{count}} work orders"
+      },
+      "summary": {
+        "valid": "Valid Orders",
+        "errors": "Errors",
+        "total": "Total"
+      },
+      "preview": {
+        "title": "Preview & Validation",
+        "subtitle": "Review imported work orders before processing",
+        "import": "Import {{count}} Valid Orders",
+        "errorAlert": "{{count}} work orders have validation errors. Please fix these issues before importing.",
+        "table": {
+          "id": "ID",
+          "date": "Date",
+          "department": "Department",
+          "specialty": "Specialty",
+          "shiftType": "Shift Type",
+          "priority": "Priority",
+          "status": "Status",
+          "valid": "Valid",
+          "error": "Error"
+        }
+      },
+      "toasts": {
+        "importedTitle": "Work orders imported",
+        "importedDesc": "Successfully imported {{count}} work orders"
+      }
+    },
+    "monitoring": {
+      "overview": {
+        "coverageGaps": "Coverage Gaps",
+        "coverageRate": "Coverage Rate",
+        "avgFairness": "Avg. Fairness",
+        "activeDoctors": "Active Doctors",
+        "thisMonth": "This month",
+        "thisPeriod": "This period",
+        "highPriority": "high priority"
+      },
+      "gaps": {
+        "title": "Coverage Gaps",
+        "subtitle": "Unassigned shifts requiring immediate attention",
+        "table": {
+          "date": "Date",
+          "timeSlot": "Time Slot",
+          "department": "Department",
+          "duration": "Duration",
+          "priority": "Priority",
+          "none": "No coverage gaps found"
+        }
+      },
+      "fairness": {
+        "title": "Fairness Statistics",
+        "subtitle": "Work distribution fairness across doctors",
+        "night": "Night",
+        "weekend": "Weekend",
+        "total": "Total"
+      },
+      "distribution": {
+        "title": "Shift Distribution",
+        "subtitle": "Night and weekend shift distribution by doctor",
+        "legend": {
+          "nightShifts": "Night Shifts",
+          "weekendShifts": "Weekend Shifts"
+        }
+      },
+      "coverage": {
+        "title": "Coverage Overview",
+        "subtitle": "Overall schedule coverage status",
+        "metrics": {
+          "coverageMetrics": "Coverage Metrics",
+          "totalShifts": "Total Shifts",
+          "coveredShifts": "Covered Shifts",
+          "coverageGaps": "Coverage Gaps",
+          "coverageRate": "Coverage Rate"
+        }
+      }
+    },
+    "draggable": {
+      "status": {
+        "unassigned": "Unassigned",
+        "assigned": "Assigned",
+        "confirmed": "Confirmed"
+      }
+    }
+  }
+  ,
+  "calendar": {
+    "filters": {
+      "title": "Filters",
+      "selectDoctor": "Select Doctor",
+      "selectDepartment": "Select Department",
+      "selectShiftType": "Select Shift Type",
+      "clearAll": "Clear All",
+      "active": "active",
+      "allDoctors": "All Doctors",
+      "allDepartments": "All Departments",
+      "allShifts": "All Shifts"
+    },
+    "sidebar": {
+      "brandName": "Escala AI",
+      "tagline": "Medical Scheduling",
+      "navigation": "Navigation",
+      "links": {
+        "dashboard": "Dashboard",
+        "calendar": "Calendar",
+        "myShifts": "My Shifts",
+        "tradeRequests": "Trade Requests",
+        "preferences": "Preferences",
+        "administration": "Administration",
+        "chat": "Chat",
+        "notifications": "Notifications"
+      }
+    },
+    "weekdays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "counts": {
+      "shifts_one": "{{count}} shift",
+      "shifts_other": "{{count}} shifts",
+      "more": "+{{count}} more"
+    },
+    "empty": {
+      "noShifts": "No shifts",
+      "unassigned": "Unassigned",
+      "unassignedShift": "Unassigned Shift",
+      "clickToAssign": "Click to assign a shift for {{date}}"
+    },
+    "actions": {
+      "requestTrade": "Request Trade",
+      "markUnavailable": "Mark Unavailable",
+      "viewDetails": "View Details"
+    }
+  },
+  "preferencesPage": {
+    "title": "Doctor Preferences",
+    "subtitle": "Manage your availability, vacations, restrictions, and preferences",
+    "tabs": {
+      "availability": "Availability",
+      "vacations": "Vacations",
+      "restrictions": "Restrictions",
+      "aiPreferences": "AI Preferences"
+    },
+    "saveButton": {
+      "save": "Save Preferences",
+      "saving": "Saving..."
+    },
+    "toasts": {
+      "savedTitle": "Preferences saved",
+      "savedDesc": "Your scheduling preferences have been updated successfully."
+    }
+  },
+  "adminPage": {
+    "title": "Administration",
+    "subtitle": "Manage your team, schedules, and fairness statistics.",
+    "tabs": {
+      "team": "Team",
+      "workOrders": "Work Orders",
+      "schedules": "Schedules",
+      "monitoring": "Monitoring"
+    }
+  },
+  "tradeRequestPage": {
+    "title": "Shift Trade Request",
+    "subtitle": "Request a trade, suggest a colleague, and track your requests."
+  }
+}
+
+

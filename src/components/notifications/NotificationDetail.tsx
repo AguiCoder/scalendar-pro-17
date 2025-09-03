@@ -16,6 +16,8 @@ import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import type { Notification } from '@/types/notifications';
+import { useTranslation } from 'react-i18next';
+import { getDateFnsLocale } from '@/lib/dateLocale';
 
 const notificationIcons = {
   trade: ArrowLeftRight,
@@ -31,8 +33,9 @@ interface NotificationDetailProps {
 }
 
 export function NotificationDetail({ notification, onClose, onMarkAsRead }: NotificationDetailProps) {
+  const { t } = useTranslation();
   const Icon = notificationIcons[notification.type];
-  const fullTimestamp = format(notification.timestamp, 'EEEE, MMMM d, yyyy \'at\' h:mm a');
+  const fullTimestamp = format(notification.timestamp, 'PPPP p', { locale: getDateFnsLocale() });
 
   const handleMarkAsRead = () => {
     if (notification.status === 'unread') {
@@ -48,11 +51,11 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
             <div className="flex gap-2">
               <Button size="sm" className="flex items-center gap-1">
                 <CheckCircle className="h-4 w-4" />
-                Accept Trade
+                {t('notifications.detail.acceptTrade')}
               </Button>
               <Button variant="outline" size="sm" className="flex items-center gap-1">
                 <XCircle className="h-4 w-4" />
-                Decline
+                {t('notifications.detail.decline')}
               </Button>
             </div>
           );
@@ -63,7 +66,7 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
           return (
             <Button size="sm" className="flex items-center gap-1">
               <Calendar className="h-4 w-4" />
-              View Schedule
+              {t('notifications.detail.viewSchedule')}
             </Button>
           );
         }
@@ -73,7 +76,7 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
           return (
             <Button size="sm" className="flex items-center gap-1">
               <Settings className="h-4 w-4" />
-              Update Profile
+              {t('notifications.detail.updateProfile')}
             </Button>
           );
         }
@@ -109,12 +112,12 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
             <div className="flex items-center gap-2">
               {notification.status === 'unread' && (
                 <Badge variant="default" className="bg-status-available text-status-available-foreground">
-                  Unread
+                  {t('notifications.detail.unread')}
                 </Badge>
               )}
               {notification.priority !== 'normal' && (
                 <Badge variant={notification.priority === 'urgent' ? 'destructive' : 'secondary'}>
-                  {notification.priority}
+                  {t(`notifications.priority.${notification.priority}`)}
                 </Badge>
               )}
             </div>
@@ -134,13 +137,13 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
         {notification.relatedData && (
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm font-medium">Details</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('notifications.detail.details')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {notification.relatedData.doctorName && (
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Doctor:</span>
+                  <span className="text-sm font-medium">{t('notifications.detail.doctor')}</span>
                   <span className="text-sm">{notification.relatedData.doctorName}</span>
                 </div>
               )}
@@ -148,7 +151,7 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
               {notification.relatedData.date && (
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Date:</span>
+                  <span className="text-sm font-medium">{t('notifications.detail.date')}</span>
                   <span className="text-sm">{notification.relatedData.date}</span>
                 </div>
               )}
@@ -156,7 +159,7 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
               {notification.relatedData.time && (
                 <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Time:</span>
+                  <span className="text-sm font-medium">{t('notifications.detail.time')}</span>
                   <span className="text-sm">{notification.relatedData.time}</span>
                 </div>
               )}
@@ -164,7 +167,7 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
               {notification.relatedData.department && (
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Department:</span>
+                  <span className="text-sm font-medium">{t('notifications.detail.department')}</span>
                   <span className="text-sm">{notification.relatedData.department}</span>
                 </div>
               )}
@@ -188,11 +191,11 @@ export function NotificationDetail({ notification, onClose, onMarkAsRead }: Noti
               size="sm" 
               onClick={handleMarkAsRead}
             >
-              Mark as Read
+              {t('notifications.detail.markAsRead')}
             </Button>
           )}
           <Button variant="ghost" size="sm" onClick={onClose}>
-            Close
+            {t('notifications.detail.close')}
           </Button>
         </div>
       </div>

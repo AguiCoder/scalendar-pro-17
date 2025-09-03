@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 interface Alert {
   id: string;
@@ -16,44 +18,7 @@ interface Alert {
   actionable: boolean;
 }
 
-const mockAlerts: Alert[] = [
-  {
-    id: "1",
-    type: "trade_request",
-    title: "Trade Request Pending",
-    description: "Dr. Sarah Miller wants to trade your Dec 15th shift",
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
-    priority: "high",
-    actionable: true
-  },
-  {
-    id: "2",
-    type: "schedule_published",
-    title: "January Schedule Published",
-    description: "Your schedule for January 2024 is now available",
-    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
-    priority: "medium",
-    actionable: false
-  },
-  {
-    id: "3",
-    type: "last_minute_change",
-    title: "Shift Change Required",
-    description: "Emergency coverage needed for ICU Dec 12th, 2-10 PM",
-    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
-    priority: "high",
-    actionable: true
-  },
-  {
-    id: "4",
-    type: "approval_needed",
-    title: "Leave Request Approved",
-    description: "Your vacation request for Dec 20-25 has been approved",
-    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
-    priority: "low",
-    actionable: false
-  }
-];
+
 
 const getAlertIcon = (type: string) => {
   switch (type) {
@@ -86,6 +51,47 @@ const getPriorityColor = (priority: string) => {
 export function AlertsSection() {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  
+  // Mock data with translations
+  const mockAlerts: Alert[] = [
+    {
+      id: "1",
+      type: "trade_request",
+      title: t('dashboardComponents.alerts.messages.tradeRequestPending.title'),
+      description: t('dashboardComponents.alerts.messages.tradeRequestPending.description'),
+      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      priority: "high",
+      actionable: true
+    },
+    {
+      id: "2",
+      type: "schedule_published",
+      title: t('dashboardComponents.alerts.messages.schedulePublished.title'),
+      description: t('dashboardComponents.alerts.messages.schedulePublished.description'),
+      timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+      priority: "medium",
+      actionable: false
+    },
+    {
+      id: "3",
+      type: "last_minute_change",
+      title: t('dashboardComponents.alerts.messages.shiftChangeRequired.title'),
+      description: t('dashboardComponents.alerts.messages.shiftChangeRequired.description'),
+      timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
+      priority: "high",
+      actionable: true
+    },
+    {
+      id: "4",
+      type: "approval_needed",
+      title: t('dashboardComponents.alerts.messages.leaveRequestApproved.title'),
+      description: t('dashboardComponents.alerts.messages.leaveRequestApproved.description'),
+      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+      priority: "low",
+      actionable: false
+    }
+  ];
 
   const handleAlertClick = (alert: Alert) => {
     if (alert.type === "trade_request") {
@@ -94,7 +100,7 @@ export function AlertsSection() {
       navigate("/");
     } else {
       toast({
-        title: "Alert Details",
+        title: t('dashboardComponents.alerts.toastTitle'),
         description: alert.description,
       });
     }
@@ -105,14 +111,14 @@ export function AlertsSection() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Bell className="h-5 w-5 text-primary" />
-          Recent Alerts
+          {t('dashboardComponents.alerts.title')}
           <Badge variant="secondary" className="ml-auto">
-            {mockAlerts.filter(a => a.actionable).length} actionable
+            {mockAlerts.filter(a => a.actionable).length} {t('dashboardComponents.alerts.actionable')}
           </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3" role="region" aria-live="polite" aria-label="Recent alerts">
+        <div className="space-y-3" role="region" aria-live="polite" aria-label={t('dashboardComponents.alerts.ariaLabel')}>
           {mockAlerts.map((alert) => (
             <div 
               key={alert.id}
@@ -137,10 +143,10 @@ export function AlertsSection() {
                   </h3>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <span className={`text-xs font-medium ${getPriorityColor(alert.priority)}`}>
-                      {alert.priority}
+                      {t(`dashboardComponents.alerts.priority.${alert.priority}`)}
                     </span>
                     <span className="text-xs text-muted-foreground">
-                      {format(alert.timestamp, "MMM d, HH:mm")}
+                      {format(alert.timestamp, "PP p", { locale: getDateFnsLocale() })}
                     </span>
                   </div>
                 </div>
@@ -157,7 +163,7 @@ export function AlertsSection() {
                       handleAlertClick(alert);
                     }}
                   >
-                    Take Action
+                    {t('dashboardComponents.alerts.takeAction')}
                   </Button>
                 )}
               </div>

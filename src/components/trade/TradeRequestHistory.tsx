@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 import { 
   MoreHorizontal, 
   Eye, 
@@ -26,50 +27,52 @@ interface TradeRequest {
   reason: string;
 }
 
-const mockTradeRequests: TradeRequest[] = [
-  {
-    id: "tr-001",
-    shiftDate: "2024-12-15",
-    shiftTime: "08:00 - 14:00",
-    department: "Emergency Medicine",
-    colleagueInvolved: "Dr. Sarah Johnson",
-    status: "accepted",
-    createdAt: "2024-12-10T10:30:00Z",
-    reason: "Family emergency - need to attend my child's school event"
-  },
-  {
-    id: "tr-002", 
-    shiftDate: "2024-12-20",
-    shiftTime: "19:00 - 07:00",
-    department: "Cardiology",
-    status: "requested",
-    createdAt: "2024-12-08T14:20:00Z",
-    reason: "Medical appointment that couldn't be rescheduled"
-  },
-  {
-    id: "tr-003",
-    shiftDate: "2024-12-12",
-    shiftTime: "14:00 - 20:00", 
-    department: "Neurology",
-    colleagueInvolved: "Dr. Michael Chen",
-    status: "rejected",
-    createdAt: "2024-12-05T09:15:00Z",
-    reason: "Personal vacation - already booked flights"
-  },
-  {
-    id: "tr-004",
-    shiftDate: "2024-12-25",
-    shiftTime: "08:00 - 14:00",
-    department: "Pediatrics", 
-    colleagueInvolved: "Dr. Emily Rodriguez",
-    status: "approved",
-    createdAt: "2024-12-01T16:45:00Z",
-    reason: "Christmas with family - willing to take New Year's shift in exchange"
-  }
-];
-
 export function TradeRequestHistory() {
+  const { t } = useTranslation();
   const { toast } = useToast();
+  
+  const mockTradeRequests: TradeRequest[] = [
+    {
+      id: "tr-001",
+      shiftDate: "2024-12-15",
+      shiftTime: "08:00 - 14:00",
+      department: t('mocks.departments.emergencyMedicine'),
+      colleagueInvolved: t('mocks.doctors.sarahJohnson'),
+      status: "accepted",
+      createdAt: "2024-12-10T10:30:00Z",
+      reason: "Family emergency - need to attend my child's school event"
+    },
+    {
+      id: "tr-002", 
+      shiftDate: "2024-12-20",
+      shiftTime: "19:00 - 07:00",
+      department: t('mocks.departments.cardiology'),
+      status: "requested",
+      createdAt: "2024-12-08T14:20:00Z",
+      reason: "Medical appointment that couldn't be rescheduled"
+    },
+    {
+      id: "tr-003",
+      shiftDate: "2024-12-12",
+      shiftTime: "14:00 - 20:00", 
+      department: t('mocks.departments.neurology'),
+      colleagueInvolved: t('mocks.doctors.michaelChen'),
+      status: "rejected",
+      createdAt: "2024-12-05T09:15:00Z",
+      reason: "Personal vacation - already booked flights"
+    },
+    {
+      id: "tr-004",
+      shiftDate: "2024-12-25",
+      shiftTime: "08:00 - 14:00",
+      department: t('mocks.departments.pediatrics'), 
+      colleagueInvolved: t('mocks.doctors.emilyRodriguez'),
+      status: "approved",
+      createdAt: "2024-12-01T16:45:00Z",
+      reason: "Christmas with family - willing to take New Year's shift in exchange"
+    }
+  ];
+  
   const [requests, setRequests] = useState<TradeRequest[]>(mockTradeRequests);
 
   const getStatusBadge = (status: TradeRequest["status"]) => {
@@ -77,37 +80,37 @@ export function TradeRequestHistory() {
       case "requested":
         return (
           <Badge variant="secondary" className="bg-status-pending-light text-status-pending border-status-pending/20">
-            Requested
+            {t('trade.statusCard.steps.requested.label')}
           </Badge>
         );
       case "offered":
         return (
           <Badge variant="secondary" className="bg-status-offered-light text-status-offered border-status-offered/20">
-            Offered
+            {t('trade.statusCard.steps.offered.label')}
           </Badge>
         );
       case "accepted":
         return (
           <Badge variant="secondary" className="bg-status-accepted-light text-status-accepted border-status-accepted/20">
-            Accepted
+            {t('trade.statusCard.steps.accepted.label')}
           </Badge>
         );
       case "approved":
         return (
-          <Badge variant="secondary" className="bg-status-approved-light text-status-approved border-status-approved/20">
-            Approved
+          <Badge variant="secondary" className="bg-status-offered-light text-status-offered border-status-offered/20">
+            {t('trade.statusCard.steps.approved.label')}
           </Badge>
         );
       case "cancelled":
         return (
           <Badge variant="secondary" className="bg-muted text-muted-foreground">
-            Cancelled
+            {t('trade.statusCard.steps.cancelled.label')}
           </Badge>
         );
       case "rejected":
         return (
           <Badge variant="secondary" className="bg-destructive/10 text-destructive border-destructive/20">
-            Rejected
+            {t('trade.statusCard.steps.rejected.label')}
           </Badge>
         );
     }
@@ -122,8 +125,8 @@ export function TradeRequestHistory() {
       )
     );
     toast({
-      title: "Trade Request Cancelled",
-      description: "Your trade request has been cancelled successfully.",
+      title: t('trade.history.toast.cancelledTitle'),
+      description: t('trade.history.toast.cancelledDesc'),
     });
   };
 
@@ -136,8 +139,8 @@ export function TradeRequestHistory() {
       )
     );
     toast({
-      title: "Trade Request Resent",
-      description: "Your trade request has been resent successfully.",
+      title: t('trade.history.toast.resentTitle'),
+      description: t('trade.history.toast.resentDesc'),
     });
   };
 
@@ -154,26 +157,26 @@ export function TradeRequestHistory() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <History className="h-5 w-5" />
-          Trade Request History
+          {t('trade.history.title')}
         </CardTitle>
       </CardHeader>
       <CardContent>
         {requests.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <History className="h-12 w-12 mx-auto mb-4 opacity-50" />
-            <p>No trade requests yet</p>
-            <p className="text-sm">Your trade request history will appear here</p>
+            <p>{t('trade.history.emptyTitle')}</p>
+            <p className="text-sm">{t('trade.history.emptySubtitle')}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Shift</TableHead>
-                  <TableHead>Department</TableHead>
-                  <TableHead>Colleague</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Submitted</TableHead>
+                  <TableHead>{t('trade.history.tableHeaders.shift')}</TableHead>
+                  <TableHead>{t('trade.history.tableHeaders.department')}</TableHead>
+                  <TableHead>{t('trade.history.tableHeaders.colleague')}</TableHead>
+                  <TableHead>{t('trade.history.tableHeaders.status')}</TableHead>
+                  <TableHead>{t('trade.history.tableHeaders.submitted')}</TableHead>
                   <TableHead className="w-[50px]"></TableHead>
                 </TableRow>
               </TableHeader>
@@ -195,7 +198,7 @@ export function TradeRequestHistory() {
                     </TableCell>
                     <TableCell>
                       <p className="text-sm">
-                        {request.colleagueInvolved || "Open to all"}
+                        {request.colleagueInvolved || t('trade.history.openToAll')}
                       </p>
                     </TableCell>
                     <TableCell>
@@ -211,13 +214,13 @@ export function TradeRequestHistory() {
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                             <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Open actions menu</span>
+                            <span className="sr-only">{t('trade.history.menu.open')}</span>
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem>
                             <Eye className="h-4 w-4 mr-2" />
-                            View Details
+                            {t('trade.history.menu.viewDetails')}
                           </DropdownMenuItem>
                           
                           {canCancel(request.status) && (
@@ -225,23 +228,23 @@ export function TradeRequestHistory() {
                               <AlertDialogTrigger asChild>
                                 <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                                   <X className="h-4 w-4 mr-2" />
-                                  Cancel Request
+                                  {t('trade.history.menu.cancel')}
                                 </DropdownMenuItem>
                               </AlertDialogTrigger>
                               <AlertDialogContent>
                                 <AlertDialogHeader>
-                                  <AlertDialogTitle>Cancel Trade Request</AlertDialogTitle>
+                                  <AlertDialogTitle>{t('trade.history.cancelDialog.title')}</AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Are you sure you want to cancel this trade request? This action cannot be undone.
+                                    {t('trade.history.cancelDialog.description')}
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Keep Request</AlertDialogCancel>
+                                  <AlertDialogCancel>{t('trade.history.cancelDialog.keep')}</AlertDialogCancel>
                                   <AlertDialogAction 
                                     onClick={() => handleCancel(request.id)}
                                     className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                   >
-                                    Cancel Request
+                                    {t('trade.history.cancelDialog.confirm')}
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -251,7 +254,7 @@ export function TradeRequestHistory() {
                           {canResend(request.status) && (
                             <DropdownMenuItem onClick={() => handleResend(request.id)}>
                               <RefreshCw className="h-4 w-4 mr-2" />
-                              Resend Request
+                              {t('trade.history.menu.resend')}
                             </DropdownMenuItem>
                           )}
                         </DropdownMenuContent>

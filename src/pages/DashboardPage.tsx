@@ -4,8 +4,10 @@ import { UpcomingShifts } from "@/components/dashboard/UpcomingShifts";
 import { AlertsSection } from "@/components/dashboard/AlertsSection";
 import { QuickActions } from "@/components/dashboard/QuickActions";
 import { MetricsOverview } from "@/components/dashboard/MetricsOverview";
+import { useTranslation } from "react-i18next";
 
 const DashboardPage = () => {
+  const { t } = useTranslation();
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -18,9 +20,9 @@ const DashboardPage = () => {
               <div className="flex items-center gap-3">
                 <SidebarTrigger />
                 <div>
-                  <h1 className="page-title">Dashboard</h1>
+                  <h1 className="page-title">{t("dashboard.title")}</h1>
                   <p className="section-subtitle">
-                    Your upcoming shifts, alerts, and quick actions
+                    {t("dashboard.subtitle")}
                   </p>
                 </div>
               </div>

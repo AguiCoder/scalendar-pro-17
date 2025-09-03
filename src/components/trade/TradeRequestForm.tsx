@@ -12,6 +12,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Shift } from "@/components/ShiftCard";
 import { User, Clock, MapPin, Send } from "lucide-react";
 import { format, parseISO } from "date-fns";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
 const formSchema = z.object({
   suggestedColleague: z.string().optional(),
@@ -37,6 +39,7 @@ const mockColleagues = [
 export function TradeRequestForm({ selectedShift, onSubmit }: TradeRequestFormProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,8 +58,8 @@ export function TradeRequestForm({ selectedShift, onSubmit }: TradeRequestFormPr
     onSubmit(data);
     
     toast({
-      title: "Trade Request Submitted",
-      description: "Your shift trade request has been sent successfully.",
+      title: t('myShifts.toast.tradeSubmittedTitle'),
+      description: t('myShifts.toast.tradeSubmittedDescription', { date: format(parseISO(selectedShift.date), 'PP', { locale: getDateFnsLocale() }) }),
     });
     
     form.reset();
@@ -68,18 +71,18 @@ export function TradeRequestForm({ selectedShift, onSubmit }: TradeRequestFormPr
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Send className="h-5 w-5" />
-          Trade Request Details
+          {t('trade.form.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Selected Shift Summary */}
         <div className="p-4 border rounded-lg bg-muted/50">
-          <h4 className="font-medium mb-3">Selected Shift</h4>
+          <h4 className="font-medium mb-3">{t('trade.form.selectedShift')}</h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-muted-foreground" />
               <div>
-                <p className="font-medium">{format(parseISO(selectedShift.date), "MMM dd, yyyy")}</p>
+                <p className="font-medium">{format(parseISO(selectedShift.date), "PPP", { locale: getDateFnsLocale() })}</p>
                 <p className="text-muted-foreground">{selectedShift.startTime} - {selectedShift.endTime}</p>
               </div>
             </div>
@@ -110,15 +113,15 @@ export function TradeRequestForm({ selectedShift, onSubmit }: TradeRequestFormPr
               name="suggestedColleague"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Suggested Colleague (Optional)</FormLabel>
+                  <FormLabel>{t('trade.form.suggestedColleagueOptional')}</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a colleague or leave open for all" />
+                        <SelectValue placeholder={t('trade.form.selectColleaguePlaceholder')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="">Open to all colleagues</SelectItem>
+                      <SelectItem value="">{t('trade.form.openToAll')}</SelectItem>
                       {mockColleagues.map((colleague) => (
                         <SelectItem key={colleague} value={colleague}>
                           {colleague}
@@ -136,10 +139,10 @@ export function TradeRequestForm({ selectedShift, onSubmit }: TradeRequestFormPr
               name="reason"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Reason for Trade Request *</FormLabel>
+                  <FormLabel>{t('trade.form.reasonLabel')}</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Please provide a detailed reason for your trade request. This helps colleagues understand your situation and increases the likelihood of finding a match."
+                      placeholder={t('trade.form.reasonPlaceholder')}
                       className="min-h-[100px]"
                       {...field}
                     />
@@ -156,27 +159,28 @@ export function TradeRequestForm({ selectedShift, onSubmit }: TradeRequestFormPr
                   className="w-full" 
                   disabled={!form.formState.isValid || isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit Trade Request"}
+                  {isSubmitting ? t('trade.form.submitting') : t('trade.form.submit')}
                 </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Confirm Trade Request</AlertDialogTitle>
+                  <AlertDialogTitle>{t('trade.form.confirmTitle')}</AlertDialogTitle>
                   <AlertDialogDescription>
-                    Are you sure you want to submit this trade request for your shift on{" "}
-                    <strong>{format(parseISO(selectedShift.date), "MMM dd, yyyy")}</strong> from{" "}
-                    <strong>{selectedShift.startTime} - {selectedShift.endTime}</strong>?
+                    {t('trade.form.confirmDescription', {
+                      date: format(parseISO(selectedShift.date), 'PPP', { locale: getDateFnsLocale() }),
+                      time: `${selectedShift.startTime} - ${selectedShift.endTime}`
+                    })}
                     {form.watch("suggestedColleague") && (
                       <>
-                        {" "}This request will be sent to <strong>{form.watch("suggestedColleague")}</strong>.
+                        {" "}{t('trade.form.confirmWillBeSent', { colleague: form.watch('suggestedColleague') })}
                       </>
                     )}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel>{t('myShifts.cancel')}</AlertDialogCancel>
                   <AlertDialogAction onClick={form.handleSubmit(handleSubmit)}>
-                    Confirm & Submit
+                    {t('trade.form.confirmAndSubmit')}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>

@@ -2,6 +2,7 @@ import { TrendingUp, Clock, Users, Calendar } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from "recharts";
+import { useTranslation } from "react-i18next";
 
 const shiftDistributionData = [
   { name: "Mon", shifts: 4, fill: "hsl(var(--status-confirmed))" },
@@ -50,6 +51,7 @@ const chartConfig = {
 };
 
 export function MetricsOverview() {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {/* Weekly Distribution */}
@@ -57,9 +59,9 @@ export function MetricsOverview() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Calendar className="h-4 w-4 text-primary" />
-            Weekly Distribution
+            {t('dashboardComponents.metrics.weeklyDistribution.title')}
           </CardTitle>
-          <CardDescription>Shifts per day this week</CardDescription>
+          <CardDescription>{t('dashboardComponents.metrics.weeklyDistribution.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[200px]">
@@ -85,9 +87,9 @@ export function MetricsOverview() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <Clock className="h-4 w-4 text-primary" />
-            Shift Status
+            {t('dashboardComponents.metrics.shiftStatus.title')}
           </CardTitle>
-          <CardDescription>Current month breakdown</CardDescription>
+          <CardDescription>{t('dashboardComponents.metrics.shiftStatus.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[200px]">
@@ -117,7 +119,7 @@ export function MetricsOverview() {
                   className="w-2 h-2 rounded-full" 
                   style={{ backgroundColor: item.fill }}
                 />
-                <span className="text-muted-foreground">{item.name}: {item.value}</span>
+                <span className="text-muted-foreground">{t(`common.${item.name.toLowerCase().replace(' ', '')}`) || item.name}: {item.value}</span>
               </div>
             ))}
           </div>
@@ -129,9 +131,9 @@ export function MetricsOverview() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-base">
             <TrendingUp className="h-4 w-4 text-primary" />
-            Monthly Hours
+            {t('dashboardComponents.metrics.monthlyHours.title')}
           </CardTitle>
-          <CardDescription>Working hours trend</CardDescription>
+          <CardDescription>{t('dashboardComponents.metrics.monthlyHours.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={chartConfig} className="h-[200px]">

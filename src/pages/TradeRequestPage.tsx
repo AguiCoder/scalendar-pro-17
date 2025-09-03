@@ -6,8 +6,10 @@ import { TradeRequestForm } from "@/components/trade/TradeRequestForm";
 import { TradeStatusStepper } from "@/components/trade/TradeStatusStepper";
 import { TradeRequestHistory } from "@/components/trade/TradeRequestHistory";
 import { Shift } from "@/components/ShiftCard";
+import { useTranslation } from "react-i18next";
 
 export default function TradeRequestPage() {
+  const { t } = useTranslation();
   const [selectedShift, setSelectedShift] = useState<Shift | null>(null);
   const [currentStatus, setCurrentStatus] = useState<"requested" | "offered" | "accepted" | "approved">("requested");
 
@@ -20,9 +22,9 @@ export default function TradeRequestPage() {
             <div className="space-y-6">
               {/* Header */}
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold text-foreground">Shift Trade Request</h1>
+                <h1 className="text-3xl font-bold text-foreground">{t('tradeRequestPage.title')}</h1>
                 <p className="text-muted-foreground">
-                  Request a trade, suggest a colleague, and track your requests.
+                  {t('tradeRequestPage.subtitle')}
                 </p>
               </div>
 

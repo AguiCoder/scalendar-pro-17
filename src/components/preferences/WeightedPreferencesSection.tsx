@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import type { WeightedPreference } from "@/types/preferences";
+import { useTranslation } from "react-i18next";
 
 const PREFERENCE_CATEGORIES = [
   { value: 'time_preference', label: 'Time Preference' },
@@ -48,34 +49,36 @@ const getWeightBadgeVariant = (weight: number) => {
   return 'destructive';
 };
 
-const initialPreferences: WeightedPreference[] = [
-  {
-    id: '1',
-    category: 'time_preference',
-    title: 'Avoid Sunday nights',
-    description: 'Prefer not to work Sunday evening shifts',
-    weight: 8,
-    isActive: true
-  },
-  {
-    id: '2',
-    category: 'shift_type',
-    title: 'Prefer morning shifts',
-    description: 'Work better during morning hours',
-    weight: 6,
-    isActive: true
-  },
-  {
-    id: '3',
-    category: 'department',
-    title: 'Emergency Department preference',
-    description: 'Prefer working in the Emergency Department',
-    weight: 4,
-    isActive: true
-  }
-];
-
 export function WeightedPreferencesSection() {
+  const { t } = useTranslation();
+  
+  const initialPreferences: WeightedPreference[] = [
+    {
+      id: '1',
+      category: 'time_preference',
+      title: t('mocks.preferences.avoidSundayNights.title'),
+      description: t('mocks.preferences.avoidSundayNights.description'),
+      weight: 8,
+      isActive: true
+    },
+    {
+      id: '2',
+      category: 'shift_type',
+      title: t('mocks.preferences.preferMorningShifts.title'),
+      description: t('mocks.preferences.preferMorningShifts.description'),
+      weight: 6,
+      isActive: true
+    },
+    {
+      id: '3',
+      category: 'department',
+      title: t('mocks.preferences.emergencyDepartmentPreference.title'),
+      description: t('mocks.preferences.emergencyDepartmentPreference.description'),
+      weight: 4,
+      isActive: true
+    }
+  ];
+  
   const [preferences, setPreferences] = useState<WeightedPreference[]>(initialPreferences);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [category, setCategory] = useState<WeightedPreference['category']>('time_preference');
@@ -122,7 +125,7 @@ export function WeightedPreferencesSection() {
   };
 
   const getCategoryLabel = (category: WeightedPreference['category']) => {
-    return PREFERENCE_CATEGORIES.find(c => c.value === category)?.label || 'Unknown';
+    return t(`preferences.weighted.categories.${category}`);
   };
 
   return (
@@ -132,30 +135,30 @@ export function WeightedPreferencesSection() {
           <div>
             <CardTitle className="flex items-center gap-2">
               <Brain className="h-5 w-5" />
-              AI Scheduling Preferences
+              {t('preferences.weighted.title')}
             </CardTitle>
             <CardDescription>
-              Set weighted preferences to guide the AI scheduling engine
+              {t('preferences.weighted.subtitle')}
             </CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="flex items-center gap-2">
                 <Plus className="h-4 w-4" />
-                Add Preference
+                {t('preferences.weighted.add')}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
-                <DialogTitle>Add New Preference</DialogTitle>
+                <DialogTitle>{t('preferences.weighted.dialog.title')}</DialogTitle>
                 <DialogDescription>
-                  Create a weighted preference for the AI scheduling engine
+                  {t('preferences.weighted.dialog.description')}
                 </DialogDescription>
               </DialogHeader>
               
               <div className="grid gap-4 py-4">
                 <div>
-                  <Label htmlFor="category">Category</Label>
+                  <Label htmlFor="category">{t('preferences.weighted.dialog.category')}</Label>
                   <Select value={category} onValueChange={(value: WeightedPreference['category']) => setCategory(value)}>
                     <SelectTrigger>
                       <SelectValue />
@@ -163,7 +166,7 @@ export function WeightedPreferencesSection() {
                     <SelectContent>
                       {PREFERENCE_CATEGORIES.map((cat) => (
                         <SelectItem key={cat.value} value={cat.value}>
-                          {cat.label}
+                          {t(`preferences.weighted.categories.${cat.value}`)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -171,28 +174,28 @@ export function WeightedPreferencesSection() {
                 </div>
 
                 <div>
-                  <Label htmlFor="title">Title</Label>
+                  <Label htmlFor="title">{t('preferences.weighted.dialog.titleLabel')}</Label>
                   <Input
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Brief title for your preference"
+                    placeholder={t('preferences.weighted.dialog.titlePlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">{t('preferences.weighted.dialog.descriptionLabel')}</Label>
                   <Textarea
                     id="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Detailed description of your preference"
+                    placeholder={t('preferences.weighted.dialog.descriptionPlaceholder')}
                     rows={3}
                   />
                 </div>
 
                 <div>
-                  <Label>Importance Level</Label>
+                  <Label>{t('preferences.weighted.dialog.importance')}</Label>
                   <div className="space-y-3">
                     <Slider
                       value={weight}
@@ -203,13 +206,13 @@ export function WeightedPreferencesSection() {
                       className="w-full"
                     />
                     <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Low (0)</span>
-                      <span>Medium (5)</span>
-                      <span>Critical (10)</span>
+                      <span>{t('preferences.weighted.dialog.low0')}</span>
+                      <span>{t('preferences.weighted.dialog.medium5')}</span>
+                      <span>{t('preferences.weighted.dialog.critical10')}</span>
                     </div>
                     <div className="text-center">
                       <Badge variant={getWeightBadgeVariant(weight[0])} className="px-3 py-1">
-                        {weight[0]} - {WEIGHT_LABELS[weight[0] as keyof typeof WEIGHT_LABELS]}
+                        {weight[0]} - {t(`preferences.weighted.weights.${WEIGHT_LABELS[weight[0] as keyof typeof WEIGHT_LABELS].replace(' ', '').toLowerCase()}`)}
                       </Badge>
                     </div>
                   </div>
@@ -218,13 +221,13 @@ export function WeightedPreferencesSection() {
               
               <DialogFooter>
                 <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                  Cancel
+                  {t('preferences.weighted.dialog.cancel')}
                 </Button>
                 <Button 
                   onClick={handleAddPreference}
                   disabled={!title.trim() || !description.trim()}
                 >
-                  Add Preference
+                  {t('preferences.weighted.dialog.confirm')}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -235,8 +238,8 @@ export function WeightedPreferencesSection() {
         {preferences.length === 0 ? (
           <div className="text-center py-8">
             <Brain className="mx-auto h-12 w-12 text-muted-foreground/50" />
-            <h3 className="mt-4 text-lg font-medium">No preferences set</h3>
-            <p className="text-muted-foreground">Add weighted preferences to guide AI scheduling.</p>
+            <h3 className="mt-4 text-lg font-medium">{t('preferences.weighted.empty.title')}</h3>
+            <p className="text-muted-foreground">{t('preferences.weighted.empty.subtitle')}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -247,7 +250,7 @@ export function WeightedPreferencesSection() {
                     <Switch
                       checked={preference.isActive}
                       onCheckedChange={(checked) => togglePreference(preference.id, checked)}
-                      aria-label={`Toggle ${preference.title}`}
+                      aria-label={t('preferences.restrictions.aria.toggle', { title: preference.title })}
                     />
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -267,7 +270,7 @@ export function WeightedPreferencesSection() {
                     variant="ghost"
                     size="sm"
                     onClick={() => removePreference(preference.id)}
-                    aria-label="Remove preference"
+                    aria-label={t('preferences.weighted.labels.removeAria')}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -277,7 +280,7 @@ export function WeightedPreferencesSection() {
                   <div className="mt-4 pl-8">
                     <div className="flex items-center gap-4">
                       <Label className="text-xs text-muted-foreground min-w-[60px]">
-                        Weight:
+                        {t('preferences.weighted.labels.weight')}
                       </Label>
                       <div className="flex-1 max-w-xs">
                         <Slider
@@ -293,7 +296,7 @@ export function WeightedPreferencesSection() {
                         variant={getWeightBadgeVariant(preference.weight)}
                         className="min-w-[80px] justify-center"
                       >
-                        {preference.weight} - {WEIGHT_LABELS[preference.weight as keyof typeof WEIGHT_LABELS]}
+                        {preference.weight} - {t(`preferences.weighted.weights.${WEIGHT_LABELS[preference.weight as keyof typeof WEIGHT_LABELS].replace(' ', '').toLowerCase()}`)}
                       </Badge>
                     </div>
                   </div>

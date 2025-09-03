@@ -8,8 +8,11 @@ import { ScheduleManagement } from "@/components/admin/ScheduleManagement";
 import { MonitoringInsights } from "@/components/admin/MonitoringInsights";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { useTranslation } from "react-i18next";
 
 export default function AdminPage() {
+  const { t } = useTranslation();
+  
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
@@ -19,9 +22,9 @@ export default function AdminPage() {
             <div className="space-y-6">
               {/* Header */}
               <div className="space-y-2">
-                <h1 className="page-title">Administration</h1>
+                <h1 className="page-title">{t('adminPage.title')}</h1>
                 <p className="section-subtitle">
-                  Manage your team, schedules, and fairness statistics.
+                  {t('adminPage.subtitle')}
                 </p>
               </div>
 
@@ -29,10 +32,10 @@ export default function AdminPage() {
               <DndProvider backend={HTML5Backend}>
                 <Tabs defaultValue="team" className="w-full">
                   <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="team">Team</TabsTrigger>
-                    <TabsTrigger value="work-orders">Work Orders</TabsTrigger>
-                    <TabsTrigger value="schedules">Schedules</TabsTrigger>
-                    <TabsTrigger value="monitoring">Monitoring</TabsTrigger>
+                    <TabsTrigger value="team">{t('adminPage.tabs.team')}</TabsTrigger>
+                    <TabsTrigger value="work-orders">{t('adminPage.tabs.workOrders')}</TabsTrigger>
+                    <TabsTrigger value="schedules">{t('adminPage.tabs.schedules')}</TabsTrigger>
+                    <TabsTrigger value="monitoring">{t('adminPage.tabs.monitoring')}</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="team" className="space-y-4">

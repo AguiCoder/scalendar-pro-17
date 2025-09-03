@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import type { Restriction } from "@/types/preferences";
+import { useTranslation } from "react-i18next";
 
 const RESTRICTION_TEMPLATES = [
   {
@@ -41,27 +42,30 @@ const RESTRICTION_TEMPLATES = [
   }
 ];
 
-const initialRestrictions: Restriction[] = [
-  {
-    id: '1',
-    type: 'max_consecutive_nights',
-    title: 'Maximum consecutive night shifts',
-    description: 'No more than 2 consecutive night shifts',
-    value: 2,
-    isActive: true
-  },
-  {
-    id: '2',
-    type: 'min_weekends_off',
-    title: 'Minimum weekends off per month',
-    description: 'At least 1 weekend off per month',
-    value: 1,
-    isActive: true
-  }
-];
-
 export function RestrictionsSection() {
+  const { t } = useTranslation();
+  
+  const initialRestrictions: Restriction[] = [
+    {
+      id: '1',
+      type: 'max_consecutive_nights',
+      title: t('preferences.restrictions.types.maxConsecutiveNights.title'),
+      description: t('preferences.restrictions.types.maxConsecutiveNights.description'),
+      value: 2,
+      isActive: true
+    },
+    {
+      id: '2',
+      type: 'min_weekends_off',
+      title: t('preferences.restrictions.types.minWeekendsOff.title'),
+      description: t('preferences.restrictions.types.minWeekendsOff.description'),
+      value: 1,
+      isActive: true
+    }
+  ];
+  
   const [restrictions, setRestrictions] = useState<Restriction[]>(initialRestrictions);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<string>('');
   const [customTitle, setCustomTitle] = useState('');
@@ -78,7 +82,7 @@ export function RestrictionsSection() {
 
     const newRestriction: Restriction = {
       id: Date.now().toString(),
-      type: isCustom ? 'custom' : (selectedTemplate as any),
+      type: isCustom ? 'custom' : (selectedTemplate as Restriction['type']),
       title: isCustom ? customTitle.trim() : template!.title,
       description: isCustom ? customDescription.trim() : `${template!.description}${template!.valueType === 'number' ? ` (${restrictionValue})` : ''}`,
       value: template?.valueType === 'number' ? parseInt(restrictionValue) : restrictionValue || 'enabled',
@@ -114,33 +118,33 @@ export function RestrictionsSection() {
           <div>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              Scheduling Restrictions
+              {t('preferences.restrictions.title')}
             </CardTitle>
             <CardDescription>
-              Set rules and constraints for your shift assignments
+              {t('preferences.restrictions.subtitle')}
             </CardDescription>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button className="flex items-center gap-2">
                 <Plus className="h-4 w-4" />
-                Add Restriction
+                {t('preferences.restrictions.add')}
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
-                <DialogTitle>Add New Restriction</DialogTitle>
+                <DialogTitle>{t('preferences.restrictions.dialog.title')}</DialogTitle>
                 <DialogDescription>
-                  Create rules to guide your scheduling preferences
+                  {t('preferences.restrictions.dialog.description')}
                 </DialogDescription>
               </DialogHeader>
               
               <div className="grid gap-4 py-4">
                 <div>
-                  <Label htmlFor="template">Restriction Type</Label>
+                  <Label htmlFor="template">{t('preferences.restrictions.dialog.type')}</Label>
                   <Select value={selectedTemplate} onValueChange={setSelectedTemplate}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Choose a restriction type" />
+                      <SelectValue placeholder={t('preferences.restrictions.dialog.chooseType')} />
                     </SelectTrigger>
                     <SelectContent>
                       {RESTRICTION_TEMPLATES.map((template) => (
@@ -148,7 +152,7 @@ export function RestrictionsSection() {
                           {template.title}
                         </SelectItem>
                       ))}
-                      <SelectItem value="custom">Custom Restriction</SelectItem>
+                      <SelectItem value="custom">{t('preferences.restrictions.dialog.custom')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -156,21 +160,21 @@ export function RestrictionsSection() {
                 {selectedTemplate === 'custom' && (
                   <>
                     <div>
-                      <Label htmlFor="custom-title">Title</Label>
+                      <Label htmlFor="custom-title">{t('preferences.restrictions.dialog.titleLabel')}</Label>
                       <Input
                         id="custom-title"
                         value={customTitle}
                         onChange={(e) => setCustomTitle(e.target.value)}
-                        placeholder="Enter restriction title"
+                        placeholder={t('preferences.restrictions.dialog.titlePlaceholder')}
                       />
                     </div>
                     <div>
-                      <Label htmlFor="custom-description">Description</Label>
+                      <Label htmlFor="custom-description">{t('preferences.restrictions.dialog.descriptionLabel')}</Label>
                       <Textarea
                         id="custom-description"
                         value={customDescription}
                         onChange={(e) => setCustomDescription(e.target.value)}
-                        placeholder="Describe the restriction in detail"
+                        placeholder={t('preferences.restrictions.dialog.descriptionPlaceholder')}
                         rows={3}
                       />
                     </div>
@@ -179,7 +183,7 @@ export function RestrictionsSection() {
 
                 {selectedTemplateData && selectedTemplateData.valueType === 'number' && (
                   <div>
-                    <Label htmlFor="value">Value</Label>
+                    <Label htmlFor="value">{t('preferences.restrictions.dialog.value')}</Label>
                     <Input
                       id="value"
                       type="number"
@@ -202,7 +206,7 @@ export function RestrictionsSection() {
               
               <DialogFooter>
                 <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                  Cancel
+                  {t('preferences.restrictions.dialog.cancel')}
                 </Button>
                 <Button 
                   onClick={handleAddRestriction}
@@ -212,7 +216,7 @@ export function RestrictionsSection() {
                     (selectedTemplateData?.valueType === 'number' && !restrictionValue.trim())
                   }
                 >
-                  Add Restriction
+                  {t('preferences.restrictions.dialog.confirm')}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -223,8 +227,8 @@ export function RestrictionsSection() {
         {restrictions.length === 0 ? (
           <div className="text-center py-8">
             <Shield className="mx-auto h-12 w-12 text-muted-foreground/50" />
-            <h3 className="mt-4 text-lg font-medium">No restrictions set</h3>
-            <p className="text-muted-foreground">Add rules to guide your scheduling preferences.</p>
+            <h3 className="mt-4 text-lg font-medium">{t('preferences.restrictions.empty.title')}</h3>
+            <p className="text-muted-foreground">{t('preferences.restrictions.empty.subtitle')}</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -234,7 +238,7 @@ export function RestrictionsSection() {
                   <Switch
                     checked={restriction.isActive}
                     onCheckedChange={(checked) => toggleRestriction(restriction.id, checked)}
-                    aria-label={`Toggle ${restriction.title}`}
+                    aria-label={t('preferences.restrictions.aria.toggle', { title: restriction.title })}
                   />
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
@@ -242,7 +246,7 @@ export function RestrictionsSection() {
                         {restriction.title}
                       </span>
                       {restriction.type === 'custom' && (
-                        <span className="text-xs bg-muted px-2 py-1 rounded">Custom</span>
+                        <span className="text-xs bg-muted px-2 py-1 rounded">{t('preferences.restrictions.badges.custom')}</span>
                       )}
                     </div>
                     <p className={`text-sm ${restriction.isActive ? 'text-muted-foreground' : 'text-muted-foreground/60'}`}>
@@ -254,7 +258,7 @@ export function RestrictionsSection() {
                   variant="ghost"
                   size="sm"
                   onClick={() => removeRestriction(restriction.id)}
-                  aria-label="Remove restriction"
+                  aria-label={t('preferences.restrictions.aria.remove')}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>

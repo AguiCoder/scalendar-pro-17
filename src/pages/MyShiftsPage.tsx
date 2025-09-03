@@ -18,25 +18,25 @@ import { useToast } from "@/hooks/use-toast";
 import { format, addDays, subDays, isAfter, isBefore } from "date-fns";
 import { generateMockShifts } from "@/data/mockShifts";
 import { Shift } from "@/components/ShiftCard";
+import { useTranslation } from "react-i18next";
+import { getDateFnsLocale } from "@/lib/dateLocale";
 
-// Generate shifts for past and upcoming
-const allShifts = [
-  ...generateMockShifts(subDays(new Date(), 30), 30), // Past 30 days
-  ...generateMockShifts(new Date(), 30), // Next 30 days
-];
 
-const tradeFormSchema = z.object({
-  suggestedColleague: z.string().optional(),
-  reason: z.string().min(10, "Please provide a detailed reason (minimum 10 characters)"),
+
+const createSchemas = (t: (key: string) => string) => ({
+  tradeFormSchema: z.object({
+    suggestedColleague: z.string().optional(),
+    reason: z.string().min(10, t("myShifts.validation.tradeReasonMin")),
+  }),
+  
+  leaveFormSchema: z.object({
+    leaveType: z.string(),
+    reason: z.string().min(5, t("myShifts.validation.leaveReasonMin")),
+  })
 });
 
-const leaveFormSchema = z.object({
-  leaveType: z.string(),
-  reason: z.string().min(5, "Please provide a reason"),
-});
-
-type TradeFormData = z.infer<typeof tradeFormSchema>;
-type LeaveFormData = z.infer<typeof leaveFormSchema>;
+type TradeFormData = z.infer<ReturnType<typeof createSchemas>['tradeFormSchema']>;
+type LeaveFormData = z.infer<ReturnType<typeof createSchemas>['leaveFormSchema']>;
 
 const mockColleagues = [
   "Dr. Sarah Johnson",
@@ -46,22 +46,22 @@ const mockColleagues = [
   "Dr. Lisa Thompson",
 ];
 
-const getStatusBadge = (status: Shift["status"]) => {
+const getStatusBadge = (t: (key: string) => string, status: Shift["status"]) => {
   const statusConfig = {
     confirmed: {
       variant: "secondary" as const,
       className: "bg-status-confirmed text-status-confirmed-foreground",
-      label: "Confirmed"
+      label: t("common.confirmed"),
     },
     available: {
       variant: "secondary" as const,
       className: "bg-status-available text-status-available-foreground",
-      label: "Available"
+      label: t("common.available"),
     },
     negotiation: {
       variant: "secondary" as const,
       className: "bg-status-negotiation text-status-negotiation-foreground",
-      label: "In Negotiation"
+      label: t("common.inNegotiation"),
     }
   };
 
@@ -81,6 +81,9 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
   const { toast } = useToast();
   const [tradeDialogOpen, setTradeDialogOpen] = useState(false);
   const [leaveDialogOpen, setLeaveDialogOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const { tradeFormSchema, leaveFormSchema } = createSchemas(t);
 
   const tradeForm = useForm<TradeFormData>({
     resolver: zodResolver(tradeFormSchema),
@@ -103,8 +106,8 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
-      title: "Trade request submitted",
-      description: `Your request for ${format(new Date(shift.date), 'MMM dd')} has been sent.`,
+      title: t("myShifts.toast.tradeSubmittedTitle"),
+      description: t("myShifts.toast.tradeSubmittedDescription", { date: format(new Date(shift.date), 'PP', { locale: getDateFnsLocale() }) }),
     });
     
     setTradeDialogOpen(false);
@@ -116,8 +119,8 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     toast({
-      title: "Leave request submitted",
-      description: `Your ${data.leaveType} request for ${format(new Date(shift.date), 'MMM dd')} has been sent.`,
+      title: t("myShifts.toast.leaveSubmittedTitle"),
+      description: t("myShifts.toast.leaveSubmittedDescription", { leaveType: data.leaveType, date: format(new Date(shift.date), 'PP', { locale: getDateFnsLocale() }) }),
     });
     
     setLeaveDialogOpen(false);
@@ -137,14 +140,14 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
             className="flex items-center gap-1"
           >
             <ArrowLeftRight className="h-3 w-3" />
-            Trade
+            {t("myShifts.trade")}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Request Shift Trade</DialogTitle>
+            <DialogTitle>{t("myShifts.requestShiftTrade")}</DialogTitle>
             <DialogDescription>
-              Request a trade for your shift on {format(new Date(shift.date), 'MMMM dd, yyyy')} ({formatShiftTime(shift)})
+              {t("myShifts.requestTradeDescription", { date: format(new Date(shift.date), 'PPP', { locale: getDateFnsLocale() }), time: formatShiftTime(shift) })}
             </DialogDescription>
           </DialogHeader>
           
@@ -155,11 +158,11 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
                 name="suggestedColleague"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Suggested Colleague (Optional)</FormLabel>
+                    <FormLabel>{t("myShifts.suggestedColleagueOptional")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a colleague to suggest" />
+                          <SelectValue placeholder={t("myShifts.selectColleaguePlaceholder")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -180,10 +183,10 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
                 name="reason"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Reason for Trade Request</FormLabel>
+                    <FormLabel>{t("myShifts.reasonForTradeRequest")}</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="Please explain why you need to trade this shift..."
+                        placeholder={t("myShifts.reasonPlaceholderTrade")}
                         {...field}
                       />
                     </FormControl>
@@ -194,10 +197,10 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
               
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={() => setTradeDialogOpen(false)}>
-                  Cancel
+                  {t("myShifts.cancel")}
                 </Button>
                 <Button type="submit">
-                  Submit Request
+                  {t("myShifts.submitRequest")}
                 </Button>
               </div>
             </form>
@@ -214,14 +217,14 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
             className="flex items-center gap-1"
           >
             <PlaneTakeoff className="h-3 w-3" />
-            Leave
+            {t("myShifts.leave")}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Request Leave</DialogTitle>
+            <DialogTitle>{t("myShifts.requestLeave")}</DialogTitle>
             <DialogDescription>
-              Request leave for your shift on {format(new Date(shift.date), 'MMMM dd, yyyy')} ({formatShiftTime(shift)})
+              {t("myShifts.requestLeaveDescription", { date: format(new Date(shift.date), 'PPP', { locale: getDateFnsLocale() }), time: formatShiftTime(shift) })}
             </DialogDescription>
           </DialogHeader>
           
@@ -232,18 +235,18 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
                 name="leaveType"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Leave Type</FormLabel>
+                    <FormLabel>{t("myShifts.leaveType")}</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select leave type" />
+                          <SelectValue placeholder={t("myShifts.selectLeaveType")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="vacation">Vacation</SelectItem>
-                        <SelectItem value="sick">Sick Leave</SelectItem>
-                        <SelectItem value="personal">Personal Leave</SelectItem>
-                        <SelectItem value="emergency">Emergency Leave</SelectItem>
+                        <SelectItem value="vacation">{t("myShifts.vacation")}</SelectItem>
+                        <SelectItem value="sick">{t("myShifts.sickLeave")}</SelectItem>
+                        <SelectItem value="personal">{t("myShifts.personalLeave")}</SelectItem>
+                        <SelectItem value="emergency">{t("myShifts.emergencyLeave")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -256,10 +259,10 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
                 name="reason"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Reason</FormLabel>
+                    <FormLabel>{t("myShifts.reason")}</FormLabel>
                     <FormControl>
                       <Textarea 
-                        placeholder="Brief reason for leave request..."
+                        placeholder={t("myShifts.reasonPlaceholderLeave")}
                         {...field}
                       />
                     </FormControl>
@@ -270,10 +273,10 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
               
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={() => setLeaveDialogOpen(false)}>
-                  Cancel
+                  {t("myShifts.cancel")}
                 </Button>
                 <Button type="submit">
-                  Submit Request
+                  {t("myShifts.submitRequest")}
                 </Button>
               </div>
             </form>
@@ -285,23 +288,24 @@ const ShiftActions = ({ shift }: { shift: Shift }) => {
 };
 
 const ShiftTable = ({ shifts }: { shifts: Shift[] }) => {
+  const { t } = useTranslation();
   return (
     <div className="rounded-md border">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Date & Time</TableHead>
-            <TableHead>Department</TableHead>
-            <TableHead>Location</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Actions</TableHead>
+            <TableHead>{t("myShifts.dateTime")}</TableHead>
+            <TableHead>{t("myShifts.department")}</TableHead>
+            <TableHead>{t("myShifts.location")}</TableHead>
+            <TableHead>{t("myShifts.status")}</TableHead>
+            <TableHead>{t("myShifts.actions")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {shifts.length === 0 ? (
             <TableRow>
               <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
-                No shifts found
+                {t("myShifts.noShiftsFound")}
               </TableCell>
             </TableRow>
           ) : (
@@ -310,7 +314,7 @@ const ShiftTable = ({ shifts }: { shifts: Shift[] }) => {
                 <TableCell>
                   <div className="flex flex-col">
                     <div className="font-medium">
-                      {format(new Date(shift.date), 'MMM dd, yyyy')}
+                      {format(new Date(shift.date), 'PPP', { locale: getDateFnsLocale() })}
                     </div>
                     <div className="text-sm text-muted-foreground flex items-center gap-1">
                       <Clock className="h-3 w-3" />
@@ -329,7 +333,7 @@ const ShiftTable = ({ shifts }: { shifts: Shift[] }) => {
                   </div>
                 </TableCell>
                 <TableCell>
-                  {getStatusBadge(shift.status)}
+                  {getStatusBadge(t, shift.status)}
                 </TableCell>
                 <TableCell>
                   {shift.doctorName && <ShiftActions shift={shift} />}
@@ -344,12 +348,13 @@ const ShiftTable = ({ shifts }: { shifts: Shift[] }) => {
 };
 
 const ShiftCards = ({ shifts }: { shifts: Shift[] }) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-4">
       {shifts.length === 0 ? (
         <Card>
           <CardContent className="text-center py-8">
-            <p className="text-muted-foreground">No shifts found</p>
+            <p className="text-muted-foreground">{t("myShifts.noShiftsFound")}</p>
           </CardContent>
         </Card>
       ) : (
@@ -360,14 +365,14 @@ const ShiftCards = ({ shifts }: { shifts: Shift[] }) => {
                 <div className="flex justify-between items-start">
                   <div>
                     <div className="font-medium">
-                      {format(new Date(shift.date), 'MMM dd, yyyy')}
+                      {format(new Date(shift.date), 'PPP', { locale: getDateFnsLocale() })}
                     </div>
                     <div className="text-sm text-muted-foreground flex items-center gap-1">
                       <Clock className="h-3 w-3" />
                       {formatShiftTime(shift)}
                     </div>
                   </div>
-                  {getStatusBadge(shift.status)}
+                  {getStatusBadge(t, shift.status)}
                 </div>
                 
                 <div className="text-sm">
@@ -394,10 +399,17 @@ const ShiftCards = ({ shifts }: { shifts: Shift[] }) => {
 };
 
 export default function MyShiftsPage() {
+  const { t } = useTranslation();
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [departmentFilter, setDepartmentFilter] = useState<string>("all");
 
   const today = new Date();
+  
+  // Generate shifts for past and upcoming with translations
+  const allShifts = [
+    ...generateMockShifts(t, subDays(new Date(), 30), 30), // Past 30 days
+    ...generateMockShifts(t, new Date(), 30), // Next 30 days
+  ];
   
   // Filter shifts by upcoming/past
   const upcomingShifts = allShifts.filter(shift => 
@@ -427,9 +439,9 @@ export default function MyShiftsPage() {
             <div className="space-y-6">
               {/* Header */}
               <div className="space-y-2">
-                <h1 className="page-title">My Shifts</h1>
+                <h1 className="page-title">{t("myShifts.title")}</h1>
                 <p className="section-subtitle">
-                  Review your upcoming and past shifts. Manage trades and leave requests.
+                  {t("myShifts.subtitle")}
                 </p>
               </div>
 
@@ -438,7 +450,7 @@ export default function MyShiftsPage() {
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-2">
                     <Filter className="h-4 w-4" />
-                    <CardTitle className="text-lg">Filters</CardTitle>
+                    <CardTitle className="text-lg">{t("myShifts.filters")}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -446,23 +458,23 @@ export default function MyShiftsPage() {
                     <div className="flex-1">
                       <Select value={statusFilter} onValueChange={setStatusFilter}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Filter by status" />
+                          <SelectValue placeholder={t("myShifts.filterByStatus")} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="all">All Statuses</SelectItem>
-                          <SelectItem value="confirmed">Confirmed</SelectItem>
-                          <SelectItem value="available">Available</SelectItem>
-                          <SelectItem value="negotiation">In Negotiation</SelectItem>
+                          <SelectItem value="all">{t("myShifts.allStatuses")}</SelectItem>
+                          <SelectItem value="confirmed">{t("common.confirmed")}</SelectItem>
+                          <SelectItem value="available">{t("common.available")}</SelectItem>
+                          <SelectItem value="negotiation">{t("common.inNegotiation")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div className="flex-1">
                       <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
                         <SelectTrigger>
-                          <SelectValue placeholder="Filter by department" />
+                          <SelectValue placeholder={t("myShifts.filterByDepartment")} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="all">All Departments</SelectItem>
+                          <SelectItem value="all">{t("myShifts.allDepartments")}</SelectItem>
                           {departments.map(dept => (
                             <SelectItem key={dept} value={dept}>{dept}</SelectItem>
                           ))}
@@ -478,20 +490,20 @@ export default function MyShiftsPage() {
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="upcoming" className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    Upcoming Shifts
+                    {t("myShifts.upcomingTab")}
                   </TabsTrigger>
                   <TabsTrigger value="past" className="flex items-center gap-2">
                     <Clock className="h-4 w-4" />
-                    Past Shifts
+                    {t("myShifts.pastTab")}
                   </TabsTrigger>
                 </TabsList>
                 
                 <TabsContent value="upcoming" className="space-y-4">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Upcoming Shifts ({filterShifts(upcomingShifts).length})</CardTitle>
+                      <CardTitle>{t("myShifts.upcomingTitle")} ({filterShifts(upcomingShifts).length})</CardTitle>
                       <CardDescription>
-                        Your scheduled shifts for the coming days
+                        {t("myShifts.scheduledComingDays")}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">
@@ -511,9 +523,9 @@ export default function MyShiftsPage() {
                 <TabsContent value="past" className="space-y-4">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Past Shifts ({filterShifts(pastShifts).length})</CardTitle>
+                      <CardTitle>{t("myShifts.pastTitle")} ({filterShifts(pastShifts).length})</CardTitle>
                       <CardDescription>
-                        Your completed shift history
+                        {t("myShifts.completedShiftHistory")}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="p-0">

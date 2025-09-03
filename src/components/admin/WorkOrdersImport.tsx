@@ -8,6 +8,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { Upload, FileText, CheckCircle, AlertCircle, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 interface WorkOrder {
   id: string;
@@ -20,44 +21,48 @@ interface WorkOrder {
   errors?: string[];
 }
 
-const mockWorkOrders: WorkOrder[] = [
-  {
-    id: "WO-001",
-    date: "2024-01-15",
-    department: "Emergency Medicine",
-    specialty: "Emergency Medicine",
-    shiftType: "Day Shift",
-    priority: "High",
-    status: "valid"
-  },
-  {
-    id: "WO-002",
-    date: "2024-01-16",
-    department: "Cardiology",
-    specialty: "Cardiology",
-    shiftType: "Night Shift",
-    priority: "Medium",
-    status: "error",
-    errors: ["Invalid specialty code", "Missing required field: location"]
-  },
-  {
-    id: "WO-003",
-    date: "2024-01-17",
-    department: "Neurology",
-    specialty: "Neurology",
-    shiftType: "Day Shift",
-    priority: "Low",
-    status: "valid"
-  }
-];
+
 
 export const WorkOrdersImport = () => {
+  const { t } = useTranslation();
   const [workOrders, setWorkOrders] = useState<WorkOrder[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isImported, setIsImported] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+  
+  // Mock data with translations
+  const mockWorkOrders: WorkOrder[] = [
+    {
+      id: "WO-001",
+      date: "2024-01-15",
+      department: t('mocks.departments.emergencyMedicine'),
+      specialty: t('mocks.departments.emergencyMedicine'),
+      shiftType: t('mocks.shiftTypes.dayShift'),
+      priority: "High",
+      status: "valid"
+    },
+    {
+      id: "WO-002",
+      date: "2024-01-16",
+      department: t('mocks.departments.cardiology'),
+      specialty: t('mocks.departments.cardiology'),
+      shiftType: t('mocks.shiftTypes.nightShift'),
+      priority: "Medium",
+      status: "error",
+      errors: ["Invalid specialty code", "Missing required field: location"]
+    },
+    {
+      id: "WO-003",
+      date: "2024-01-17",
+      department: t('mocks.departments.neurology'),
+      specialty: t('mocks.departments.neurology'),
+      shiftType: t('mocks.shiftTypes.dayShift'),
+      priority: "Low",
+      status: "valid"
+    }
+  ];
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -65,8 +70,8 @@ export const WorkOrdersImport = () => {
 
     if (!file.name.endsWith('.csv')) {
       toast({
-        title: "Invalid file type",
-        description: "Please upload a CSV file",
+        title: t('admin.workOrders.upload.invalidTypeTitle'),
+        description: t('admin.workOrders.upload.invalidTypeDesc'),
         variant: "destructive"
       });
       return;
@@ -84,8 +89,8 @@ export const WorkOrdersImport = () => {
           setWorkOrders(mockWorkOrders);
           setIsImported(true);
           toast({
-            title: "File uploaded successfully",
-            description: `Processed ${mockWorkOrders.length} work orders`
+            title: t('admin.workOrders.upload.uploadedTitle'),
+            description: t('admin.workOrders.upload.uploadedDesc', { count: mockWorkOrders.length })
           });
           return 100;
         }
@@ -101,15 +106,15 @@ export const WorkOrdersImport = () => {
     await new Promise(resolve => setTimeout(resolve, 2000));
     
     toast({
-      title: "Work orders imported",
-      description: `Successfully imported ${validOrders.length} work orders`
+      title: t('admin.workOrders.toasts.importedTitle'),
+      description: t('admin.workOrders.toasts.importedDesc', { count: validOrders.length })
     });
   };
 
   const downloadTemplate = () => {
     const csvContent = `id,date,department,specialty,shiftType,priority,location
-WO-001,2024-01-15,Emergency Medicine,Emergency Medicine,Day Shift,High,Floor 1
-WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
+WO-001,2024-01-15,${t('mocks.departments.emergencyMedicine')},${t('mocks.departments.emergencyMedicine')},${t('mocks.shiftTypes.dayShift')},High,${t('mocks.locations.floor1')}
+WO-002,2024-01-16,${t('mocks.departments.cardiology')},${t('mocks.departments.cardiology')},${t('mocks.shiftTypes.nightShift')},Medium,${t('mocks.locations.floor2')}`;
     
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
@@ -129,10 +134,10 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5" />
-            Work Orders Import
+            {t('admin.workOrders.title')}
           </CardTitle>
           <CardDescription>
-            Import service orders via CSV file to generate schedules
+            {t('admin.workOrders.subtitle')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -144,9 +149,9 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
               </div>
               
               <div>
-                <h3 className="font-semibold">Upload CSV File</h3>
+                <h3 className="font-semibold">{t('admin.workOrders.upload.uploadCsv')}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Drag and drop your work orders CSV file or click to browse
+                  {t('admin.workOrders.upload.hint')}
                 </p>
               </div>
               
@@ -156,11 +161,11 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
                   disabled={isUploading}
                 >
                   <Upload className="h-4 w-4 mr-2" />
-                  Choose File
+                  {t('admin.workOrders.upload.chooseFile')}
                 </Button>
                 <Button variant="outline" onClick={downloadTemplate}>
                   <Download className="h-4 w-4 mr-2" />
-                  Template
+                  {t('admin.workOrders.upload.template')}
                 </Button>
               </div>
               
@@ -178,7 +183,7 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
           {isUploading && (
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span>Processing file...</span>
+                <span>{t('admin.workOrders.upload.processing')}</span>
                 <span>{uploadProgress}%</span>
               </div>
               <Progress value={uploadProgress} className="w-full" />
@@ -192,7 +197,7 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-status-confirmed" />
-                    <span className="text-sm font-medium">Valid Orders</span>
+                    <span className="text-sm font-medium">{t('admin.workOrders.summary.valid')}</span>
                   </div>
                   <p className="text-2xl font-bold text-status-confirmed">{validCount}</p>
                 </CardContent>
@@ -202,7 +207,7 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
                     <AlertCircle className="h-4 w-4 text-destructive" />
-                    <span className="text-sm font-medium">Errors</span>
+                    <span className="text-sm font-medium">{t('admin.workOrders.summary.errors')}</span>
                   </div>
                   <p className="text-2xl font-bold text-destructive">{errorCount}</p>
                 </CardContent>
@@ -212,7 +217,7 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
                     <FileText className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Total</span>
+                    <span className="text-sm font-medium">{t('admin.workOrders.summary.total')}</span>
                   </div>
                   <p className="text-2xl font-bold">{workOrders.length}</p>
                 </CardContent>
@@ -228,16 +233,16 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
           <CardHeader>
             <div className="flex justify-between items-center">
               <div>
-                <CardTitle>Preview & Validation</CardTitle>
+                <CardTitle>{t('admin.workOrders.preview.title')}</CardTitle>
                 <CardDescription>
-                  Review imported work orders before processing
+                  {t('admin.workOrders.preview.subtitle')}
                 </CardDescription>
               </div>
               <Button 
                 onClick={handleImportWorkOrders}
                 disabled={validCount === 0}
               >
-                Import {validCount} Valid Orders
+                {t('admin.workOrders.preview.import', { count: validCount })}
               </Button>
             </div>
           </CardHeader>
@@ -246,7 +251,7 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
               <Alert className="mb-4">
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  {errorCount} work orders have validation errors. Please fix these issues before importing.
+                  {t('admin.workOrders.preview.errorAlert', { count: errorCount })}
                 </AlertDescription>
               </Alert>
             )}
@@ -255,13 +260,13 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Department</TableHead>
-                    <TableHead>Specialty</TableHead>
-                    <TableHead>Shift Type</TableHead>
-                    <TableHead>Priority</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.id')}</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.date')}</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.department')}</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.specialty')}</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.shiftType')}</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.priority')}</TableHead>
+                    <TableHead>{t('admin.workOrders.preview.table.status')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -292,7 +297,7 @@ WO-002,2024-01-16,Cardiology,Cardiology,Night Shift,Medium,Floor 2`;
                                 : ""
                             }
                           >
-                            {order.status === "valid" ? "Valid" : "Error"}
+                            {order.status === "valid" ? t('admin.workOrders.preview.table.valid') : t('admin.workOrders.preview.table.error')}
                           </Badge>
                           {order.errors && (
                             <div className="space-y-1">
