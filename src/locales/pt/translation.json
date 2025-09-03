@@ -835,9 +835,9 @@
         "myShifts": "Meus Plantões",
         "tradeRequests": "Solicitações de Troca",
         "preferences": "Preferências",
-        "administration": "Administração",
-        "chat": "Chat",
-        "notifications": "Notificações"
+      "administration": "Administração",
+      "virtualAssistant": "Assistente Virtual",
+      "notifications": "Notificações"
       }
     },
     "weekdays": {

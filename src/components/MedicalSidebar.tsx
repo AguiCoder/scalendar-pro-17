@@ -33,7 +33,7 @@ const navigationItems = [
   { key: "tradeRequests", url: "/trade-requests", icon: ArrowLeftRight },
   { key: "preferences", url: "/preferences", icon: Settings },
   { key: "administration", url: "/admin", icon: Shield },
-  { key: "chat", url: "/chat", icon: MessageCircle },
+  { key: "virtualAssistant", url: "/virtual-assistant", icon: MessageCircle },
   { key: "notifications", url: "/notifications", icon: Bell },
 ];
 
